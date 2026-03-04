@@ -1,0 +1,4027 @@
+openapi: 3.0.3
+info:
+  title: assess mortgage application api
+  version: 3.56.0
+  description: |
+    ## General rules:
+    * DateTimes are formatted as ISO-8601(yyyy-MM-dd'T'HH:mm:ss'Z')
+    * Dates are formatted as ISO-8601(yyyy-MM-dd) 
+    * Booleans are are formatted as 'true' or 'false'
+    * Decimals are separated by . symbol
+
+paths:
+  /api/v3/assess/assess-mortgage-application:
+    post:
+      tags:
+        - Assess
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssessMortgageApplicationRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+components:
+  schemas:
+    ################################################################################################################################################
+    #  AssessMortgageApplicationRequest
+    ################################################################################################################################################
+
+    AssessMortgageApplicationRequest:
+      required:
+        - agreementCollection
+        - applicantCollection
+        - arrangementType
+        - assessmentCorrelationReference
+        - assessmentType
+        - businessProcessReference
+        - channel
+        - deedPassingInformation
+        - financialStructureReference
+        - financingCosts
+        - hasNHG
+        - originalApplicationDate
+        - bindingOfferDate
+        - dossierReference
+        - processReference
+        - productLineReference
+        - realEstateCollection
+        - referenceDate
+        - registrationCollection
+        - whitelabelInformation
+        - actualPurchasePrice
+      type: object
+      description: |
+        * assessmentType - 'PreliminaryOffer' / 'BindingOffer' OR if it is Force and if Lending always use 'FinalAcceptance'
+        * channel - Application from 'localbank' route or 'intermediary' route
+        * deedPassingInformation - Group containing deed passing information
+        * applicantCollection - Group containing one or more mortgage applicants
+        * realEstateCollection - Group containing one or more realestates to acquire
+        * registrationCollection - Group containing the mortgage registration
+        * insuranceCollection - Group containing the insurances
+        * currentMortgageCollection - Group containing current mortgages
+        * agreementCollection - Group containing agreements
+        * combinationCollection -Group containing combinations
+        * constructionAccount - Group containing a construction account
+        * financingCosts - Group containing the mortgage financing costs
+        * spendingTargetType - Financing objective for the mortgage application
+        * arrangementType - Arrangement type
+      properties:
+        financialStructureReference:
+          type: string
+          format: uuid
+          description: Financial structure reference
+        productLineReference:
+          type: string
+          description: Reference to a productline in FORCE
+        assessmentType:
+          $ref: "#/components/schemas/AssessmentType"
+        assessmentCorrelationReference:
+          type: string
+          format: uuid
+          description: Assessment correlation reference
+        channel:
+          $ref: "#/components/schemas/ChannelType"
+        dossierReference:
+          type: string
+          description: Dossier reference
+        processReference:
+          type: string
+          format: uuid
+          description: Process reference
+        businessProcessReference:
+          type: string
+          format: uuid
+          description: Business process reference
+        referenceDate:
+          type: string
+          description: Reference date of the request
+          format: date-time
+        originalApplicationDate:
+          type: string
+          description: The original application date
+          format: date
+        bindingOfferDate:
+          type: string
+          description: Date on which the Binding Offer is issued
+          format: date
+        hasNHG:
+          type: boolean
+          description: Indicates if NHG is applicable
+        hasPreliminaryNote:
+          type: boolean
+          description: Indicates if the application has a preliminary note
+        actualPurchasePrice:
+          minimum: 0
+          type: number
+          description: The Total Purchase Price calculated by FPS for NHG requests
+          format: decimal
+        isPreview:
+          type: boolean
+          description: Indicates if it is a preview request
+        deedPassingInformation:
+          $ref: "#/components/schemas/DeedPassingInformation"
+        applicantCollection:
+          $ref: "#/components/schemas/ApplicantCollection"
+        realEstateCollection:
+          $ref: "#/components/schemas/RealEstateCollection"
+        registrationCollection:
+          $ref: '#/components/schemas/RegistrationCollection'
+        insuranceCollection:
+          $ref: "#/components/schemas/InsuranceCollection"
+        currentMortgageCollection:
+          $ref: '#/components/schemas/CurrentMortgageCollection'
+        agreementCollection:
+          $ref: '#/components/schemas/AgreementCollection'
+        combinationCollection:
+          $ref: '#/components/schemas/CombinationCollection'
+        constructionAccount:
+          $ref: "#/components/schemas/ConstructionAccount"
+        financingCosts:
+          $ref: "#/components/schemas/FinancingCosts"
+        spendingTargetType:
+          $ref: "#/components/schemas/SpendingTargetType"
+        arrangementType:
+          $ref: "#/components/schemas/ArrangementType"
+        calculationsInformation:
+          $ref: "#/components/schemas/CalculationsInformation"
+        nhgInformation:
+          $ref: "#/components/schemas/NHGInformation"
+        bkrInformation:
+          $ref: "#/components/schemas/BKRInformation"
+        whitelabelInformation:
+          $ref: "#/components/schemas/WhitelabelInformation"
+        explainCollection:
+          $ref: "#/components/schemas/ExplainCollection"
+        intermediaryInformation:
+          $ref: "#/components/schemas/IntermediaryInformation"
+        moralityInformation:
+          $ref: "#/components/schemas/MoralityInformation"
+        suspensoryConditionCollection:
+          $ref: "#/components/schemas/SuspensoryConditionCollection"
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  Applicant
+    ################################################################################################################################################
+
+    ApplicantCollection:
+      required:
+        - applicants
+      type: object
+      properties:
+        applicants:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ApplicantBase"
+          description: Group containing one or more mortgage applicants
+      additionalProperties: false
+
+    ApplicantBase:
+      required:
+        - applicantSequenceNumber
+        - applicantType
+        - correspondenceName
+        - dateOfBirth
+        - gender
+        - homeAddressBase
+        - initials
+        - isFirstMortgageEver
+      type: object
+      discriminator:
+        propertyName: "applicantType"
+        mapping:
+          GuarantorParty: "#/components/schemas/GuarantorParty"
+          InsuranceBeneficiaryParty: "#/components/schemas/InsuranceBeneficiaryParty"
+          InsuredParty: "#/components/schemas/InsuredParty"
+          LiableParty: "#/components/schemas/LiableParty"
+          PendingDismissalLiableParty: "#/components/schemas/PendingDismissalLiableParty"
+      description: |
+        * gender - Gender
+        * homeAddressBase - Applicant home address information
+      properties:
+        applicantType:
+          type: string
+          description: Applicant type
+        applicantSequenceNumber:
+          minimum: 0
+          type: integer
+          description: Sequence number of the applicant within the request
+          format: int32
+        externalPartyReference:
+          maxLength: 50
+          type: string
+          description: External reference of the applicant
+        gender:
+          $ref: "#/components/schemas/Gender"
+        initials:
+          maxLength: 20
+          type: string
+          description: Initials
+        correspondenceNamePreposition:
+          maxLength: 20
+          type: string
+          description: Preposition of the correspondence name
+        correspondenceName:
+          maxLength: 40
+          type: string
+          description: Correspondence name
+        dateOfBirth:
+          type: string
+          description: Date of birth
+          format: date
+        homeAddressBase:
+          $ref: "#/components/schemas/AddressBase"
+        isFirstMortgageEver:
+          type: boolean
+          description: Indicates whether the applicant applies for its first mortgage ever
+        employersStatementDate:
+          type: string
+          description: Oldest date found on an employers statement with an income for this applicant
+          format: date
+        paySlipDate:
+          type: string
+          description: Oldest date found on a payslip with an income for this applicant
+          format: date
+        prospectiveIncomeStatementDate:
+          type: string
+          description: Oldest date found on a prospective income statement with an income for this applicant
+          format: date
+        incomeStatementDate:
+          type: string
+          description: Oldest date found on a income statement with an income for this applicant
+          format: date
+        perspectiveStatementDate:
+          type: string
+          description: Oldest date found on a perspective statement with an income for this applicant
+          format: date
+        totalYearlyIncome:
+          type: number
+          format: decimal
+          description: Total yearly income optional
+        uwvInsuranceMessageDate:
+          type: string
+          description: Date of the eldest UWV insurance message for this applicant
+          format: date
+        isForeignBKRCheckRequired:
+          type: boolean
+          description: Indication whether a foreign BKR check is required for this applicant
+        isCustomerWithEmploymentAfterRetirement:
+          type: boolean
+          description: Indicates whether customer is employed after retirement
+        isCustomerWithPensionAndPayrollIncome:
+          type: boolean
+          description: Indicates whether customer has payroll income after retirement
+        calculatedAnnualIncome:
+          type: number
+          format: decimal
+      additionalProperties: false
+
+    LiableOrGuarantorParty:
+      required:
+        - countryOfNationality
+        - foreignTaxpayer
+        - hasBeenDivorced
+        - maritalStatus
+      type: object
+      description: |
+        * maritalStatus - Marital status
+        * identificationType - Identification type
+        * contact - Applicant contact information
+        * incomeCollection - Group containing applicant income information
+        * otherIncomeCollection - Group containing other income sources
+        * obligationCollection - Group containing applicant obligations information
+        * bkrObligationCollection - Group containing BKR obligations per applicant
+      allOf:
+        - $ref: "#/components/schemas/ApplicantBase"
+      properties:
+        countryOfNationality:
+          pattern: '^\d{3}'
+          type: string
+          description: Nationality
+        maritalStatus:
+          $ref: "#/components/schemas/MaritalStatus"
+        hasBeenDivorced:
+          type: boolean
+          description: Indicates if the applicant has been divorced
+        foreignTaxpayer:
+          type: boolean
+          description: Indicates if the applicant is a foreign taxpayer
+        reducedIncome:
+          minimum: 0
+          type: number
+          description: Monthly reduced income amount. Mandatory if NHG is true
+          format: decimal
+        startDateReducedIncome:
+          type: string
+          description: Start date of the reduced income
+          format: date
+        relevantIncomeExcludingOtherIncome:
+          minimum: 0
+          type: number
+          description: The relevant income excluding other income
+          format: decimal
+        identificationNumber:
+          type: string
+          description: Identification number
+        isInSpecialServicing:
+          type: boolean
+          description: Indicates whether applicant is in special servicing
+        isBlocked:
+          type: boolean
+          description: Indicates whether the applicant is blocked
+        blockedReasons:
+          type: array
+          items:
+            type: string
+          description: Reasons why the applicant is blocked
+        countryOfBirth:
+          pattern: '^\d{3}'
+          type: string
+          description: Country of birth
+        placeOfBirth:
+          type: string
+          description: Place of birth
+        identificationType:
+          $ref: "#/components/schemas/IdentificationType"
+        contact:
+          $ref: "#/components/schemas/Contact"
+        incomeCollection:
+          $ref: "#/components/schemas/IncomeCollection"
+        otherIncomeCollection:
+          $ref: "#/components/schemas/OtherIncomeCollection"
+        obligationCollection:
+          $ref: "#/components/schemas/ObligationCollection"
+        bkrObligationCollection:
+          $ref: "#/components/schemas/BKRObligationCollection"
+        iblIncome:
+          $ref: "#/components/schemas/IBLIncome"
+      additionalProperties: false
+
+    GuarantorParty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/LiableOrGuarantorParty"
+      additionalProperties: false
+
+    InsuranceBeneficiaryParty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ApplicantBase"
+      additionalProperties: false
+
+    InsuredParty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ApplicantBase"
+      additionalProperties: false
+
+    LiableParty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/LiableOrGuarantorParty"
+      additionalProperties: false
+    
+    PendingDismissalLiableParty:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ApplicantBase"
+      additionalProperties: false
+
+    BKRObligationCollection:
+      required:
+        - bkrObligations
+      type: object
+      properties:
+        bkrObligations:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/BKRObligation"
+          description: Group containing one or more BKR obligations
+      additionalProperties: false
+
+    BKRObligation:
+      required:
+        - bkrObligationType
+        - calculatedMonthlyAmount
+        - creditType
+        - entryDate
+        - isToBeRepaid
+        - principal
+        - status
+      type: object
+      discriminator:
+        propertyName: "bkrObligationType"
+        mapping:
+          BKRObligationAddedFromRegister: "#/components/schemas/BKRObligationAddedFromRegister"
+          BKRObligationManuallyAdded: "#/components/schemas/BKRObligationManuallyAdded"
+      description: |
+        * creditType - The type of credit denoted by the BKR abbreviation
+        * status - Status type
+        * arrear - Arrear
+        * repaymentMethod - The repayment method of the BKR obligation
+      properties:
+        bkrObligationType:
+          type: string
+          description: BKR obligation type
+        creditType:
+          $ref: "#/components/schemas/CreditType"
+        principal:
+          minimum: 0
+          type: number
+          description: Principal
+          format: decimal
+        calculatedMonthlyAmount:
+          minimum: 0
+          type: number
+          description: Monthly amount calculated based on principal
+          format: decimal
+        entryDate:
+          type: string
+          description: Entry date
+          format: date
+        theoreticalRepaymentDate:
+          type: string
+          description: Theoretical final repayment date of the obligation
+          format: date
+        practicalRepaymentDate:
+          type: string
+          description: Practical final repayment date of the obligation
+          format: date
+        monthlyAmount:
+          minimum: 0
+          type: number
+          description: Monthly amount
+          format: decimal
+        status:
+          $ref: "#/components/schemas/StatusType"
+        isToBeRepaid:
+          type: boolean
+          description: Indicates if the obligation should be repaid before passing the deed
+        arrear:
+          $ref: "#/components/schemas/Arrear"
+        withdrawnAmount:
+          minimum: 0
+          type: number
+          description: Withdrawn amount
+          format: decimal
+        box1:
+          type: boolean
+          description: Indicates of the BKR obligation is box1 or not
+        repaymentMethod:
+          $ref: "#/components/schemas/BKRRepaymentMethod"
+        hasRelevantHCode:
+          type: boolean
+          description: Indicates if the BKR obligation has a relevant H code
+        firstRepaymentDate:
+          type: string
+          description: Date at which the first repayment for the BKR contract was made.
+          format: date
+      additionalProperties: false
+
+    BKRObligationAddedFromRegister:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BKRObligation"
+      additionalProperties: false
+
+    BKRObligationManuallyAdded:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BKRObligation"
+      additionalProperties: false
+
+    Arrear:
+      required:
+        - arrearCodeType
+        - week
+        - year
+      type: object
+      description: |
+        * arrearCodeType - Possible arear code as registered by BKR
+        * arrearRecovery - Arrear recovery
+      properties:
+        arrearCodeType:
+          $ref: "#/components/schemas/ArrearCodeType"
+        year:
+          pattern: '^\d{1,4}$'
+          type: integer
+          description: Year of registration of the arear
+          format: int32
+        week:
+          pattern: "^([1-9]|[1-4][0-9]|5[0-2])$"
+          type: integer
+          description: Week of registration of the arear
+          format: int32
+        arrearRecovery:
+          $ref: "#/components/schemas/ArrearRecovery"
+      additionalProperties: false
+
+    ArrearRecovery:
+      required:
+        - week
+        - year
+      type: object
+      properties:
+        year:
+          pattern: '^\d{1,4}$'
+          type: integer
+          description: Year of registration of the arear recover
+          format: int32
+        week:
+          pattern: "^([1-9]|[1-4][0-9]|5[0-2])$"
+          type: integer
+          description: Week of registration of the arear recovery
+          format: int32
+      additionalProperties: false
+
+    Contact:
+      type: object
+      properties:
+        phoneNumberHome:
+          maxLength: 30
+          type: string
+          description: Home phone number
+        phoneNumberWork:
+          maxLength: 30
+          type: string
+          description: Work phone number
+        phoneNumberMobile:
+          maxLength: 30
+          type: string
+          description: Mobile phone number
+        emailAddress:
+          type: string
+          description: Email address
+          format: email
+      additionalProperties: false
+    
+    AddressBase:
+      required:
+        - country
+      type: object
+      discriminator:
+        propertyName: "addressType"
+        mapping:
+          AddressNetherlands: "#/components/schemas/AddressNetherlands"
+          AddressForeign: "#/components/schemas/AddressForeign"
+      properties:
+        country:
+          pattern: '^\d{3}'
+          type: string
+          description: Country
+        municipality:
+          maxLength: 40
+          type: string
+          description: Municipality
+      additionalProperties: false
+
+    AddressNetherlands:
+      required:
+        - city
+        - houseNumber
+        - postalCode
+        - street
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AddressBase"
+      properties:
+        street:
+          maxLength: 40
+          type: string
+          description: Street
+        houseNumber:
+          type: integer
+          description: House number
+          format: int32
+        houseNumberAddition:
+          maxLength: 20
+          type: string
+          description: House number addition
+        postalCode:
+          pattern: '^[0-9]{4}[ ]?[A-Za-z]{2}$'
+          type: string
+          description: Postal code
+        city:
+          maxLength: 40
+          type: string
+          description: City
+      additionalProperties: false
+
+    AddressForeign:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AddressBase"
+      properties:
+        street:
+          maxLength: 40
+          type: string
+          description: Street
+        houseNumber:
+          type: integer
+          description: House number
+          format: int32
+        houseNumberAddition:
+          maxLength: 20
+          type: string
+          description: House number addition
+        postalCode:
+          pattern: '^[a-zA-Z0-9-\s]{1,10}$'
+          type: string
+          description: Postal code
+        city:
+          maxLength: 40
+          type: string
+          description: City
+      additionalProperties: false
+    
+    IBLIncome:
+      required:
+        - annualIncome
+        - hasWageGarnishment
+        - totalPensionContribution
+        - startDate
+      type: object
+      properties:
+        annualIncome:
+          type: number
+          description: Yearly income IBL
+          format: decimal
+        hasWageGarnishment:
+          type: boolean
+          description: Indicates if the salary of the employment is being legally seized
+        paySlipDate:
+          type: string
+          description: Oldest date found on a payslip with an income for this applicant
+          format: date
+        totalPensionContribution:
+          minimum: 0
+          type: number
+          description: Total monthly contribution from salary to applicant's pension
+          format: decimal
+        uwvInsuranceMessageDate:
+          type: string
+          description: Date of the eldest UWV insurance message for this applicant
+          format: date
+        startDate:
+          type: string
+          description: The start date of the income
+          format: date
+        endDate:
+          type: string
+          description: The end date of this income
+          format: date
+        calculationTypesUsed:
+          type: string
+          description: The calculation types used for this income
+        assessmentIncomeFixedPart:
+          type: number
+          description: The fixed part of the income used for assessment
+          format: decimal
+        assessmentIncomeVariablePart:
+          type: number
+          description: The variable part of the income used for assessment
+          format: decimal
+      additionalProperties: false
+    
+    IncomeCollection:
+      required:
+        - incomes
+      type: object
+      properties:
+        incomes:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Income"
+          description: Group containing applicant income information
+      additionalProperties: false
+
+    Income:
+      required:
+        - annualIncome
+        - incomeType
+        - startDate
+      type: object
+      discriminator:
+        propertyName: "incomeType"
+        mapping:
+          Employment: "#/components/schemas/Employment"
+          SelfEmployment: "#/components/schemas/SelfEmployment"
+          SupplementBenefit: "#/components/schemas/SupplementBenefit"
+      properties:
+        incomeType:
+          type: string
+          description: Income type
+        startDate:
+          type: string
+          description: Income start date
+          format: date
+        endDate:
+          type: string
+          description: Income end date
+          format: date
+        annualIncome:
+          type: number
+          description: Annual income amount
+          format: decimal
+        baseIncome:
+          type: number
+          description: Base income amount
+          format: decimal
+        country:
+          pattern: '^\d{3}'
+          type: string
+          description: Country
+        futureIncome:
+          $ref: "#/components/schemas/FutureIncome"
+        totalAnnualIncome:
+          type: number
+          description: Total annual income amount
+          format: decimal
+      additionalProperties: false
+
+    SupplementBenefit:
+      required:
+        - holidayPay
+        - incomePeriod
+        - supplementBenefitType
+        - taxFree
+      type: object
+      description: |
+        * supplementBenefitType - Type of supplemental benefit
+        * incomePeriod - Income pay period
+      allOf:
+        - $ref: "#/components/schemas/Income"
+      properties:
+        supplementBenefitType:
+          $ref: "#/components/schemas/SupplementBenefitType"
+        incomePeriod:
+          $ref: "#/components/schemas/IncomePeriod"
+        holidayPay:
+          minimum: 0
+          type: number
+          description: The amount of holiday pay
+          format: decimal
+        taxFree:
+          type: boolean
+          description: Indicates if the income is tax free
+        holidayVoucher:
+          minimum: 0
+          type: number
+          description: HolidayVoucher on supplement benefit
+          format: decimal
+      additionalProperties: false
+
+    Employment:
+      required:
+        - cashPayment
+        - employmentType
+        - hasWageGarnishment
+        - incomePeriod
+        - majorShareholder
+        - probationaryPeriod
+        - isFlexWork
+      type: object
+      description: |
+        * employmentType - Type of employment
+        * incomePeriod - Income pay period
+        * wageAdditions - Additional income wages
+        * annualIncomeHistory - Annual income history
+      allOf:
+        - $ref: "#/components/schemas/Income"
+      properties:
+        employmentType:
+          $ref: "#/components/schemas/EmploymentType"
+        majorShareholder:
+          type: boolean
+          description: Indicates if the applicant is a major shareholder
+        incomePeriod:
+          $ref: "#/components/schemas/IncomePeriod"
+        wageAdditions:
+          $ref: "#/components/schemas/WageAdditions"
+        cashPayment:
+          type: boolean
+          description: Indicates if the income is payed in cash
+        hasWageGarnishment:
+          type: boolean
+          description: Indicates if a wage garnishment is applicable
+        probationaryPeriod:
+          type: boolean
+          description: Indicates if a propationary period is applicable
+        hasProbationaryPeriodEnded:
+          type: boolean
+          description: Indicator or probationary period has expired
+        probationaryEndedDate:
+          type: string
+          description: Probationary period ended date
+          format: date
+        isFlexWork:
+          type: boolean
+          description: Indicates if this employment is flexwork
+        flexibleBudget:
+          type: number
+          description: FixedFlexibleBudget contains the new information mentioned by NHG on the employer's statement
+          format: decimal
+        totalYearlyIncome:
+          type: number
+          format: decimal
+          description: Total yearly income
+        annualIncomeHistory:
+          $ref: "#/components/schemas/AnnualIncomeHistory"
+      additionalProperties: false
+
+    SelfEmployment:
+      required:
+        - annualIncomeHistory
+        - liberalProfession
+        - selfEmploymentType
+        - taxFree
+      type: object
+      description: |
+        * selfEmploymentType - Type of self employment
+        * legalEntity - Type of legal entity
+        * annualIncomeHistory - Annual income history
+      allOf:
+        - $ref: "#/components/schemas/Income"
+      properties:
+        selfEmploymentType:
+          $ref: "#/components/schemas/SelfEmploymentType"
+        legalEntity:
+          $ref: "#/components/schemas/LegalEntity"
+        taxFree:
+          type: boolean
+          description: Indicates if the income is tax free
+        liberalProfession:
+          type: boolean
+          description: Indicates if the profession is liberal
+        annualIncomeHistory:
+          $ref: "#/components/schemas/AnnualIncomeHistory"
+        applicationNumberBOI:
+          type: string
+          description: Application number of the "bepaling ondernemersinkomen" document
+      additionalProperties: false
+
+    AnnualIncomeHistory:
+      required:
+        - annualIncomeCurrentYearMinus1
+        - annualIncomeCurrentYearMinus2
+        - annualIncomeCurrentYearMinus3
+      type: object
+      properties:
+        annualIncomeCurrentYearMinus1:
+          type: number
+          description: Income from previous year
+          format: decimal
+        annualIncomeCurrentYearMinus2:
+          type: number
+          description: Income from previous year
+          format: decimal
+        annualIncomeCurrentYearMinus3:
+          type: number
+          description: Income from previous year
+          format: decimal
+      additionalProperties: false
+
+    WageAdditions:
+      type: object
+      properties:
+        holidayPay:
+          minimum: 0
+          type: number
+          description: Holiday pay amount
+          format: decimal
+        irregularityAllowance:
+          minimum: 0
+          type: number
+          description: Irregularity allowance amount
+          format: decimal
+        commission:
+          minimum: 0
+          type: number
+          description: Provision amount
+          format: decimal
+        overtime:
+          minimum: 0
+          type: number
+          description: Overtime income amount
+          format: decimal
+        fixedExtraMonthPayment:
+          minimum: 0
+          type: number
+          description: Fixed extra month payment
+          format: decimal
+        endOfYearBonus:
+          minimum: 0
+          type: number
+          description: End of year bonus
+          format: decimal
+        militaryAllowance:
+          minimum: 0
+          type: number
+          description: Military allowance
+          format: decimal
+        bonus:
+          minimum: 0
+          type: number
+          description: Extra bonus
+          format: decimal
+        holidayVoucher:
+          minimum: 0
+          type: number
+          description: Holiday voucher on employment
+          format: decimal
+        positionalAllowance:
+          minimum: 0
+          type: number
+          description: The relevant total amount allowance
+          format: decimal
+      additionalProperties: false
+
+    ObligationCollection:
+      required:
+        - obligations
+      type: object
+      properties:
+        obligations:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Obligation"
+          description: Group containing applicant obligations information
+      additionalProperties: false
+
+    Obligation:
+      required:
+        - obligationType
+      type: object
+      discriminator:
+        propertyName: "obligationType"
+        mapping:
+          ChildSupport: "#/components/schemas/ChildSupport"
+          LoanFromEmployer: "#/components/schemas/LoanFromEmployer"
+          Other: "#/components/schemas/Other"
+          PartnerAlimony: "#/components/schemas/PartnerAlimony"
+          PensionPremium: "#/components/schemas/PensionPremium"
+          PrivateLoan: "#/components/schemas/PrivateLoan"
+          Rentalcharges: "#/components/schemas/Rentalcharges"
+          StudentLoan: "#/components/schemas/StudentLoan"
+          TelecommunicationsFacility: "#/components/schemas/TelecommunicationsFacility"
+          ClosedEndCredit: "#/components/schemas/ClosedEndCredit"
+          ThirdPartyLoanForOwnHome: "#/components/schemas/ThirdPartyLoanForOwnHome"
+      properties:
+        obligationType:
+          type: string
+          description: Obligation type
+        monthlyAmount:
+          minimum: 0
+          type: number
+          description: The monthly obligatory amount
+          format: decimal
+        startDate:
+          type: string
+          description: Start date of obligatory period
+          format: date
+        endDate:
+          type: string
+          description: End date of obligatory period
+          format: date
+      additionalProperties: false
+
+    ChildSupport:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      additionalProperties: false
+
+    PartnerAlimony:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        payoffThroughMortgage:
+          type: boolean
+          description: Indication if the alimony will be paid off through the mortgage
+      additionalProperties: false
+
+    Rentalcharges:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        payoffThroughMortgage:
+          type: boolean
+          description: Indication if the rental charges will be paid off through the mortgage
+      additionalProperties: false
+
+    TelecommunicationsFacility:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      additionalProperties: false
+
+    ClosedEndCredit:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      additionalProperties: false
+
+    PensionPremium:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      additionalProperties: false
+
+    Other:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        principal:
+          minimum: 0
+          type: number
+          description: The original loan amount
+          format: decimal
+      additionalProperties: false
+
+    LoanFromEmployer:
+      required:
+        - originalAmount
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        originalAmount:
+          minimum: 0
+          type: number
+          description: Original amount of the loan
+          format: decimal
+        calculatedMonthlyAmount:
+          type: number
+          description: Calculated monthly amount of the loan
+          format: decimal
+      additionalProperties: false
+
+    StudentLoan:
+      required:
+        - originalAmount
+        - repaymentArrangement
+      type: object
+      description: |
+        * repaymentArrangement - Period indication, deciding the payback method
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        repaymentArrangement:
+          $ref: "#/components/schemas/RepaymentArrangementType"
+        originalAmount:
+          minimum: 0
+          type: number
+          description: Original amount of the loan
+          format: decimal
+        remainingAmount:
+          type: number
+          description: The remaining amount of the loan
+          format: decimal
+        legalMonthlyAmount:
+          type: number
+          description: The legal monthly amount
+          format: decimal
+        calculatedMonthlyAmountWithoutIncrement:
+          minimum: 0
+          type: number
+          description: The student loan repayment amount the applicant pays without the mandatory increment
+          format: decimal
+        interestRate:
+          minimum: 0
+          maximum: 1
+          type: number
+          description: The interest rate as a value between 1 and 0
+          format: decimal
+        actualMonthlyAmount:
+          type: number
+          description: Actual monthly amount for the student loan
+          format: decimal
+        remainingDurationInMonths:
+          type: integer
+          description: The number of months left until the student loan is fully repaid.
+          format: int32
+        saldoDate:
+          type: string
+          description: |
+            The date that is mentioned in the DUO Afgiftebrief/Notice letter in which the newly determined monthly amount is determined, 
+            based on the remaining debt, remaining duration and interest percentage
+          format: date
+      additionalProperties: false
+
+    PrivateLoan:
+      required:
+        - canBeUsedWithActualObligationAmount
+      type: object
+      description: |
+        * box1 - Private Loan Box1 information
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        principal:
+          minimum: 0
+          type: number
+          description: The annual obligatory amount
+          format: decimal
+        box1:
+          $ref: "#/components/schemas/Box1"
+        calculatedMonthlyAmount:
+          type: number
+          description: Calculated monthly amount of the loan
+          format: decimal
+        canBeUsedWithActualObligationAmount:
+          type: boolean
+          description: Indication if this obligation can be used in all checks with the actual monthly amount
+      additionalProperties: false
+
+    ThirdPartyLoanForOwnHome:
+      required:
+        - nonTaxDeductibleAmount
+        - interestRate
+        - remainingAmount
+        - fixedInterestPeriodEndDate
+        - payoffThoughMortgage
+        - repaymentMethod
+        - productType
+      type: object
+      description: |
+        * repaymentMethod - Repayment method
+        * productType - Product type of the loan
+      allOf:
+        - $ref: "#/components/schemas/Obligation"
+      properties:
+        nonTaxDeductibleAmount:
+          type: number
+          description: Non tax deductible loan amount of the current mortgage loan
+          format: decimal
+        interestRate:
+          type: number
+          description: Interest percentage of the loan part of the current mortgage
+          format: decimal
+        remainingAmount:
+          type: number
+          description: Remaining amount of the principal
+          format: decimal
+        fixedInterestPeriodEndDate:
+          type: string
+          description: Fixed interest period end date
+          format: date
+        fiscalEndDate:
+          type: string
+          description: The fiscal end date
+          format: date
+        payoffThoughMortgage:
+          type: boolean
+          description: Payoff though mortgage
+        realEstateReference:
+          type: string
+          description: Reference of the collateral
+          format: uuid
+        originalLoanTermInMonths:
+          type: integer
+          description: The original term when this mortgage loan was taken out
+          format: int32
+        actualMonthlyAmount:
+          type: number
+          description: Actual monthly amount for the student loan
+          format: decimal
+        loanNumber:
+          type: string
+          description: Loan number
+        repaymentMethod:
+          $ref: "#/components/schemas/RepaymentMethod"
+        productType:
+          $ref: "#/components/schemas/ProductType"
+      additionalProperties: false
+
+    Box1:
+      required:
+        - fixedInterestPeriodEndDate
+        - interestPercentage
+      type: object
+      description: |
+        * repaymentMethod - Repayment method
+        * productType - Product type
+      properties:
+        interestPercentage:
+          minimum: 0
+          type: number
+          description: Interest Percentage
+          format: decimal
+        fixedInterestPeriodEndDate:
+          type: string
+          description: Fixed interest period end date
+          format: date
+        repaymentMethod:
+          $ref: "#/components/schemas/RepaymentMethod"
+      additionalProperties: false
+
+    OtherIncomeCollection:
+      required:
+        - otherIncomes
+      type: object
+      properties:
+        otherIncomes:
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/OtherIncome"
+          description: Group containing other income sources
+      additionalProperties: false
+
+    OtherIncome:
+      required:
+        - annualIncome
+        - otherIncomeType
+        - startDate
+        - taxCategoryType
+      type: object
+      description: |
+        * otherIncomeType - The type of other income
+        * taxCategoryType - The type of tax
+      properties:
+        otherIncomeType:
+          $ref: "#/components/schemas/OtherIncomeType"
+        taxCategoryType:
+          $ref: "#/components/schemas/TaxCategoryType"
+        annualIncome:
+          type: number
+          description: Property transfer tax amount
+          format: decimal
+        baseIncome:
+          type: number
+          description: Base income amount
+          format: decimal
+        isPledged:
+          type: boolean
+          description: Indicates whether the income is pledged
+        startDate:
+          type: string
+          description: Start date of the income
+          format: date
+        endDate:
+          type: string
+          description: End date of the income
+          format: date
+        applicationNumberBOI:
+          type: string
+          description: Application number of the "bepaling ondernemersinkomen" document
+      additionalProperties: false
+
+    FutureIncome:
+      required:
+        - expectedIncome
+        - expectedStartDate
+      type: object
+      description: |
+        * Future income of an employment 
+      properties:
+        expectedIncome:
+          type: number
+          description: The expected future amount of income that the applicant will obtain
+          format: decimal
+          nullable: false
+        expectedStartDate:
+          type: string
+          description: The expected date when the future income starts
+          format: date
+          nullable: false
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  AssessTypes
+    ################################################################################################################################################
+
+    ArrangementType:
+      enum:
+        - FirstMortgage
+        - Remortgage
+        - NoArrangement
+        - SequentialMortgageSameLender
+        - SequentialMortgageOtherLender
+        - FurtherAdvance
+        - Conversion
+        - ConversionAndAdvance
+        - ConversionAndSequentialMortgage
+        - ContinuationNewInterest
+        - ContinuationMortgage
+        - SecondOrHigherInRankMortgage
+        - RelayMortgage
+      type: string
+
+    AssessmentType:
+      enum:
+        - PreliminaryOffer
+        - BindingOffer
+        - FinalAcceptance
+      type: string
+
+    ChannelType:
+      enum:
+        - ExternalFrontOffice
+        - HDN
+      type: string
+
+    SpendingTargetType:
+      enum:
+        - PurchaseHouse
+        - AcquisitionFromUndistributedInventory
+        - RefinancingWithoutIncrease
+        - LeaseholdRedemption
+        - Divorce
+        - QualityImprovement
+        - AcquisitionFullOwnership
+        - ImprovedClientSituation
+        - Multiple
+        - FinanceChangeCosts
+        - RefinanceSVNStarterLoan
+      type: string
+
+    ################################################################################################################################################
+    #  FinancingCosts
+    ################################################################################################################################################
+
+    FinancingCosts:
+      required:
+        - advisoryCosts
+        - brokerCosts
+        - conveyancingCosts
+        - mortgageDeedCosts
+        - propertyTransferTax
+        - valuationCosts
+        - totalPurchaseCosts
+      type: object
+      properties:
+        advisoryCosts:
+          minimum: 0
+          type: number
+          description: Advisory costs amount
+          format: decimal
+        conveyancingCosts:
+          minimum: 0
+          type: number
+          description: Conveying costs amount
+          format: decimal
+        mortgageDeedCosts:
+          minimum: 0
+          type: number
+          description: Mortgage deed costs amount
+          format: decimal
+        brokerCosts:
+          minimum: 0
+          type: number
+          description: Broker costs amount
+          format: decimal
+        valuationCosts:
+          minimum: 0
+          type: number
+          description: Valuation costs amount
+          format: decimal
+        propertyTransferTax:
+          minimum: 0
+          type: number
+          description: Property transfer tax amount
+          format: decimal
+        engineeringReportCosts:
+          minimum: 0
+          type: number
+          description: Engineering report costs amount
+          format: decimal
+        reimbursementToExPartner:
+          minimum: 0
+          type: number
+          description: Disbursement to ex-partner in case of divorce
+          format: decimal
+        reimbursementToHeirs:
+          minimum: 0
+          type: number
+          description: Disbursement to heirs
+          format: decimal
+        interestRenewalPenalty:
+          minimum: 0
+          type: number
+          description: Interest renewal penalty
+          format: decimal
+        changeFees:
+          minimum: 0
+          type: number
+          description: Change Fees
+          format: decimal
+        redemptionSVNStartersLoan:
+          minimum: 0
+          type: number
+          description: Change Fees
+          format: decimal
+        closingCosts:
+          minimum: 0
+          type: number
+          description: Closing Costs amount
+          format: decimal
+        notaryCosts:
+          minimum: 0
+          type: number
+          description: Notary Costs amount
+          format: decimal
+        additionalCosts:
+          minimum: 0
+          type: number
+          description: Additional costs
+          format: decimal
+        currentLoanInterestPercentage:
+          minimum: 0
+          type: number
+          description: Current loan interest percentage
+          format: decimal
+        currentLoanRemainingFixedInterestPeriodeInMonths:
+          minimum: 0
+          type: integer
+          description: Current loan remaining fixed interest periode in months
+          format: int32
+        totalPurchaseCosts:
+          minimum: 0
+          type: number
+          description: Total purchase costs
+          format: decimal
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  ConstructionAccount
+    ################################################################################################################################################
+
+    ConstructionAccount:
+      required:
+        - depositAmount
+      type: object
+      properties:
+        depositAmount:
+          minimum: 0
+          type: number
+          description: The deposit amount
+          format: decimal
+        totalCurrentBalanceExcludingOwnResources:
+          type: number
+          format: decimal
+        sectionCollection:
+          $ref: "#/components/schemas/SectionCollection"
+      additionalProperties: false
+
+    SectionCollection:
+      required:
+        - sections
+      type: object
+      properties:
+        sections:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Section'
+          description: Group containing one or more sections
+      additionalProperties: false
+
+    Section:
+      required:
+        - description
+        - disburseDuringDeedPassing
+      type: object
+      properties:
+        description:
+          type: string
+          description: The description for this section
+        disburseDuringDeedPassing:
+          type: boolean
+          description: Indicates whether the amount will be disbursed during deed passing
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  Insurance
+    ################################################################################################################################################
+
+    InsuranceCollection:
+      required:
+        - insurances
+      type: object
+      properties:
+        insurances:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Insurance"
+          description: Group containing the insurances
+      additionalProperties: false
+
+    Insurance:
+      required:
+        - insurancePremiumTermInMonths
+        - insuranceReference
+        - insuranceTermInMonths
+        - insuranceType
+        - isExistingPolicy
+      type: object
+      discriminator:
+        propertyName: "insuranceType"
+        mapping:
+          IncomeInsurance: "#/components/schemas/IncomeInsurance"
+      properties:
+        insuranceType:
+          type: string
+          description: Insurance type
+        insuranceReference:
+          type: string
+          format: uuid
+          description: Internal technical reference insurance
+        isExistingPolicy:
+          type: boolean
+          description: Indicates if the policy already exists
+        insuranceTermInMonths:
+          minimum: 0
+          type: integer
+          description: Insurance term in months
+          format: int32
+        insurancePremiumTermInMonths:
+          minimum: 0
+          type: integer
+          description: Insurance premium term in months
+          format: int32
+      additionalProperties: false
+
+    IncomeInsurance:
+      required:
+        - insuredApplicantCollection
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Insurance"
+      properties:
+        insuredApplicantCollection:
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/InsuredApplicant"
+          description: Group containing one or more insured applicants
+      additionalProperties: false
+
+    InsuredApplicant:
+      required:
+        - applicantSequenceNumber
+      type: object
+      properties:
+        applicantSequenceNumber:
+          minimum: 0
+          type: integer
+          description: Sequence number of an applicant in the request
+          format: int32
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  Agreement - Loan
+    ################################################################################################################################################
+    
+    AgreementCollection:
+      required:
+        - agreements
+      type: object
+      properties:
+        agreements:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Agreement'
+          description: Group containing one or more agreements
+      additionalProperties: false
+
+    Agreement:
+      required:
+        - agreementReference
+        - principal
+        - isSVn
+      type: object
+      description: |
+        * loanCollection - Group containing the mortgage loans
+      properties:
+        agreementReference:
+          type: string
+          format: uuid
+          description: Reference of the Agreement
+        number:
+          type: string
+          description: The number of the agreement part
+          pattern: '^[a-zA-Z0-9-\s\.]{1,40}$'
+        principal:
+          minimum: 0
+          type: number
+          description: Principal of the agreement
+          format: decimal
+        remainingAmount:
+          minimum: 0
+          type: number
+          description: Remaining amount of the principal
+          format: decimal
+        isSVn:
+          type: boolean
+          description: Indicates whether the agreement has SVN
+        sumSVn:
+          minimum: 0
+          type: number
+          description: Denotes the sum of the SVN when applicable
+          format: decimal
+        loanCollection:
+          $ref: '#/components/schemas/LoanCollection'
+        bridgingLoanCollection:
+          $ref: '#/components/schemas/BridgingLoanCollection'
+      additionalProperties: false
+
+    LoanCollection:
+      required:
+        - loan
+      type: object
+      properties:
+        loan:
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Loan"
+          description: Group containing the mortgage loans structure
+      additionalProperties: false
+
+    BridgingLoanCollection:
+      required:
+        - bridgingLoan
+      type: object
+      properties:
+        bridgingLoan:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/BridgingLoan'
+          description: Group containing the bridging loans structure
+      additionalProperties: false
+
+    LoanBase:
+      required:
+        - loanReference
+        - productType
+        - productName
+        - interestPeriodInMonths
+        - loanAmount
+        - loanTermInMonths
+        - mutationType
+        - remainingLoanAmount
+        - repaymentMethod
+        - productReferenceId
+        - startDate
+        - endDate
+        - isInRRAPeriod
+        - hasTRA
+        - hasLoanTermChange
+        - hasRepaymentMethodChanged
+        - interestRateRenewalDate
+        - endowmentProducts
+      type: object
+      description: |
+        * interestOffer - Group containing interest offer information
+        * repaymentMethod - Repayment method of the loan
+        * mutationType - Mutation type of the loan
+        * productType - Product type of the loan
+      properties:
+        loanReference:
+          type: string
+          format: uuid
+          description: Internal technical reference (GUID) to the loan
+        productType:
+          $ref: "#/components/schemas/ProductType"
+        productName:
+          type: string
+          description: The product name of the repayment method
+        number:
+          type: string
+          description: The number of the agreement part
+          pattern: '^[a-zA-Z0-9-\s\.]{1,40}$'
+        loanAmount:
+          minimum: 0
+          type: number
+          description: Loan amount
+          format: decimal
+        loanTermInMonths:
+          minimum: 0
+          type: integer
+          description: Loan term in months
+          format: int32
+        productReferenceId:
+          type: string
+          description: The product definition reference id in FORCE
+        productLineDescription:
+          type: string
+          description: The product line description in FORCE
+        interestOffer:
+          $ref: "#/components/schemas/InterestOffer"
+        repaymentMethod:
+          $ref: '#/components/schemas/RepaymentMethod'
+        mutationType:
+          $ref: '#/components/schemas/MutationType'
+        interestPeriodInMonths:
+          minimum: 0
+          type: integer
+          description: Fixed interest period of the loan in months
+          format: int32
+        startDate:
+          type: string
+          description: Start date of the loan
+          format: date
+        remainingLoanAmount:
+          minimum: 0
+          type: number
+          description: Remaining amount of the loan
+          format: decimal
+        endDate:
+          type: string
+          description: End date of the loan
+          format: date
+        originalDurationNumberOfMonths:
+          minimum: 0
+          type: integer
+          description: The original duration of the mortgage loan PART in months
+          format: int32
+        manualInterestDate:
+          type: string
+          description: Indicates the manual interest date when applicable
+          format: date
+        isInRRAPeriod:
+          type: boolean
+          description: Indicates whether the mortgage is the RRA period
+        hasTRA:
+          type: boolean
+          description: Indicates whether the mortgage has a TRA
+        hasLoanTermChange:
+          type: boolean
+          description: Indicates whether the mortgage term has changed
+        hasRepaymentMethodChanged:
+          type: boolean
+          description: Indicates whether the mortgage repayment method has changed
+        remainingInterestPeriod:
+          minimum: 0
+          type: integer
+          description: Remaining interest period of the loan in months
+          format: int32
+        interestRateRenewalDate:
+          type: string
+          description: The date on which a new interest rate will be decided
+          format: date
+        interestProductBehaviour:
+          $ref: "#/components/schemas/InterestProductBehaviour"
+        endowmentProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndowmentProduct'
+          description: Group containing one or more endowment products
+      additionalProperties: false
+
+    Loan:
+      required:
+        - hasNHG
+        - nonTaxDeductableLoanAmount
+        - fiscalRegime
+        - loanType
+      type: object
+      discriminator:
+        propertyName: "loanType"
+        mapping:
+          ContinuationLoan: "#/components/schemas/ContinuationLoan"
+          Loan: "#/components/schemas/Loan"
+      allOf:
+        - $ref: "#/components/schemas/LoanBase"
+      description: |
+        * insuranceReferenceCollection - Collection of references of insurances linked to the loan
+      properties:
+        nonTaxDeductableLoanAmount:
+          minimum: 0
+          type: number
+          description: Non tax deductable loan amount
+          format: decimal
+        fiscalEndDate:
+          type: string
+          description: Date at which the tax deductibility of the loan ends
+          format: date
+        hasNHG:
+          type: boolean
+          description: Indicator if NHG is requested
+        fiscalRegime:
+          $ref: "#/components/schemas/FiscalRegime"
+        insuranceReferenceCollection:
+          $ref: "#/components/schemas/InsuranceReferenceCollection"
+        numberOfManualInterestComponents:
+          type: integer
+          description: The number of manual interest components added to the loan
+          format: int32
+        endDateIsFixed:
+          type: boolean
+          description: |
+            Indicates whether a loan has a fixed end date, meaning that it is given by the user in Force.
+            The loan duration is then derived as number of months between start date and end date.
+        loanType:
+          type: string
+          description: Loan type
+        accumulatedValue:
+          minimum: 0
+          type: number
+          description: Accumulated value of the endowment products on the loan
+          format: decimal
+      additionalProperties: false
+
+    ContinuationLoan:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Loan"
+      properties:
+        parentLoan:
+          $ref: "#/components/schemas/ParentLoan"
+      additionalProperties: false
+
+    ParentLoan:
+      required:
+        - productReference
+      type: object
+      properties:
+        productReference:
+          type: string
+          description: Parent loan product reference of the continuation loan
+        interestComponentCollection:
+          $ref: "#/components/schemas/InterestComponentCollection"
+      additionalProperties: false
+
+    BridgingLoan:
+      required:
+        - realEstateReference
+        - bridgingLoanType
+      type: object
+      description: |
+        * bridgingLoanType - Type of the bridging loan
+      allOf:
+        - $ref: "#/components/schemas/LoanBase"
+      properties:
+        realEstateReference:
+          type: string
+          format: uuid
+          description: Reference of the collateral
+        bridgingLoanType:
+          $ref: "#/components/schemas/BridgingLoanType"
+      additionalProperties: false
+
+    InterestOffer:
+      required:
+        - interestComposition
+        - interestOfferDate
+      type: object
+      description: |
+        * interestComposition - Group containing interest composition information
+      properties:
+        interestOfferDate:
+          type: string
+          description: Date of the interest offer
+          format: date
+        interestCorrectionRequired:
+          type: boolean
+          description: Indicator if Interestcorrection is required
+        interestComposition:
+          $ref: "#/components/schemas/InterestComposition"
+      additionalProperties: false
+
+    InterestComposition:
+      required:
+        - finalRate
+      type: object
+      properties:
+        finalRate:
+          type: number
+          description: The sum of the baserate and interestcomponent percentages
+          format: decimal
+        interestCorrection:
+          type: number
+          description: The interestcorrection percentage
+          format: decimal
+        interestComponentCollection:
+          $ref: "#/components/schemas/InterestComponentCollection"
+      additionalProperties: false
+
+    InsuranceReferenceCollection:
+      required:
+        - insuranceReferences
+      type: object
+      properties:
+        insuranceReferences:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Reference of the reference linked to the loan as stated in the object 'Insurance'
+      additionalProperties: false
+    
+    InterestComponentCollection:
+      required:
+        - interestComponents
+      type: object
+      properties:
+        interestComponents:
+          minItems: 1
+          type: array
+          description: Group containing one or more interest component
+          items:
+            $ref: "#/components/schemas/interestComponent"
+      additionalProperties: false
+
+    interestComponent:
+      required:
+        - interestComponentType
+        - name
+      type: object
+      properties:
+        interestComponentType:
+          type: string
+          description: Type of the interest component
+        name:
+          type: string
+          description: Name of the interest component
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  Registration
+    ################################################################################################################################################
+
+    RegistrationCollection:
+      required:
+        - registrations
+      type: object
+      properties:
+        registrations:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Registration'
+          description: Group containing one or more registrations
+      additionalProperties: false
+    
+    Registration:
+      required:
+        - mortgageRegistrationAmount
+        - registrationReference
+        - rankingOfMortgageRegistration
+        - isNew
+      type: object
+      properties:
+        registrationReference:
+          type: string
+          format: uuid
+          description: Reference of the registration
+        mortgageRegistrationAmount:
+          minimum: 0
+          type: number
+          description: Amount of the mortgage registration
+          format: decimal
+        rankingOfMortgageRegistration:
+          type: integer
+          description: Rank of the registration
+        registrationType:
+          $ref: "#/components/schemas/RegistrationType"
+        isNew:
+          type: boolean
+          description: Indicates if this is a newly added registration, or an existing registration from the back-office
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  DeedPassingInformation
+    ################################################################################################################################################
+
+    DeedPassingInformation:
+      required:
+        - expectedClosingDate
+      type: object
+      properties:
+        echNotaryReference:
+          type: string
+          description: Reference to a ECH notary
+        expectedClosingDate:
+          type: string
+          description: The expected closing date
+          format: date
+        postalCodeNotary:
+          type: string
+          description: Postal code of the notary
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  RealEstate
+    ################################################################################################################################################
+
+    RealEstateCollection:
+      required:
+        - realEstates
+      type: object
+      properties:
+        realEstates:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/RealEstate"
+          description: Group containing real estate information
+      additionalProperties: false
+
+    RealEstate:
+      required:
+        - realEstateType
+        - buildingType
+        - country
+        - hasCooperativeRestrictiveOwnership
+        - hasPurchasingCosts
+        - isCooperativeHouse
+        - isHomeOfApplication
+        - isToBeFinanced
+        - mainResidence
+        - ownerOccupied
+        - propertyStatus
+        - realEstateReference
+        - realEstateRentalType
+        - valuation
+        - isCommune
+        - hasGarage
+        - isHolidayHome
+      type: object
+      description: |
+        * valuation - Group containing valuation information
+        * energyLabel - Indicates the type of energy label
+        * realEstateOwnerCollection - Group containing one or more real estate owners
+        * landRegistryInfoCollection - Group containing one or more land registry information
+        * propertyStatus - Property status
+        * currentMortgageCollection - Group containing current mortgages
+        * realEstateRentalType - Type of rental agreement. Used for setting RealEstateRentedFlag in BWF-mapping
+        * saleUnderConditions - Type of selling condition when the real estate is sold under conditions
+      properties:
+        realEstateType:
+          $ref: "#/components/schemas/RealEstateType"
+        specificHouseType:
+          $ref: "#/components/schemas/SpecificHouseType"
+        realEstateReference:
+          type: string
+          format: uuid
+          description: Technical reference (GUID) of a real estate
+        buildingType:
+          allOf:
+            - $ref: "#/components/schemas/BuildingType"
+          description: Group containing rebuilding information
+        isToBeFinanced:
+          type: boolean
+          description: Indicates if the real estate is to be financed
+        mainResidence:
+          type: boolean
+          description: Indicates if the real estate is the main residence
+        isCooperativeHouse:
+          type: boolean
+          description: Indicates if it's a cooperative house
+        hasCooperativeRestrictiveOwnership:
+          type: boolean
+          description: Indicates if cooperative restrictive ownership is applicable
+        valuation:
+          $ref: "#/components/schemas/Valuation"
+        yearOfConstruction:
+          pattern: '^\d{1,4}$'
+          type: integer
+          description: Year of construction
+          format: int32
+        hasPurchasingCosts:
+          type: boolean
+          description: Indicates if purchasing costs is in order.
+        ownerOccupied:
+          type: boolean
+          description: Indicates if the real estate is owner occupied
+        ownershipPercentage:
+          minimum: 0
+          type: number
+          description: The percentage of ownership on the real estate
+          format: decimal
+        energyLabel:
+          $ref: "#/components/schemas/EnergyLabel"
+        realEstateOwnerCollection:
+          $ref: "#/components/schemas/RealEstateOwnerCollection"
+        landRegistryInfoCollection:
+          $ref: "#/components/schemas/LandRegistryInfoCollection"
+        country:
+          pattern: '^\d{3}'
+          type: string
+          description: Country
+        propertyStatus:
+          $ref: "#/components/schemas/PropertyStatus"
+        marketValue:
+          minimum: 0
+          type: number
+          description: Market value
+          format: decimal
+        isSold:
+          type: boolean
+          description: Indicator if collateral is sold.
+        sellingPrice:
+          minimum: 0
+          type: number
+          description: Selling price
+          format: decimal
+        dateOfResolutiveConditions:
+          type: string
+          description: Date of resolutive conditions
+          format: date
+        realEstateRentalType:
+          $ref: "#/components/schemas/RealEstateRentalType"
+        saleConditions:
+          $ref: "#/components/schemas/SaleConditions"
+        commercialPercentage:
+          minimum: 0
+          type: number
+          description: Percentage of the real estate that is commercially used
+          format: decimal
+        commercialPercentageAfterRenovation:
+          minimum: 0
+          type: number
+          description: Percentage of the real estate that is commercially used after the renovation
+          format: decimal
+        isCommune:
+          type: boolean
+          description: Indicates whether the real estate is part of a commune
+        structuralReportDate:
+          type: string
+          description: Date of structural report
+          format: date
+        activeVVE:
+          type: boolean
+          description: Indicates if the real estate has a active VVE
+        hasMaintenanceFund:
+          type: boolean
+          description: Indicates if the real estate has a maintenance fund
+        hasNewBuildWarranty:
+          type: boolean
+          description: Indicates whether a new build warranty is applicable
+        saleDate:
+          type : string
+          description: Sale date of the house in case the real estate object was sold or will be sold in the near future
+          format: date
+        lastPropertyTransferDate:
+          type: string
+          description: Date the real estate object's ownership has changed for the last time
+          format: date
+        isHomeOfApplication:
+          type: boolean
+          description: Indicates whether or not this real estate object is the home of the application
+        isResidential:
+          type: boolean
+          description: Indicator whether or not this real estate is residential
+        hasGarage:
+          type: boolean
+          description: Indicates if the real estate has a garage
+        isHolidayHome:
+          type: boolean
+          description: Indicates if the real estate is a holiday home
+        isCondominium:
+          type: boolean
+          description: Indicates if condominium is in order. Mandatory if NHG is true
+        commercialSpaceType:
+          $ref: "#/components/schemas/CommercialSpaceType"
+      additionalProperties: false
+
+    BuildingType:
+      required:
+        - type
+      type: object
+      discriminator:
+        propertyName: "type"
+        mapping:
+          ExistingBuild: "#/components/schemas/ExistingBuild"
+          NewBuild: "#/components/schemas/NewBuild"
+          SelfBuild: "#/components/schemas/SelfBuild"
+      properties:
+        type:
+          type: string
+          description: Building type
+      additionalProperties: false
+
+    SelfBuild:
+      required:
+        - contractPrice
+        - regularContractExtras
+        - volumeEnlargingContractExtras
+      type: object
+      description: |
+        * plotInformation - Group containing plot information. Mandatory if real estate address is not given
+        * realEstateAddress - Group containing real estate address information
+      allOf:
+        - $ref: "#/components/schemas/BuildingType"
+      properties:
+        plotInformation:
+          $ref: "#/components/schemas/PlotInformation"
+        realEstateAddress:
+          $ref: "#/components/schemas/AddressBase"
+        contractPrice:
+          minimum: 0
+          type: number
+          description: The contract price amount
+          format: decimal
+        landPurchasePrice:
+          minimum: 0
+          type: number
+          description: The land purchase price amount
+          format: decimal
+        energySavingFacilities:
+          minimum: 0
+          type: number
+          description: The energy saving facilities amount
+          format: decimal
+        energySavingBudget:
+          minimum: 0
+          type: number
+          description: The energy saving budget amount
+          format: decimal
+        lossOfInterestDuringConstruction:
+          minimum: 0
+          type: number
+          description: The loss of interest during construction amount
+          format: decimal
+        salesTax:
+          minimum: 0
+          type: number
+          description: The sales tax amount of the real estate
+          format: decimal
+        architectFees:
+          minimum: 0
+          type: number
+          description: The architect fees amount of the real estate
+          format: decimal
+        riskSettlementAmount:
+          minimum: 0
+          type: number
+          description: The risk settlement amount of the real estate
+          format: decimal
+        dailyMonitoringAmount:
+          minimum: 0
+          type: number
+          description: The daily monitoring amount of the real estate
+          format: decimal
+        utilityConnectionAmount:
+          minimum: 0
+          type: number
+          description: The utility connection amount of the real estate
+          format: decimal
+        fees:
+          minimum: 0
+          type: number
+          description: The fees amount of the real estate
+          format: decimal
+        installationsAmount:
+          minimum: 0
+          type: number
+          description: The installations amount of the real estate
+          format: decimal
+        additionalSelfBuildCosts:
+          minimum: 0
+          type: number
+          description: Additional costs of the real estate
+          format: decimal
+        regularContractExtras:
+          minimum: 0
+          type: number
+          description: Regular additional costs for the collateral
+          format: decimal
+        volumeEnlargingContractExtras:
+          minimum: 0
+          type: number
+          description: Volume enlarging additional costs for the collateral
+          format: decimal
+        constructionInterest:
+          minimum: 0
+          type: number
+          description: Construction interest amount for the collateral
+          format: decimal
+        landAlreadyOwned:
+          type: boolean
+          description: Indicates if the land on which the collateral is being built was already owned by applicant
+        isCPO:
+          type: boolean
+          description: Indicates if the colleteral is being built by a CPO
+        expectedDeliveryDate:
+          type: string
+          description: Date when the construction is expected to be finished
+          format: date
+      additionalProperties: false
+
+    ExistingBuild:
+      required:
+        - realEstateAddress
+        - overdueMaintenance
+      type: object
+      description: |
+        * realEstateAddress - Group containing real estate address information
+        * rebuilding - Group containing rebuilding information
+      allOf:
+        - $ref: "#/components/schemas/BuildingType"
+      properties:
+        realEstateAddress:
+          $ref: "#/components/schemas/AddressBase"
+        purchasePrice:
+          minimum: 0
+          type: number
+          description: The land purchase price amount
+          format: decimal
+        prospectiveMaintenance:
+          minimum: 0
+          type: number
+          description: The prospective maintenance amount
+          format: decimal
+        movableProperty:
+          minimum: 0
+          type: number
+          description: The movable property amount
+          format: decimal
+        hasOverdueMaintenanceGreaterThan10PercentMarketValue:
+          type: boolean
+          description: Indicates whether a real estate has overdue maintenance greater than 10 percent of the market value
+        rebuilding:
+          $ref: "#/components/schemas/Rebuilding"
+        landPurchasePrice:
+          minimum: 0
+          type: number
+          description: The land purchase price amount
+          format: decimal
+        overdueMaintenance:
+          minimum: 0
+          type: number
+          description: Overdue maintenance amount
+          format: decimal
+      additionalProperties: false
+
+    NewBuild:
+      required:
+        - contractPrice
+      type: object
+      description: |
+        * plotInformation - Group containing plot information. Mandatory if real estate address is not given
+        * realEstateAddress - Group containing real estate address information
+      allOf:
+        - $ref: "#/components/schemas/BuildingType"
+      properties:
+        plotInformation:
+          $ref: "#/components/schemas/PlotInformation"
+        realEstateAddress:
+          $ref: "#/components/schemas/AddressBase"
+        contractPrice:
+          minimum: 0
+          type: number
+          description: The contract price amount
+          format: decimal
+        landPurchasePrice:
+          minimum: 0
+          type: number
+          description: The land purchase price amount
+          format: decimal
+        energySavingFacilities:
+          minimum: 0
+          type: number
+          description: The energy saving facilities amount
+          format: decimal
+        energySavingBudget:
+          minimum: 0
+          type: number
+          description: The energy saving budget amount
+          format: decimal
+        regularContractExtras:
+          minimum: 0
+          type: number
+          description: The regular contract extras amount
+          format: decimal
+        volumeEnlargingContractExtras:
+          minimum: 0
+          type: number
+          description: The volume enlarging contract extras amount
+          format: decimal
+        lossOfInterestDuringConstruction:
+          minimum: 0
+          type: number
+          description: The loss of interest during construction amount
+          format: decimal
+        constructionInterest:
+          minimum: 0
+          type: number
+          description: The construction interest amount
+          format: decimal
+        installationsAmount:
+          minimum: 0
+          type: number
+          description: The installations amount
+          format: decimal
+        expectedDeliveryDate:
+          type: string
+          description: Date when the construction is expected to be finished
+          format: date
+      additionalProperties: false
+
+    PlotInformation:
+      required:
+        - city
+        - country
+      type: object
+      properties:
+        constructionPlan:
+          maxLength: 255
+          type: string
+          description: Construction plan
+        plot:
+          maxLength: 255
+          type: string
+          description: Plot
+        city:
+          maxLength: 255
+          type: string
+          description: City
+        country:
+          pattern: '^\d{3}'
+          type: string
+          description: Country
+      additionalProperties: false
+
+    Rebuilding:
+      required:
+        - marketValueAfterRebuilding
+        - rebuildingCosts
+      type: object
+      properties:
+        marketValueAfterRebuilding:
+          minimum: 0
+          type: number
+          description: Market value after rebuilding amount
+          format: decimal
+        rebuildingCosts:
+          minimum: 0
+          type: number
+          description: Rebuilding costs amount
+          format: decimal
+        energySavingFacilities:
+          minimum: 0
+          type: number
+          description: Rebuilding costs amount
+          format: decimal
+        energySavingBudget:
+          minimum: 0
+          type: number
+          description: The energy saving budget amount
+          format: decimal
+      additionalProperties: false
+
+    EnergyLabel:
+      required:
+        - energyLabelType
+      type: object
+      description: |
+        * energyLabelType - Value of the energy label
+      properties:
+        energyLabelType:
+          $ref: "#/components/schemas/EnergyLabelType"
+        energyLabelDate:
+          type: string
+          description: Date of determination of the energy label
+          format: date
+        energyLabelExpirationDate:
+          type: string
+          description: Date of expiration of the energy label
+          format: date
+      additionalProperties: false
+
+    LandRegistryInfoCollection:
+      required:
+        - landRegistryInfos
+      type: object
+      properties:
+        landRegistryInfos:
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/LandRegistryInfo"
+          description: Group containing one or more land registry information
+      additionalProperties: false
+
+    LandRegistryInfo:
+      type: object
+      properties:
+        restrictiveCircumstanceCollection:
+          $ref: "#/components/schemas/RestrictiveCircumstanceCollection"
+      additionalProperties: false
+
+    RestrictiveCircumstanceCollection:
+      required:
+        - restrictiveCircumstances
+      type: object
+      properties:
+        restrictiveCircumstances:
+          minItems: 1
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/RestrictiveCircumstance"
+          description: Group containing one or more restrictive circumstances
+      additionalProperties: false
+
+    RestrictiveCircumstance:
+      required:
+        - restrictiveCircumstanceType
+      type: object
+      discriminator:
+        propertyName: "restrictiveCircumstanceType"
+        mapping:
+          Beklemrecht: "#/components/schemas/Beklemrecht"
+          BeklemrechtGebruikEnBewoning: "#/components/schemas/BeklemrechtGebruikEnBewoning"
+          BPRecht: "#/components/schemas/BPRecht"
+          FiniteLeasehold: "#/components/schemas/FiniteLeasehold"
+          GrondrenteVerbijzonderingOudVaderlandsrecht: "#/components/schemas/GrondrenteVerbijzonderingOudVaderlandsrecht"
+          Huurrecht: "#/components/schemas/Huurrecht"
+          Opstal: "#/components/schemas/Opstal"
+          OpstalrechtNutsvoorzieningen: "#/components/schemas/OpstalrechtNutsvoorzieningen"
+          Optierecht: "#/components/schemas/Optierecht"
+          OudVaderlandsrecht: "#/components/schemas/OudVaderlandsrecht"
+          OverigZakelijkeRechten: "#/components/schemas/OverigZakelijkeRechten"
+          PerpetualLeasehold: "#/components/schemas/PerpetualLeasehold"
+          PrivaatrechtelijkeBelemmering: "#/components/schemas/PrivaatrechtelijkeBelemmering"
+          Stadsmeierrecht: "#/components/schemas/Stadsmeierrecht"
+          Usufruct: "#/components/schemas/Usufruct"
+          Voorrecht: "#/components/schemas/Voorrecht"
+          VruchtgebruikTelecommunicatienetwerk: "#/components/schemas/VruchtgebruikTelecommunicatienetwerk"
+          ZakelijkeBelastingDerdeOfVolgende: "#/components/schemas/ZakelijkeBelastingDerdeOfVolgende"
+          ZakelijkRechtNaTweeOfMeerZakelijke: "#/components/schemas/ZakelijkRechtNaTweeOfMeerZakelijke"
+      properties:
+        restrictiveCircumstanceType:
+          type: string
+          description: Restrictive circumstance type
+      additionalProperties: false
+
+    BPRecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    ZakelijkeBelastingDerdeOfVolgende:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    ZakelijkRechtNaTweeOfMeerZakelijke:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Voorrecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    OverigZakelijkeRechten:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    VruchtgebruikTelecommunicatienetwerk:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    OpstalrechtNutsvoorzieningen:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Usufruct:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Stadsmeierrecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    PrivaatrechtelijkeBelemmering:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    OudVaderlandsrecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Optierecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Opstal:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Huurrecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    GrondrenteVerbijzonderingOudVaderlandsrecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    BeklemrechtGebruikEnBewoning:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    Beklemrecht:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      additionalProperties: false
+
+    PerpetualLeasehold:
+      required:
+        - groundRent
+        - isIndividual
+        - isLeaseholdBefore1992
+      type: object
+      description: |
+        * groundRent - Group containing ground rent information
+        * notarialOpinion - Opinion by the notary whether the leasehold can be financed
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      properties:
+        groundRent:
+          $ref: "#/components/schemas/GroundRent"
+        isIndividual:
+          type: boolean
+          description: Indicates if the leasehold is individual
+        isLeaseholdBefore1992:
+          type: boolean
+          description: Indicates if the leasehold started before 1992
+        notarialOpinion:
+          $ref: '#/components/schemas/NotarialOpinionType'
+      additionalProperties: false
+
+    FiniteLeasehold:
+      required:
+        - endDate
+        - groundRent
+        - isIndividual
+        - isLeaseholdBefore1992
+      type: object
+      description: |
+        * groundRent - Group containing ground rent information
+        * notarialOpinion - Opinion by the notary whether the leasehold can be financed
+      allOf:
+        - $ref: "#/components/schemas/RestrictiveCircumstance"
+      properties:
+        groundRent:
+          $ref: "#/components/schemas/GroundRent"
+        agreementDate:
+          type: string
+          description: Agreement date of the leasehold
+          format: date
+        endDate:
+          type: string
+          description: End date of the leasehold
+          format: date
+        isIndividual:
+          type: boolean
+          description: Indicates if the leasehold is individual
+        isLeaseholdBefore1992:
+          type: boolean
+          description: Indicates if the leasehold started before 1992
+        notarialOpinion:
+          $ref: '#/components/schemas/NotarialOpinionType'
+      additionalProperties: false
+
+    GroundRent:
+      type: object
+      properties:
+        annualAmount:
+          minimum: 0
+          type: number
+          description: The annual the ground rent
+          format: decimal
+        lumpSumPayment:
+          minimum: 0
+          type: number
+          description: Lumpsum amount payment of the ground rent
+          format: decimal
+        startDate:
+          type: string
+          description: Startdate of the ground rent
+          format: date
+        endDate:
+          type: string
+          description: End date of the ground rent
+          format: date
+      additionalProperties: false
+
+    RealEstateOwnerCollection:
+      required:
+        - realEstateOwners
+      type: object
+      properties:
+        realEstateOwners:
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/RealEstateOwner"
+          description: Group containing one or more real estate owners
+      additionalProperties: false
+
+    RealEstateOwner:
+      required:
+        - applicantSequenceNumber
+      type: object
+      properties:
+        applicantSequenceNumber:
+          type: integer
+          description: Sequence number of an applicant in the request
+          format: int32
+      additionalProperties: false
+
+    Valuation:
+      required:
+        - date
+        - source
+        - value
+        - hasContaminatedSoil
+      type: object
+      description: |
+        * source - Indicates the type of valuation source
+        * maintenanceCondition - Maintenance condition of the real estate object as described in the valuation report
+        * saleability - Indicates the saleability of the real estate
+      properties:
+        value:
+          minimum: 0
+          type: number
+          description: Value
+          format: decimal
+        valueBeforeRenovation:
+          minimum: 0
+          type: number
+          description: Value before renovation
+          format: decimal
+        source:
+          $ref: "#/components/schemas/Source"
+        date:
+          type: string
+          description: The valuation date
+          format: date
+        confidenceLevel:
+          minimum: 0
+          type: number
+          description: The confidence level
+          format: decimal
+        constructionType:
+          $ref: "#/components/schemas/ConstructionType"
+        hasContaminatedSoil:
+          type: boolean
+          description: Indication of contaminated soil
+        maintenanceCondition:
+          $ref: "#/components/schemas/MaintenanceConditionType"
+        saleability:
+          $ref: "#/components/schemas/SaleabilityType"
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  CurrentMortgage
+    ################################################################################################################################################
+
+    CurrentMortgageCollection:
+      required:
+        - currentMortgages
+      type: object
+      properties:
+        currentMortgages:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentMortgage'
+          description: Group containing one or more current mortgages
+      additionalProperties: false
+
+    CurrentMortgage:
+      required:
+        - productType
+        - currentMortgageReference
+        - hasNHG
+        - isExternal
+        - penaltyInterestAmount
+        - includePenaltyInterest
+        - realEstateReference
+      description: |
+        * currentMortgageLoanCollection - List of Current Mortgages
+        * productType - Product type of the loan
+      type: object
+      properties:
+        currentMortgageReference:
+          type: string
+          format: uuid
+          description: Reference of the agreement of the current mortgage
+        realEstateReference:
+          type: string
+          format: uuid
+          description: Reference of the collateral connected to the existing registration
+        mortgageLender:
+          type: string
+          description: Lender of the current mortgage
+        remainingAmount:
+          minimum: 0
+          type: number
+          description: Amount of residual debt in the existing external mortgage
+          format: decimal
+        penaltyInterestAmount:
+          minimum: 0
+          type: number
+          description: Interest penalty for early repayment of existing external mortgage
+          format: decimal
+        includePenaltyInterest:
+          type: boolean
+          description: Indicates if the interest penalty needs to be included
+        hasNHG:
+          type: boolean
+          description: Indicates if NHG is applicable
+        isExternal:
+          type: boolean
+          description: Indicator if the loan is external
+        principal:
+          minimum: 0
+          type: number
+          description: Principal of the mortgage
+          format: decimal
+        toBeRedeemed:
+          type: boolean
+          description: Indicates if the Current Mortgage is going to be fully redeemed
+        isRedeemed:
+          type: boolean
+          description: Indicates if the Current Mortgage is fully redeemed
+        mortgageRegistrationAmount:
+          minimum: 0
+          type: number
+          description: Amount of the mortgage registration
+          format: decimal
+        actualMonthlyPaymentAmount:
+          minimum: 0
+          type: number
+          description: Amount of the actual monthly payments for the current mortgage
+          format: decimal
+        ranking:
+          minimum: 0
+          type: integer
+          description: Ranking of the registration of the CME
+          format: int32
+        currentMortgageLoanCollection:
+          $ref: '#/components/schemas/CurrentMortgageLoanCollection'
+      additionalProperties: false
+    
+    CurrentMortgageLoanCollection:
+      required:
+        - currentMortgageLoan
+      type: object
+      properties:
+        currentMortgageLoan:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentMortgageLoan'
+          description: Group containing one or more current mortgage loan
+      additionalProperties: false
+    
+    CurrentMortgageLoan:
+      required:
+        - productType
+        - remainingLoanAmount
+        - repaymentMethod
+        - startDate
+        - toBeRedeemed
+        - loanTermInMonths
+        - interestPeriod
+        - originalLoanTermInMonths
+        - interestRatePercentage
+        - endDate
+      type: object
+      description: |
+        * repaymentMethod - Repayment method of the loan
+        * productType - Product type of the loan
+      properties:
+        productType:
+          $ref: '#/components/schemas/ProductType'
+        toBeRedeemed:
+          type: boolean
+          description: Indicator of whether the loan will be redeemed
+        repaymentMethod:
+          $ref: '#/components/schemas/RepaymentMethod'
+        interestRateFixedUntil:
+          type: string
+          description: Fixed interest period of the loan
+          format: date
+        startDate:
+          type: string
+          description: Start date of the loan
+          format: date
+        originalLoanTermInMonths:
+          type: integer
+          description: The original term when this mortgage loan was taken out
+          format: int32
+          minimum: 0
+        principal:
+          minimum: 0
+          type: number
+          description: Amount of the loan part
+          format: decimal
+        remainingLoanAmount:
+          minimum: 0
+          type: number
+          description: Remaining amount of the loan
+          format: decimal
+        hasNHG:
+          type: boolean
+          description: Indicates whether the current mortgage loan part enjoys NHG
+        number:
+          type: string
+          description: The (contract) number of the loan part
+          pattern: '^[a-zA-Z0-9-\s\.]{1,40}$'
+        nonTaxDeductibleLoanAmount:
+          minimum: 0
+          type: number
+          format: decimal
+          description: Non tax deductible loan amount of the current mortgage loan
+        fiscalEndDate:
+          type: string
+          description: The fiscal end date
+          format: date
+        loanTermInMonths:
+          minimum: 0
+          type: integer
+          description: Term of the loan part of the current mortgage
+          format: int32
+        interestRatePercentage:
+          minimum: 0
+          type: number
+          description: Interest of the loan part of the current mortgage
+          format: decimal
+        interestPeriod:
+          minimum: 0
+          type: integer
+          description: Interest period of the interest of the loan part of the current mortgage
+          format: int32
+        endDate:
+          type: string
+          description: The end date of the external mortgage loan
+          format: date
+        monthlyContribution:
+          minimum: 0
+          type: number
+          description: Amount of the monthly contribution for the current mortgage. Only in the case of endownment product
+          format: decimal
+        monthlyAmount:
+          minimum: 0
+          type: number
+          description: Monthly amount of the current mortgage loan
+          format: decimal
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  CalculationsInformation
+    ################################################################################################################################################
+    
+    CalculationsInformation:
+      required:
+        - maximumFundingBasedOnMarketValue
+        - principalBridgingLoan
+        - maximumBridgingAmount
+        - principalBridgingLoanCurrent
+        - totalAmountMortgageWithGreenDiscount
+        - principalNew
+      type: object
+      description: |
+        * calculationsLoanCollection - Collection of Calculations Loans
+      properties:
+        totalIncomeFromBusiness:
+          type: number
+          description: Input from and for TotaleInkomenUitOnderneming
+          format: decimal
+        differenceLeaseholdMortgageDurationCollection:
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/DifferenceLeaseholdMortgageDuration'
+          description: Collection of differenceLeaseholdMortgageDurations
+        loanToValuePercentage:
+          type: number
+          description: Input from and for Verstrekkingspercentage
+          format: decimal
+        spaceLeftInMortgageBurdenCollection:
+          $ref: '#/components/schemas/SpaceLeftInMortgageBurdenCollection'
+        spaceDoubleExpenseComply:
+          type: number
+          description: Input from and for RuimteDubbeleLastComply
+          format: decimal
+        spaceDoubleExpenseAtBindingOffer:
+          type: number
+          description: Input from and for RuimteDubbeleLastOpBindendAanbod
+          format: decimal
+        spaceAllowedExpenseComply:
+          type: number
+          description: Input from and for RuimteToegestaneLastComply
+          format: decimal
+        spaceAllowedExpense10Years:
+          type: number
+          description: Input from and for RuimteToegestaneLast10Jaar
+          format: decimal
+        maximumFundingBasedOnMarketValue:
+          type: number
+          description: Input from and for MaximaleVerstrekkingObvMarktwaarde
+          format: decimal
+        maximumBridgingAmount:
+          type: number
+          description: Input from and for MaximaalOverbruggingsbedrag
+          format: decimal
+        principalBridgingLoan:
+          type: number
+          description: Input from and for HoofdsomOverbrugging
+          format: decimal
+        principalNew:
+          type: number
+          description: Input from and for HoofdsomNieuw
+          format: decimal
+        principalBridgingLoanCurrent:
+          type: number
+          description: Input from and for HoofdsomOverbruggingBestaand
+          format: decimal
+        totalAmountMortgageWithGreenDiscount:
+          type: number
+          description: Input from and for TotaalBedragHypotheekMetGroenkorting
+          format: decimal
+        ltiSufficient10Years:
+          type: boolean
+          description: Input from and for LTIToereikend10Jaar
+        ltiSufficientFullDuration:
+          type: boolean
+          description: Input from and for LTIToereikendHeleLooptijd
+        ltiPercentage:
+          type: number
+          description: Input from and for LTI (loan to income) percentage
+          format: decimal
+        totalFinancingCostsAmount:
+          type: number
+          description: Input from and for BedragTotaleFinancieringskosten
+          format: decimal
+        ltvBasedOnMarketValue:
+          type: number
+          description: Input from and for VerstrekkingsPercentageOBVKoopsom
+          format: decimal
+        maximumEnergySavingBudget:
+          minimum: 0
+          type: number
+          description: The maximum energy saving budget amount
+          format: decimal
+        sumInterestOnlyAmountExceeded:
+          type: boolean
+          description: Input from and for SomAflossingsvrijTeveelJN
+        lowestIncomeWithin10Years:
+          type: number
+          description: Input from and for LaagsteToetsinkomenBinnen10Jaar
+          format: decimal
+        equityForCoveringDoubleExpensesShortage:
+          type: number
+          description: The equity applicants have at their disposal to cover a potential shortage in covering of double expenses
+          format: decimal
+        sumInterestOnlyAmountExceededCustomArrangement:
+          type: boolean
+          description: Input from and for SomAflossingsvrijTeveelBijMaatwerkJN
+        totalInterestOnlyNew:
+          type: number
+          description: Input from and for TotaalAflossingsvrijNew
+          format: decimal
+        numberOfMonthsDoubleExpenses:
+          type: integer
+          description: Input from and for AantalMaandenDubbeleLasten
+          format: int32
+        hasResidualDebtFinancing:
+          type: boolean
+          description: Input from and for RestschuldFinancieringAanwezigJN
+        hasOnlyResidualDebtFinancing:
+          type: boolean
+          description: Input from and for AlleenRestschuldFinancieringJN
+        totalAmountOtherIncome:
+          type: number
+          description: Input from and for TotaalOverigInkomen
+          format: decimal
+        increasedMortgageRegistrationAmount:
+          type: number
+          description: Amount of additional mortgage registration
+          format: decimal
+        calculationsLoanCollection:
+          $ref: '#/components/schemas/CalculationsLoanCollection'
+        maximumMortgage:
+          type: number
+          description: Input from and for MaximaleHypotheek
+          format: decimal
+        maximumMortgageExcludingCreditInformation:
+          type: number
+          format: decimal
+        actualMonthlyPayments:
+          type: number
+          format: decimal
+        totalCalculatedAnnualIncome:
+          type: number
+          format: decimal
+        annuityMonthlyPayments:
+          type: number
+          format: decimal
+        maximumPermittedMonthlyPayment:
+          type: number
+          format: decimal
+      additionalProperties: false
+
+    SpaceLeftInMortgageBurdenCollection:
+      type: object
+      properties:
+        spacesLeftInMortgageBurdens:
+          type: array
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/SpaceLeftInMortgageBurden'
+          description: Collection of SpaceLeftInMortgageBurden
+      additionalProperties: false
+
+    SpaceLeftInMortgageBurden:
+      type: object
+      required:
+        - spaceLeftInMortgageBurdenYear
+        - spaceLeftInMortgageBurdenAmount
+      properties:
+        spaceLeftInMortgageBurdenYear:
+          type: string
+          description: Input from and for BeschikbareRuimteWoonLastenJaar
+        spaceLeftInMortgageBurdenAmount:
+          type: number
+          description: Input from and for BeschikbareRuimteWoonLastenBedrag
+          format: decimal
+        realHousingAndFinancingObligationAmount:
+          type: number
+          description: Input from and for BeschikbareRuimteWoonLastenWerkelijkeMaandlast
+          format: decimal
+        allowableHousingAndFinancingObligationAmount:
+          type: number
+          description: Input from and for BeschikbareRuimteWoonLastenMaximaalToegestaneMaandlast
+          format: decimal
+        annuityHousingAndFinancialObligationsAmount:
+          type: number
+          description: Input from and for BeschikbareRuimteWoonLastenAnnuitaireMaandlast
+          format: decimal
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  DifferenceLeaseholdMortgageDuration
+    ################################################################################################################################################
+    
+    DifferenceLeaseholdMortgageDuration:
+      type: object
+      properties:
+        differenceLeaseholdMortgageDurationValue:
+          description: Input from and for differenceLeaseholdMortgageDuration
+          format: decimal
+        realEstateReference:
+          type: string
+          format: uuid
+          description: Reference of the realEstate
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  CalculationsLoan
+    ################################################################################################################################################
+
+    CalculationsLoanCollection:
+      required:
+        - calculationsLoans
+      type: object
+      properties:
+        calculationsLoans:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CalculationsLoan'
+          description: Group containing calculations loans
+      additionalProperties: false
+
+    CalculationsLoan:
+      required:
+        - loanReference
+      type: object
+      properties:
+        loanReference:
+          type: string
+          format: uuid
+          description: Reference of the loan
+        durationShortestByProduct:
+          type: number
+          description: Input from and for LooptijdKortsteBijProduct
+          format: decimal
+        targetCapitalLifeMortgage:
+          type: number
+          description: Input from and for DoelkapitaalLevenhypotheek
+          format: decimal
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  NHGInformation
+    ################################################################################################################################################
+    
+    NHGInformation:
+      type: object
+      properties:
+        nhgCompletenessTest:
+          minimum: 0
+          type: boolean
+          description: Result of the NHG Completeness Test
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  BKRInformation
+    ################################################################################################################################################
+    
+    BKRInformation:
+      type: object
+      properties:
+        bkrCheckDate:
+          type: string
+          description: Date of the BKR check
+          format: date
+        bkrFunctionalMessage:
+          type: boolean
+          description: Indicates whether there is a functional BKR message
+        bkrNrWWNonSequentialCheck:
+          minimum: 0
+          type: number
+          description: The number of BKR WW number contracts that have not been follow-up reviewed.
+        bkrNrNNNonSequentialCheck:
+          minimum: 0
+          type: number
+          description: The number of BKR NN number contracts that have not been follow-up reviewed.
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  WhitelabelInformation
+    ################################################################################################################################################
+    
+    WhitelabelInformation:
+      type: object
+      required:
+        - reference
+        - companyName
+      properties:
+        reference:
+          type: string
+          description: Reference to a whitelabel in FORCE
+        companyName:
+          type: string
+          description: Company name of the whitelabel
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  Combination
+    ################################################################################################################################################
+    
+    CombinationCollection:
+      required:
+        - combinations
+      type: object
+      properties:
+        combinations:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Combination'
+          description: Group containing one or more combinations
+      additionalProperties: false
+
+    Combination:
+      required:
+        - realEstateReferences
+      type: object
+      properties:
+        realEstateReferences:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: List of the collateral references
+        registrationReferences:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: List of the registration references
+        agreementReference:
+          type: string
+          format: uuid
+          description: Reference  of the agreement
+        currentMortgageReference:
+          type: string
+          format: uuid
+          description: Reference of the agreement of the current mortgage
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  Endowment product
+    ################################################################################################################################################
+
+    EndowmentProduct:
+      type: object
+      properties:
+        bandwidth:
+          type: number
+          description: Amount of bandwidth
+          format: decimal
+        monthlyAmountBeforeAdjustment:
+          type: number
+          description: Amount of premium before reference date
+          format: decimal
+        monthlyAmountAfterAdjustment:
+          type: number
+          description: Amount of premium after reference date
+          format: decimal
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  SaleConditions
+    ################################################################################################################################################
+    
+    SaleConditions:
+      required:
+        - saleUnderConditions
+      type: object
+      properties:
+        saleUnderConditions:
+          $ref: "#/components/schemas/SaleConditionsType"
+        description:
+          maxLength: 255
+          type: string
+          description: Sale conditions description
+        capitalRiskIndicationType:
+          $ref: "#/components/schemas/CapitalRiskIndicationType"
+        landBareOwnershipAmount:
+          minimum: 0
+          type: number
+          description: Amount of landbare ownership. Is only applicable when CapitalRiskIndicationType is "Erfpacht constructie met vermogensrisico"
+          format: decimal
+        discountPartAmount:
+          minimum: 0
+          type: number
+          description:  Discount part amount. Is only applicable when CapitalRiskIndicationType is "Kortings constructie met vermogensrisico"
+          format: decimal
+        originalBindingOfferType:
+          $ref: "#/components/schemas/OriginalBindingOfferType"
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  Explain
+    ################################################################################################################################################
+
+    ExplainCollection:
+      required:
+        - explains
+      type: object
+      properties:
+        explains:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/Explain"
+          description: Group containing one or more explains
+      additionalProperties: false
+
+    Explain:
+      required:
+        - explainReason
+      type: object
+      properties:
+        explainReason:
+          maxLength: 255
+          type: string
+          description: Reason of an explain
+        explainDescription:
+          maxLength: 255
+          type: string
+          description: Description of an explain
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  IntermediaryInformation
+    ################################################################################################################################################
+
+    IntermediaryInformation:
+      type: object
+      properties:
+        postalCodeIntermediary:
+          type: string
+          description: Postal code of the intermediary
+        isAuthorized:
+          type: boolean
+          description: Indicates whether an intermediary is authorized
+        intermediaryStatus:
+          $ref: "#/components/schemas/IntermediaryStatus"          
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  MoralityInformation
+    ################################################################################################################################################
+
+    MoralityInformation:
+      type: object
+      properties:
+        VISHit:
+          type: boolean
+          description: Indicates whether the applicant was found during VIS identity check
+        IVRHit:
+          type: boolean
+          description: Indicates whether the applicant was found in the internal fraud register
+      additionalProperties: false
+
+    ################################################################################################################################################
+    #  SuspensoryConditionCollection
+    ################################################################################################################################################
+
+    SuspensoryConditionCollection:
+      type: object
+      properties:
+        suspensoryConditions:
+          type: array
+          items:
+            $ref: "#/components/schemas/SuspensoryCondition"
+      additionalProperties: false
+    
+    ################################################################################################################################################
+    #  Enumerations
+    ################################################################################################################################################
+
+    ArrearCodeType:
+      enum:
+        - A
+        - One
+        - Two
+        - Three
+        - Four
+        - Five
+        - Nine
+        - H
+      type: string
+
+    CommercialSpaceType:
+      enum:
+        - PracticeOffice
+        - HotelBarRestaurant
+        - Other
+      type: string
+
+    CreditType:
+      enum:
+        - HY
+        - SR
+        - RO
+        - RK
+        - AK
+        - OA
+        - RN
+        - RH
+        - ZK
+        - ZO
+        - HO
+        - SK
+        - SH
+        - TC
+        - VK
+      type: string
+    
+    CapitalRiskIndicationType:
+      enum:
+        - DiscountWithCapitalRisk
+        - LeaseholdWithCapitalRisk
+        - DiscountWithoutCapitalRisk
+        - LeaseholdWithoutCapitalRisk
+      type: string
+
+    ConstructionType:
+      enum:
+        - LargelyStone
+        - PartWoodPartStone
+        - LargelyWood
+        - Concrete
+        - Steel
+        - Other
+      type: string
+
+    EmploymentType:
+      enum:
+        - FixedEmployment
+        - TemporaryEmploymentWithDeclarationOfIntent
+        - TemporaryEmploymentWithoutDeclarationOfIntent
+        - FlexibleContractWithDeclarationOfIntent
+        - FlexibleContractWithoutDeclarationOfIntent
+      type: string
+
+    EnergyLabelType:
+      enum:
+        - EnergyNeutral
+        - A
+        - AP
+        - APP
+        - APPP
+        - APPPP
+        - B
+        - C
+        - D
+        - E
+        - F
+        - G
+        - ZeroOnMeter
+        - AEPGuarantee
+        - NoEnergyLabelAvailable
+        - NoEnergyLabelPossible
+      type: string
+
+    Gender:
+      enum:
+        - Male
+        - Female
+        - NonBinary
+      type: string
+
+    IdentificationType:
+      enum:
+        - Passport
+        - DriversLicense
+        - Visa
+        - IdentityCard
+        - ResidencePermitTypeUnknown
+        - ResidencePermitTemporary
+        - ResidencePermitIndefinite
+        - TemporaryAsylumDocumentIII
+        - TemporaryAsylumDocumentIV
+        - TemporaryPermitForNonTemporaryObjective
+      type: string
+
+    IncomePeriod:
+      enum:
+        - Weekly
+        - FourWeekly
+        - Monthly
+        - Annually
+      type: string
+
+    IntermediaryStatus:
+      enum:
+        - Active
+        - Blocked
+        - Registered
+        - Inactive
+        - NoPermit
+        - ProvisionallyRegistered
+        - Prospect
+        - Rejected
+      type: string
+
+    LegalEntity:
+      enum:
+        - PrivateCompany
+        - LimitedPartnership
+        - CooperativeWithLimitedLiabolity
+        - CooperativeWithoutLiability
+        - CooperativeWithLiability
+        - SoleProprietorship
+        - LimitedLiabilityPartnershipMaatschap
+        - LimitedCompany
+        - MutualInsuranceCompany
+        - Foundation
+        - LimitedLiabilityPartnershipVOF
+        - Association
+      type: string
+
+    MaritalStatus:
+      enum:
+        - Single
+        - MarriedOnEqualTerms
+        - MarriedOnPrenuptialAgreement
+        - MarriedUnderForeignLaw
+        - CivilUnionOnEqualTerms
+        - CivilUnionOnRegistrationalAgreement
+        - LivingTogetherWithCohabitationAgreement
+        - LivingTogetherWithoutCohabitationAgreement
+        - CivilUnionOnLimitedTerms
+        - MarriedOnLimitedTerms
+      type: string
+
+    MutationType:
+      enum:
+        - New
+        - Continuation
+        - Relay
+        - Conversion
+        - FurtherAdvance
+        - Unchanged
+        - ContinuationOfNewInterest
+        - ToExpel
+        - ToMutate
+        - Precluded
+        - Copied
+        - None
+        - Unknown
+      type: string
+
+    FiscalRegime:
+      enum:
+        - Unknown
+        - Before2013
+        - After2013
+        - NotApplicable
+      type: string
+
+    OtherIncomeType:
+      enum:
+        - Stocks
+        - Savings
+        - Rental
+        - Gift
+        - Alimony
+        - IncomeStatementEntrepreneur
+        - Other
+      type: string
+
+    PropertyStatus:
+      enum:
+        - ToBePurchased
+        - InPossession
+        - GivingASecurity
+        - ToBeSold
+      type: string
+
+    RealEstateRentalType:
+      enum:
+        - None
+        - TemporaryRental
+        - TemporaryPartialRental
+        - PartialRental
+        - PermanentRental
+        - RentalWithoutAuthorization
+      type: string
+
+    RealEstateType:
+      enum:
+        - DetachedHouse
+        - TerracedHouse
+        - CornerHouse
+        - SemiDetachedHouse
+        - SemiDetachedTerracedHouseTwoHomesOneRoof
+        - SemiDetachedHouseTwoHomesOneRoof
+        - SemiDetachedHouseTerraced
+        - EndHouse
+        - Garage
+        - Houseboat
+        - MobileHome
+        - ParkingSpace
+        - Plot
+        - WaterHome
+        - GalleryFlat
+        - PorticoApartment
+        - CorridorApartment
+        - Maisonette
+        - GroundfloorApartment
+        - UpstairsApartment
+        - PorticoHouse
+        - MobileHomePitch
+        - Berth
+        - ResidentialShopPremises
+        - Shed
+      type: string
+
+    SpecificHouseType:
+      enum:
+        - Estate
+        - CountryHouse
+        - Villa
+        - TownHouse
+        - DetachedTownhouse
+        - DriveinHome
+        - SplitLevelHome
+        - QuadrantHome
+        - PatioHome
+        - Bungalow
+        - SemidetachedBungalow
+        - PatioBungalow
+        - ChaletBungalow
+        - MerchantHouse
+        - SpecialArchitecturalHome
+        - CourtyardHouse
+        - DikeHouse
+        - BusinessOrServiceHome
+        - PracticeHome
+        - DetachedPracticeHome
+        - Farm
+        - ResidentialFarm
+        - Mill
+        - TinyHouse
+        - TemporaryHome
+        - Penthouse
+        - Apartment
+        - ServiceApartment
+        - BelFloor
+        - Basement
+        - CollectiveParking
+        - ParkingSpaceInSharedGarage
+        - ParkingSpaceInCarpark
+      type: string
+
+    SaleConditionsType:
+      enum:
+        - MaatschappelijkGebondenEigendomMGE
+        - MaatschappelijkVerantwoordEigendomMVE
+        - Koopgarant
+        - Koopzeker
+        - KoopGoedkoop
+        - SlimmerKopenvoorheenProfijtwoning
+        - Beterkoop
+        - BetaalbaarKoopwoningSysteem
+        - KmKwoningKopenMetKorting
+        - KoopVoordeelwoningen
+        - KoopcomfortBepalingen
+        - VerrassendWonen
+        - BetaalbareKoopwoningenZaanstadBkz
+        - Duokoop
+        - AankoopregelingBMvanHouwelingen
+        - IBB
+        - BrederodeKoopregeling
+        - Grondvermogen
+        - Koopinstapregling
+        - Koopstart
+        - KopenNaarWens
+        - PreKoopregeling
+        - RegionaalGrondbezit
+        - StartersleningSVn
+        - VoVWoon
+        - Other
+        - MVED
+        - Meerwaardebeding
+        - KoperskortingDNGBBV
+        - StarterskortingnlDNGBBV
+        - StichtingWalang
+        - Duokoop20231
+        - OmniaWonen
+        - BKZStarterswoning
+        - KopenMetVergoedingsregeling
+        - Terugkoopregeling
+        - OostWestWonen
+        - TinyProjectsBVLisserhout
+        - MeerwaardebedingZelfbewoningsplicht
+        - Duokoopvanaf2023
+      type: string
+
+    OriginalBindingOfferType:
+      enum:
+        - From01012023
+        - Before01012023
+      type: string
+
+    RepaymentArrangementType:
+      enum:
+        - Before2015
+        - After2015
+      type: string
+
+    ProductType:
+      enum:
+        - Annuity
+        - Linear
+        - InterestOnly
+        - LifeInsurance
+        - InvestmentPortfolio
+        - SavingsAccount
+        - SavingsInsurance
+        - HybridInsurance
+        - CreditMortgage
+        - GuaranteedCapital
+      type: string
+
+    RepaymentMethod:
+      enum:
+        - Annuity
+        - Linear
+        - InterestOnly
+      type: string
+
+    SelfEmploymentType:
+      enum:
+        - EntrepreneurWithoutEmployeesZZP
+        - GeneralPartnership
+        - EntrepreneurWithEmployees
+        - EntrepreneurInPublicLiabilityCompany
+      type: string
+
+    Source:
+      enum:
+        - ValuationReport
+        - PurchaseAgreement
+        - WOZ
+        - FoundingCosts
+        - CalcasaReport
+        - ConversionUnkown
+        - ExternallyDetermined
+        - ExtraRepaymentFromDeposit
+        - HDNMarketvalue
+        - HDNMarketvalueRenovation
+        - PurchaseContractInclLeasehold
+        - PurchasePriceCostsPayableByTheVendor
+        - PurchaseContractRenovation
+        - PurchasePriceCostsPayableByTheVendorRenovation
+        - FromContractAdministration
+        - ValuationDocumentNotInFile
+        - Other
+        - DesktopValuation
+      type: string
+
+    StatusType:
+      enum:
+        - Redeemed
+        - Current
+        - Arrear
+      type: string
+
+    SupplementBenefitType:
+      enum:
+        - Pension
+        - WIA
+        - GMIBijstand
+        - UnemploymentBenefitsWW
+        - Wachtgeld
+        - RWW
+        - WidowPensionANW
+        - Insurance
+        - InsuranceAnnuity
+        - InsuranceLivingExpenses
+        - InsuranceWorkInability
+        - Wajong
+        - StatePensionAOW
+        - WAZ
+        - WGA
+        - IVA
+      type: string
+
+    TaxCategoryType:
+      enum:
+        - NotApplicable
+        - IncomeTax
+        - SavingsAndInvestmentTax
+      type: string
+
+    NotarialOpinionType:
+      enum:
+        - Red
+        - Orange
+        - Green
+      type: string
+    
+    MaintenanceConditionType:
+      enum:
+        - Good
+        - Reasonable
+        - Moderate
+        - Bad
+        - NoticeMunicipality
+        - Unknown
+      type: string
+      description: Maintenance condition of the real estate object as described in the valuation report
+
+    BridgingLoanType:
+      enum:
+        - NewAndOldCollateralOneDeed
+        - NewCollateralOneDeed
+        - PosNegDeclaration
+      type: string
+
+    BKRRepaymentMethod:
+      enum:
+        - FromMortgageFunds
+        - BeforeDeedPassing
+      type: string
+
+    SuspensoryCondition:
+      enum:
+        - ActualOccupancyNotPossible
+        - FirstHomeNotYetSold
+        - PolicyNotYetPledged
+        - DivorceUnregistered
+        - HousesNotYetMerged
+      type: string
+
+    RegistrationType:
+      enum:
+        - Bank
+        - Variable
+      type: string
+    
+    InterestProductBehaviour:
+      enum:
+        - Fixed
+        - Floating
+      type: string
+
+    SaleabilityType:
+      enum:
+        - ZeroToThreeMonths
+        - ThreeToSixMonths
+        - SixToNineMonths
+        - NineToTwelveMonths
+        - Other
+      type: string
+    
+    ################################################################################################################################################
+    #  Error Response
+    ################################################################################################################################################
+
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
+      additionalProperties: false
+
+    ViolationProblemDetails:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ProblemDetails"
+      properties:
+        violations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Violation"
+      additionalProperties: false
+
+    Violation:
+      required:
+        - field
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      additionalProperties: false

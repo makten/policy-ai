@@ -3,13 +3,13 @@ using Pgvector;
 namespace PolicyEngine.Domain.Entities;
 
 /// <summary>
-/// A single business policy rule (e.g., "ASN-POL-001 — Binding met Nederland").
+/// A single business policy rule (e.g., "ASN-001 — Binding met Nederland").
 /// </summary>
 public class Policy : BaseEntity
 {
     public Guid PolicyDocumentId { get; set; }
 
-    public string Code { get; set; } = string.Empty;           // e.g., "ASN-POL-001"
+    public string Code { get; set; } = string.Empty;           // e.g., "ASN-001"
     public string Title { get; set; } = string.Empty;          // e.g., "Binding met Nederland"
     public string Category { get; set; } = string.Empty;       // e.g., "Eligibility", "Risk", "Income"
     public int SourcePage { get; set; }

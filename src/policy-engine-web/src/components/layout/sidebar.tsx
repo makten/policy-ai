@@ -10,37 +10,50 @@ import {
   Upload,
   PlusCircle,
   FolderUp,
-  Workflow,
+  ListChecks,
+  Wand2,
+  Activity,
 } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/policies", label: "Policies", icon: FileText },
+  { href: "/assessment-rules", label: "Assessly Rules", icon: ListChecks },
   { href: "/policies/new", label: "New Policy", icon: PlusCircle },
   { href: "/policies/upload", label: "Upload Policies", icon: FolderUp },
   // { href: "/rag", label: "RAG Pipeline", icon: Workflow },
   { href: "/evaluate", label: "Evaluate", icon: Upload },
   { href: "/evaluations", label: "Results", icon: ShieldCheck },
+  { href: "/business-rules", label: "Generate Business Rules", icon: Wand2 },
+  { href: "/assessment", label: "Perform Assessment", icon: Activity },
 ];
+
+function isPathMatch(pathname: string, href: string): boolean {
+  if (href === "/")
+    return pathname === "/";
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Sidebar() {
   const pathname = usePathname();
+  const activeHref =
+    navItems
+      .filter((item) => isPathMatch(pathname, item.href))
+      .sort((a, b) => b.href.length - a.href.length)[0]?.href ?? "";
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-60 flex-col bg-sidebar-bg text-sidebar-fg">
       {/* Logo */}
       <div className="flex h-16 items-center gap-2 px-5 border-b border-white/10">
         <ShieldCheck className="h-7 w-7 text-primary" />
-        <span className="text-base font-bold tracking-tight">PolicyEngine</span>
+        <span className="text-base font-bold tracking-tight">Assessly</span>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
+          const isActive = item.href === activeHref;
           return (
             <Link
               key={item.href}

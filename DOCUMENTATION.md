@@ -1,4 +1,4 @@
-# PolicyEngine — AI-Powered Mortgage & Contract Validation Engine
+# Assessly — AI-Powered Mortgage & Contract Validation Engine
 
 ## Complete Application Documentation
 
@@ -285,7 +285,7 @@ erDiagram
     Policy {
         guid Id PK
         guid PolicyDocumentId FK
-        string Code UK "e.g. MUNT-POL-001"
+        string Code UK "e.g. MUNT-001"
         string Title
         string Category
         int SourcePage
@@ -347,7 +347,7 @@ Groups policies by their source file and institution. One document (e.g., "MUNT 
 
 #### Policy
 An individual business rule derived from a mortgage policy document. Key fields:
-- **`Code`** — Unique identifier (format: `ENTITY-POL-NNN`, e.g., `MUNT-POL-001`). Has a unique index.
+- **`Code`** — Unique identifier (format: `ENTITY-NNN`, e.g., `MUNT-001`). Has a unique index.
 - **`Category`** — One of: Eligibility, Lending Limits, Product, Finance, Income, Risk, Collateral, Compliance, Operations
 - **`Embedding`** — Optional pgvector embedding (1536 dimensions) used for semantic RAG retrieval.
 - **`IsActive`** — Soft-delete flag (default `true`)
@@ -400,7 +400,7 @@ Create a new policy. Returns `409 Conflict` if a policy with the same code alrea
 ```json
 {
   "policyDocumentId": "guid",
-  "code": "MUNT-POL-045",
+  "code": "MUNT-045",
   "title": "New Policy Title",
   "category": "Finance",
   "sourcePage": 42,
@@ -460,13 +460,13 @@ Simple bulk import from a JSON file (multipart form upload). Creates a new `Poli
   "sourceType": "JSON",
   "results": [
     {
-      "code": "MUNT-POL-001",
+      "code": "MUNT-001",
       "title": "Voorwaarden MUNT Hypotheek",
       "category": "Eligibility",
       "status": "CONFLICT",
-      "reason": "Policy code 'MUNT-POL-001' exists but with a DIFFERENT description...",
+      "reason": "Policy code 'MUNT-001' exists but with a DIFFERENT description...",
       "existingPolicyId": "55e97cd7-...",
-      "existingPolicyCode": "MUNT-POL-001",
+      "existingPolicyCode": "MUNT-001",
       "existingPolicyTitle": "Algemene Productvoorwaarden"
     }
   ],
@@ -809,7 +809,7 @@ Key features:
 - Truncates documents longer than 60,000 characters
 - Uses strict JSON Schema for the response (nested `documents[]` → `meta` + `policies[]`)
 - Categories are constrained to: Eligibility, Lending Limits, Product, Finance, Income, Risk, Collateral, Compliance, Operations
-- Auto-generates unique codes in format `ENTITY-POL-NNN`
+- Auto-generates unique codes in format `ENTITY-NNN`
 - Retry: 3 attempts, 16K max tokens
 
 ---
@@ -876,7 +876,7 @@ The frontend uses the **Next.js 16 App Router** with `output: "standalone"` for 
 - **Actions**: Edit, Delete (with navigation back to list)
 
 #### Create Policy (`/policies/new`)
-- **Form Fields**: Policy Document (dropdown), Code (auto-uppercase, regex validated `^\w+-POL-\d{3}$`), Title, Category (dropdown with custom option), Section, Source Page, Description (textarea)
+- **Form Fields**: Policy Document (dropdown), Code (auto-uppercase, regex validated `^\w+-\d{3}$`), Title, Category (dropdown with custom option), Section, Source Page, Description (textarea)
 - **Validation**: Client-side with inline error messages
 - **Success**: Navigates to the new policy's detail page
 
@@ -1029,7 +1029,7 @@ The PDF parsing prompt instructs GPT-4o to:
 1. Act as a Dutch mortgage policy document parser
 2. Identify the entity name and document metadata
 3. Extract **every** distinct policy rule as a separate item
-4. Generate unique codes in format `ENTITY-POL-NNN`
+4. Generate unique codes in format `ENTITY-NNN`
 5. Categorize into predefined categories
 6. Include source page numbers and section references
 7. Write descriptions in the original language (Dutch)
@@ -1056,7 +1056,7 @@ This reduces prompt size and token cost while preserving coverage using category
   "summary": "Human-readable summary...",
   "passed": [
     {
-      "policyCode": "MUNT-POL-001",
+      "policyCode": "MUNT-001",
       "policyTitle": "Voorwaarden MUNT Hypotheek",
       "status": "PASS",
       "reason": "LTV ratio 85% within 100% limit",
@@ -1730,15 +1730,15 @@ The API uses `Microsoft.Extensions.Logging` with the following log categories:
 
 | Category | Count | Example Codes |
 |---|---|---|
-| Eligibility | 3 | MUNT-POL-001, MUNT-POL-023, MUNT-POL-024 |
-| Lending Limits | 1 | MUNT-POL-002 |
-| Product | 8 | MUNT-POL-003, MUNT-POL-007, MUNT-POL-008, MUNT-POL-011–016, MUNT-POL-020 |
-| Finance | 9 | MUNT-POL-004–006, MUNT-POL-018–019, MUNT-POL-033–035, MUNT-POL-043 |
-| Income | 5 | MUNT-POL-026–032 |
-| Risk | 1 | MUNT-POL-025 |
-| Collateral | 4 | MUNT-POL-036–039 |
-| Compliance | 3 | MUNT-POL-009, MUNT-POL-040–041, MUNT-POL-044 |
-| Operations | 4 | MUNT-POL-017, MUNT-POL-021–022, MUNT-POL-042 |
+| Eligibility | 3 | MUNT-001, MUNT-023, MUNT-024 |
+| Lending Limits | 1 | MUNT-002 |
+| Product | 8 | MUNT-003, MUNT-007, MUNT-008, MUNT-011–016, MUNT-020 |
+| Finance | 9 | MUNT-004–006, MUNT-018–019, MUNT-033–035, MUNT-043 |
+| Income | 5 | MUNT-026–032 |
+| Risk | 1 | MUNT-025 |
+| Collateral | 4 | MUNT-036–039 |
+| Compliance | 3 | MUNT-009, MUNT-040–041, MUNT-044 |
+| Operations | 4 | MUNT-017, MUNT-021–022, MUNT-042 |
 
 ### JSON File Format
 
@@ -1755,7 +1755,7 @@ The standard import format is:
       },
       "policies": [
         {
-          "code": "ENTITY-POL-001",
+          "code": "ENTITY-001",
           "title": "Policy Title",
           "category": "Eligibility",
           "sourcePage": 14,

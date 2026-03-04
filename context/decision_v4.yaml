@@ -1,0 +1,577 @@
+openapi: 3.0.3
+info:
+  title: Assessment Decision Api
+  version: 1.2.0
+  description: |
+    ## General rules:
+    * DateTimes are formatted as ISO-8601(yyyy-MM-dd'T'HH:mm:ss'Z')
+    * Dates are formatted as ISO-8601(yyyy-MM-dd) 
+    * Booleans are are formatted as 'true' or 'false'
+    * Decimals are separated by . symbol
+
+paths:
+  /api/v4/decision/get-decision:
+    get:
+      parameters:
+        - name: assessmentCorrelationReference
+          description: The unique reference of the assessment
+          in: query
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetDecisionResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v4/decision/overrule-decision:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OverruleDecisionRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json: {}
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"               
+
+  /api/v4/decision/get-executed-decision-groups:
+    get:
+      parameters:
+        - name: processReference
+          description: Process reference of the mortgage application the request is executed for
+          in: query
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetExecutedDecisionGroupsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v4/decision/get-decision-rule-details:
+    get:
+      parameters:
+        - name: assessmentCorrelationReference
+          description: Assessment correlation reference of the assessment decision for which the rule details are being requested.
+          in: query
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: ruleReference
+          description: Reference code of the business rule.
+          in: query
+          schema:
+            type: string
+          required: true  
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetDecisionRuleDetailsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v4/decision/reject-decision:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RejectDecisionRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json: {}
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v4/decision/execute-second-approval:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecuteSecondApprovalRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json: {}
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"              
+
+components:
+  schemas:
+    OverruleDecisionRequest:
+      required:
+      - assessmentCorrelationReference
+      - decisionTimeStamp
+      - overruleCollection
+      type: object
+      properties:
+        assessmentCorrelationReference:          
+          type: string
+          format: uuid
+          description: Assessment correlation reference
+        decisionTimeStamp:
+          type: integer
+          format: int64
+          description: Decision time stamp 
+        overruleCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/Overrule"
+          description: Group containing the business rule structure
+      additionalProperties: false    
+    
+    RejectDecisionRequest:
+      required:
+      - assessmentCorrelationReference
+      - motivation
+      type: object
+      properties:
+        assessmentCorrelationReference:
+          type: string
+          format: uuid
+          description: Internal reference of the application
+        motivation:
+          maxLength: 1020
+          type: string
+          description: The motivation of the rejection
+      additionalProperties: false    
+
+    ExecuteSecondApprovalRequest:
+      required:
+        - assessmentCorrelationReference
+        - employeeReference
+      type: object  
+      properties:
+        assessmentCorrelationReference:
+          type: string
+          format: uuid
+          description: Assessment correlation reference
+        employeeReference:
+          maxLength: 255
+          type: string
+          description: Reference of the employee executing the second approval
+      additionalProperties: false    
+          
+    GetDecisionResponse:
+      required:
+      - resultCode
+      - decisionTimeStamp
+      - ruleResultCollection
+      type: object
+      properties:
+        resultCode:
+          type: string
+          pattern: '^(?!\s*$).+'
+          description: Result code of the assessment
+        decisionTimeStamp:
+          type: integer
+          format: int64
+          description: |
+            Decision time stamp. 
+            NOTE: DecisionTimeStamp is expected to be the ulong data type but currently Open Api 3.0 does not support it yet. 
+            Remember that every time you generate the code base, please manually change it to ulong. 
+        rejectMotivation:
+          maxLength: 1020
+          type: string
+          nullable: true
+          description: The motivation for reject the Assessment application
+        secondApprovalReference:
+          maxLength: 255
+          type: string
+          nullable: true
+          description: Reference to the employee that gave the second approval  
+        ruleResultCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/RuleResult"
+          nullable: true
+          description: Group containing assessment rule information   
+      additionalProperties: false
+    
+    GetExecutedDecisionGroupsResponse:
+      type: object
+      properties:
+        decisionGroupCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/DecisionGroup"
+          nullable: true
+          description: List of decision groups.
+      additionalProperties: false    
+    
+    GetDecisionRuleDetailsResponse:
+      required:
+        - ruleReference
+        - ruleDescription
+        - logicalRepresentation
+      type: object
+      properties:
+        ruleReference:
+          maxLength: 36
+          type: string
+          description: Code of the business rule
+        ruleDescription:
+          maxLength: 800
+          type: string
+          description: The description of set of rule
+        logicalRepresentation:
+          type: string
+          pattern: '^(?!\s*$).+'
+          description: The logical representation of the rule
+        employeeExplanation:
+          maxLength: 1000
+          type: string
+          description: Employee Explanation of the rules
+          nullable: true
+        customerExplanation:
+          maxLength: 1000
+          type: string
+          description: Customer Explanation of the rules
+          nullable: true
+        parameterCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/Parameter"
+          nullable: true
+          description: Collection contains parameter information
+        characteristicCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/Characteristic"
+          nullable: true
+          description: Collection of Characteristic for the rule
+        overruleResultCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverruleResult"
+          nullable: true
+          description: Collection containing overrule results
+      additionalProperties: false    
+
+    RuleResult:
+      required:
+      - ruleReference
+      - resultCode
+      - category
+      - ruleDescription
+      type: object
+      properties:
+        ruleReference:
+          type: string
+          pattern: '^(?!\s*$).+'
+          description: Reference of the rule
+        resultCode:
+          type: string
+          pattern: '^(?!\s*$).+'
+          description: Result code of the rule
+        employeeExplanation:
+          maxLength: 1000
+          type: string
+          nullable: true
+          description: Rule violation explanation intended for an employee  
+        customerExplanation:
+          maxLength: 1000
+          type: string
+          nullable: true
+          description: Rule violation explanation intended for a customer
+        category:
+          maxLength: 255
+          type: string
+          description: The category which business rule allocate
+        ruleDescription:
+          maxLength: 800
+          type: string
+          description: The description of the rule        
+        overruleResultCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/OverruleResult"
+          nullable: true
+          description: Collection containing overrule results
+      additionalProperties: false
+
+    OverruleResult:
+      required:
+      - motivation
+      - employeeReference
+      - overruleDateTime
+      - isApproved
+      type: object
+      properties:
+        motivation:
+          maxLength: 1020
+          type: string
+          description: Motivation for overruling
+        employeeReference:
+          maxLength: 255
+          type: string
+          description: Reference to the overruling employee
+        reasonForOverrule:
+          maxLength: 255
+          type: string
+          description: The reason for the overrule
+          nullable: true
+        overruleDateTime:
+          type: string
+          format: date-time
+          description: Date and time of overruling
+        isApproved:
+          type: boolean
+          description: Has the overrule been approved or rejected  
+      additionalProperties: false
+
+    Overrule:
+      required:
+        - ruleReference
+        - motivation
+        - employeeReference
+        - isApproved
+      type: object
+      properties:
+        ruleReference:
+          type: string
+          pattern: '^(?!\s*$).+'
+          description: Reference of the rule
+        reasonForOverrule:
+          maxLength: 255
+          type: string
+          pattern: '^(?!\s*$).+'
+          description: The reason for the overrule
+          nullable: true
+        motivation:
+          maxLength: 1020
+          type: string
+          description: The motivation of the overrule
+        employeeReference:
+          maxLength: 255
+          type: string
+          description: Reference of the employee executing the overrule
+        isApproved:
+          type: boolean
+          description: Has the overrule been approved or rejected  
+      additionalProperties: false
+           
+    DecisionGroup: 
+      required:
+        - assessmentCorrelationReference
+        - executionDateTime
+        - decisionGroupName
+        - isPreview
+      type: object
+      properties:
+        assessmentCorrelationReference:
+          type: string
+          format: uuid
+          description: AssessmentCorrelationReference of an assessment request.
+        executionDateTime:
+          type: string
+          format: date-time
+          description: Date time of execution of the business rules.
+        decisionGroupName:
+          maxLength: 255
+          type: string
+          description: Name of the executed decision group of the business rules.
+        isPreview:
+          type: boolean
+          description: Indicates if the executed decision group is a preview assessment result.  
+      additionalProperties: false    
+
+    Parameter:
+      required:
+        - name
+        - type
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type: string
+          description: The parameter name applied for the rule
+        value:
+          maxLength: 255
+          type: string
+          description: The parameter value applied for the rule
+          nullable: true
+        type:
+          $ref: "#/components/schemas/ParameterType"
+          description: The type of the parameter
+        parameterCollection:
+          type: array
+          items:
+            $ref: "#/components/schemas/Parameter"
+          nullable: true
+          description: Collection of Parameter for a rule
+      additionalProperties: false    
+    
+    Characteristic:
+      required:
+        - name
+        - value
+        - type
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type: string
+          description: The characteristic name applied for the rule
+        value:
+          maxLength: 255
+          type: string
+          description: The characteristic value applied for the rule
+        type:
+          $ref: "#/components/schemas/CharacteristicType"
+          description: The type of the Characteristic
+      additionalProperties: false    
+
+    ParameterType:
+        enum:
+          - String
+          - Decimal
+          - Boolean
+          - DateTime
+          - Loop
+        type: string    
+
+    CharacteristicType:
+        enum:
+          - String
+          - Decimal
+          - Boolean
+        type: string
+        
+    ########################################################
+    #  Error Response
+    ########################################################
+
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          format: uri-reference
+          nullable: true
+      additionalProperties: false
+
+    ViolationProblemDetails:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ProblemDetails"
+      properties:
+        violations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Violation"
+          nullable: true
+      additionalProperties: false
+
+    Violation:
+      required:
+        - field
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false

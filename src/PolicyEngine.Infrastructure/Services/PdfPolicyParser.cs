@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PolicyEngine.Application.DTOs;
@@ -193,7 +194,7 @@ public class PdfPolicyParser : IPolicyFileParser
             Message = $"De-duplication: {allPolicies.Count} → {deduplicated.Count} policies"
         });
 
-        // Step 4 — Assign sequential codes using entity prefix (no -POL- infix)
+        // Step 4 — Assign sequential codes using entity prefix
         var prefix = BuildCodePrefix(meta.Entity);
         // startCodeNumber is 0-based offset; codes start at startCodeNumber + 1
         for (int i = 0; i < deduplicated.Count; i++)
@@ -389,16 +390,87 @@ public class PdfPolicyParser : IPolicyFileParser
         var response = await CallOpenAiAsync(systemPrompt, userPrompt, maxTokens: 200, ct: ct);
         try
         {
-            var doc = JsonDocument.Parse(response);
-            var entity = doc.RootElement.GetProperty("entity").GetString() ?? "";
-            var version = doc.RootElement.GetProperty("version").GetString() ?? "1.0";
+            var json = ExtractFirstJsonObject(response);
+            var doc = JsonDocument.Parse(json);
+
+            var entity =
+                GetStringProperty(
+                    doc.RootElement,
+                    "entity",
+                    "Entity",
+                    "institution",
+                    "bank",
+                    "name"
+                ) ?? string.Empty;
+            var version = GetStringProperty(doc.RootElement, "version", "Version") ?? "1.0";
+
+            if (string.IsNullOrWhiteSpace(entity))
+                entity = DeriveEntityFromFileName(fileName);
+
             return new DocumentMeta(entity, version);
         }
         catch
         {
             _logger.LogWarning("Could not parse metadata response, using defaults");
-            return new DocumentMeta("", "1.0");
+            return new DocumentMeta(DeriveEntityFromFileName(fileName), "1.0");
         }
+    }
+
+    private static string? GetStringProperty(JsonElement root, params string[] names)
+    {
+        foreach (var property in root.EnumerateObject())
+        {
+            if (!names.Any(name => string.Equals(property.Name, name, StringComparison.OrdinalIgnoreCase)))
+                continue;
+
+            if (property.Value.ValueKind == JsonValueKind.String)
+            {
+                var value = property.Value.GetString();
+                if (!string.IsNullOrWhiteSpace(value))
+                    return value.Trim();
+            }
+        }
+
+        return null;
+    }
+
+    private static string ExtractFirstJsonObject(string response)
+    {
+        if (string.IsNullOrWhiteSpace(response))
+            return "{}";
+
+        var trimmed = response.Trim();
+
+        if (trimmed.StartsWith("```", StringComparison.Ordinal))
+        {
+            var fencedMatch = Regex.Match(
+                trimmed,
+                "```(?:json)?\\s*(\\{[\\s\\S]*?\\})\\s*```",
+                RegexOptions.IgnoreCase
+            );
+            if (fencedMatch.Success)
+                return fencedMatch.Groups[1].Value;
+        }
+
+        var firstBrace = trimmed.IndexOf('{');
+        var lastBrace = trimmed.LastIndexOf('}');
+        if (firstBrace >= 0 && lastBrace > firstBrace)
+            return trimmed.Substring(firstBrace, lastBrace - firstBrace + 1);
+
+        return trimmed;
+    }
+
+    private static string DeriveEntityFromFileName(string fileName)
+    {
+        var stem = Path.GetFileNameWithoutExtension(fileName);
+        if (string.IsNullOrWhiteSpace(stem))
+            return string.Empty;
+
+        var token = stem
+            .Split(new[] { '-', '_', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .FirstOrDefault();
+
+        return token ?? string.Empty;
     }
 
     // ─── Per-chunk policy extraction ─────────────────────────────────────
@@ -505,8 +577,17 @@ public class PdfPolicyParser : IPolicyFileParser
     {
         if (string.IsNullOrWhiteSpace(entity)) return "POLICY";
 
-        // Take the first recognizable word and upper-case it
-        var word = entity.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "POLICY";
+        // Take the first alphanumeric token and upper-case it (e.g. "MUNT Hypotheken" → "MUNT")
+        var word =
+            entity
+                .Split(new[] { ' ', '-', '_', '/', '\\', ',', '.', '(', ')' }, StringSplitOptions.RemoveEmptyEntries)
+                .FirstOrDefault(static token => token.Any(char.IsLetterOrDigit))
+            ?? "POLICY";
+
+        word = new string(word.Where(char.IsLetterOrDigit).ToArray());
+        if (string.IsNullOrWhiteSpace(word))
+            return "POLICY";
+
         return word.ToUpperInvariant();
     }
 
