@@ -162,8 +162,9 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         applications against a set of business policies from Dutch financial institutions.
 
         You must produce EXACTLY ONE check result per policy code provided.
-        The total count of passedChecks + failedChecks + warnings MUST equal the number of policies.
-        If a policy cannot be evaluated due to missing data, it MUST still appear as a WARNING.
+        The total count of passedChecks + failedChecks + warnings + notEvaluated MUST equal the number of policies.
+        If a policy cannot be evaluated because the required data is missing or insufficient,
+        place it in the "notEvaluated" array with status "NOT_EVALUATED" and explain which data was missing.
 
         ## Chain-of-Thought
         For EVERY check, you MUST first reason step-by-step in the "reasoning" field BEFORE
@@ -197,8 +198,8 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
 
         ## Verdict Rules
         - REJECTED: Any check with status FAIL where the policy category is "Acceptatie", "Inkomen", "Zekerheden", or "Financiering".
-        - MANUAL_REVIEW: Any FAIL in other categories, OR 3 or more WARNINGs.
-        - APPROVED: All checks PASS or WARNING (with fewer than 3 warnings).
+        - MANUAL_REVIEW: Any FAIL in other categories, OR 3 or more WARNINGs, OR any NOT_EVALUATED checks.
+        - APPROVED: All checks PASS or WARNING (with fewer than 3 warnings) and zero NOT_EVALUATED.
 
         ## Output
         - Return ONLY valid JSON matching the required schema. No markdown, no explanations outside the JSON.
@@ -219,9 +220,12 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
 
         For each check:
         1. In "reasoning", think step-by-step: extract the relevant value, state the requirement, compare.
-        2. Set "status" to PASS, FAIL, or WARNING based on your reasoning.
+        2. Set "status" to PASS, FAIL, WARNING, or NOT_EVALUATED based on your reasoning.
+           - Use NOT_EVALUATED when the application data does not contain the fields needed to assess the policy.
+           - Use WARNING when data exists but is borderline or may need human review.
         3. Write a concise Dutch "reason" summarizing the outcome.
         4. Fill "submittedValue" with the application value and "requiredValue" with the policy threshold.
+           For NOT_EVALUATED checks, set submittedValue to null and explain what data was missing in the reason.
 
         ## Example check
         {
@@ -258,9 +262,14 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
             {
                 type = "array",
                 items = GetCheckResultSchema()
+            },
+            notEvaluated = new
+            {
+                type = "array",
+                items = GetCheckResultSchema()
             }
         },
-        required = new[] { "verdict", "summary", "passedChecks", "failedChecks", "warnings" },
+        required = new[] { "verdict", "summary", "passedChecks", "failedChecks", "warnings", "notEvaluated" },
         additionalProperties = false
     };
 
@@ -272,7 +281,7 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
             policyCode = new { type = "string" },
             policyTitle = new { type = "string" },
             reasoning = new { type = "string" },
-            status = new { type = "string", @enum = new[] { "PASS", "FAIL", "WARNING" } },
+            status = new { type = "string", @enum = new[] { "PASS", "FAIL", "WARNING", "NOT_EVALUATED" } },
             reason = new { type = "string" },
             submittedValue = new { type = new[] { "string", "null" } },
             requiredValue = new { type = new[] { "string", "null" } }

@@ -176,6 +176,7 @@ public class EvaluationsController : ControllerBase
         foreach (var c in aiResponse.PassedChecks ?? []) allChecks.Add((c, CheckStatus.Pass));
         foreach (var c in aiResponse.FailedChecks ?? []) allChecks.Add((c, CheckStatus.Fail));
         foreach (var c in aiResponse.Warnings ?? []) allChecks.Add((c, CheckStatus.Warning));
+        foreach (var c in aiResponse.NotEvaluated ?? []) allChecks.Add((c, CheckStatus.NotEvaluated));
 
         foreach (var (check, status) in allChecks)
         {
@@ -276,6 +277,7 @@ public class EvaluationsController : ControllerBase
             e.Checks.Where(c => c.Status == CheckStatus.Pass).Select(MapCheckDto).ToList(),
             e.Checks.Where(c => c.Status == CheckStatus.Fail).Select(MapCheckDto).ToList(),
             e.Checks.Where(c => c.Status == CheckStatus.Warning).Select(MapCheckDto).ToList(),
+            e.Checks.Where(c => c.Status == CheckStatus.NotEvaluated).Select(MapCheckDto).ToList(),
             tokens,
             anonReport
         );
@@ -293,7 +295,8 @@ public class EvaluationsController : ControllerBase
         e.TotalPolicyCount,
         e.Checks.Count(c => c.Status == CheckStatus.Pass),
         e.Checks.Count(c => c.Status == CheckStatus.Fail),
-        e.Checks.Count(c => c.Status == CheckStatus.Warning)
+        e.Checks.Count(c => c.Status == CheckStatus.Warning),
+        e.Checks.Count(c => c.Status == CheckStatus.NotEvaluated)
     );
 
     private static EvaluationCheckDto MapCheckDto(EvaluationCheck c) => new(

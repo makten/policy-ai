@@ -129,6 +129,9 @@ export default function DashboardPage() {
                     {ev.warningCount > 0 && (
                       <Badge variant="warning">{ev.warningCount} warnings</Badge>
                     )}
+                    {ev.notEvaluatedCount > 0 && (
+                      <Badge variant="secondary">{ev.notEvaluatedCount} not evaluated</Badge>
+                    )}
                   </div>
                 </Link>
               ))}
