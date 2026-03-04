@@ -6,6 +6,7 @@ using PolicyEngine.API.Services;
 using PolicyEngine.Application.DTOs;
 using PolicyEngine.Application.Interfaces;
 using PolicyEngine.Domain.Entities;
+using PolicyEngine.Infrastructure.Services;
 
 namespace PolicyEngine.API.Controllers;
 
@@ -207,7 +208,7 @@ public class PoliciesController : ControllerBase
                 try
                 {
                     using var pdfStream = file.OpenReadStream();
-                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, ct);
+                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, startCodeNumber: 0, ct);
                 }
                 catch (Exception ex)
                 {
@@ -259,7 +260,7 @@ public class PoliciesController : ControllerBase
                 try
                 {
                     using var pdfStream = file.OpenReadStream();
-                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, ct);
+                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, startCodeNumber: 0, ct);
                 }
                 catch (Exception ex)
                 {
@@ -336,7 +337,7 @@ public class PoliciesController : ControllerBase
             {
                 try
                 {
-                    var result = await _pdfParser.ParsePdfAsync(ms, savedFileName, maxPages, channelProgress, ct);
+                    var result = await _pdfParser.ParsePdfAsync(ms, savedFileName, maxPages, startCodeNumber: 0, channelProgress, ct);
                     return result;
                 }
                 finally
@@ -547,6 +548,16 @@ public class PoliciesController : ControllerBase
 
         foreach (var doc in importFile.Documents)
         {
+            // Assign incremental entity-based codes before importing
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await _repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             // Create document
             var policyDoc = new PolicyDocument
             {
@@ -609,7 +620,7 @@ public class PoliciesController : ControllerBase
                     var policy = new Policy
                     {
                         PolicyDocumentId = policyDoc.Id,
-                        Code = string.IsNullOrWhiteSpace(item.Code) ? $"AUTO-{Guid.NewGuid():N}"[..12].ToUpperInvariant() : item.Code,
+                        Code = item.Code, // Already assigned with entity-based incremental code
                         Title = item.Title ?? string.Empty,
                         Category = item.Category ?? string.Empty,
                         SourcePage = item.SourcePage,
@@ -658,6 +669,16 @@ public class PoliciesController : ControllerBase
 
         foreach (var doc in importFile.Documents)
         {
+            // Pre-assign incremental entity-based codes for accurate analysis
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await _repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             docsProcessed++;
 
             foreach (var item in doc.Policies)
@@ -782,6 +803,16 @@ public class PoliciesController : ControllerBase
 
         foreach (var doc in importFile.Documents)
         {
+            // Assign incremental entity-based codes
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await _repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             // Create or find PolicyDocument
             var policyDoc = new PolicyDocument
             {

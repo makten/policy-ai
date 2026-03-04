@@ -125,6 +125,30 @@ public class PolicyRepository : IPolicyRepository
         }
     }
 
+    // ── Code numbering ──
+
+    public async Task<int> GetMaxPolicyCodeNumberAsync(string prefix, CancellationToken ct = default)
+    {
+        // Find all active policies whose code starts with the prefix followed by a dash
+        var pattern = $"{prefix}-";
+        var codes = await _db.Policies
+            .Where(p => p.IsActive && p.Code.StartsWith(pattern))
+            .Select(p => p.Code)
+            .ToListAsync(ct);
+
+        if (codes.Count == 0) return 0;
+
+        // Extract the numeric suffix after the last dash
+        int max = 0;
+        foreach (var code in codes)
+        {
+            var lastDash = code.LastIndexOf('-');
+            if (lastDash >= 0 && int.TryParse(code[(lastDash + 1)..], out var num) && num > max)
+                max = num;
+        }
+        return max;
+    }
+
     // ── PolicyVersion ──
 
     public async Task<PolicyVersion> AddPolicyVersionAsync(PolicyVersion version, CancellationToken ct = default)
