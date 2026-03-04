@@ -32,6 +32,10 @@ public record GenerateBusinessRulesRequest
 {
     public Guid? PolicyDocumentId { get; init; }
     public string? PolicyText { get; init; }
+    /// <summary>How many policies to process in this batch (default 3).</summary>
+    public int BatchSize { get; init; } = 3;
+    /// <summary>How many policies to skip (for pagination over the document).</summary>
+    public int Skip { get; init; } = 0;
 }
 
 /// <summary>
@@ -41,6 +45,10 @@ public record GenerateBusinessRulesResponse
 {
     public List<GeneratedBusinessRuleDto> BusinessRules { get; init; } = new();
     public int TotalGenerated { get; init; }
+    /// <summary>Total number of policies available in the document (0 when using raw text).</summary>
+    public int TotalPolicies { get; init; }
+    /// <summary>True when there are more policies beyond this batch.</summary>
+    public bool HasMore { get; init; }
     public TokenUsageDto? TokenUsage { get; init; }
     public List<string> Warnings { get; init; } = new();
 }

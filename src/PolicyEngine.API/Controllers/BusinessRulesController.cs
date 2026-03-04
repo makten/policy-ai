@@ -50,9 +50,22 @@ public class BusinessRulesController : ControllerBase
             if (docPolicies.Count == 0)
                 return BadRequest("No active policies found for this document.");
 
-            var dtos = docPolicies.Select(MapToDto).ToList();
+            var totalPolicies = docPolicies.Count;
+            var batchSize = Math.Max(1, request.BatchSize);
+            var skip = Math.Max(0, request.Skip);
+
+            var batch = docPolicies.Skip(skip).Take(batchSize).ToList();
+            if (batch.Count == 0)
+                return BadRequest($"Skip ({skip}) exceeds the number of available policies ({totalPolicies}).");
+
+            var dtos = batch.Select(MapToDto).ToList();
             var result = await _businessRuleParser.GenerateBusinessRulesAsync(dtos, ct);
-            return Ok(result);
+
+            return Ok(result with
+            {
+                TotalPolicies = totalPolicies,
+                HasMore = skip + batch.Count < totalPolicies
+            });
         }
 
         // Option 2: Generate from raw policy text

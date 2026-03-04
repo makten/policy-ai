@@ -15,6 +15,7 @@ COPY src/PolicyEngine.Domain/ src/PolicyEngine.Domain/
 COPY src/PolicyEngine.Application/ src/PolicyEngine.Application/
 COPY src/PolicyEngine.Infrastructure/ src/PolicyEngine.Infrastructure/
 COPY src/PolicyEngine.API/ src/PolicyEngine.API/
+COPY context/ context/
 RUN dotnet publish src/PolicyEngine.API/PolicyEngine.API.csproj -c Release -o /app/publish --no-restore
 
 # ── Runtime stage ──
@@ -26,6 +27,9 @@ COPY --from=build /app/publish .
 # Copy seed data files
 COPY GoodPolicy.json /app/seed-data/
 COPY mun_policies.json /app/seed-data/
+
+# Copy options.json for dynamic parameter reference in BusinessRuleParser
+COPY context/options.json /app/context/options.json
 
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Development

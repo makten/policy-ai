@@ -33,6 +33,87 @@ public class BusinessRuleParser : IBusinessRuleParser
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
+    // ─── Options.json parameter reference (built once, reused for every prompt) ──
+
+    private static readonly Lazy<string> _parameterRef = new(LoadParameterRef);
+
+    private record OptionsDoc
+    {
+        public List<OptionsParam> Parameters { get; init; } = [];
+    }
+
+    private record OptionsParam
+    {
+        public string Name { get; init; } = string.Empty;
+        public string Type { get; init; } = string.Empty;
+        public List<OptionsParam>? Children { get; init; }
+    }
+
+    private static string LoadParameterRef()
+    {
+        var candidates = new[]
+        {
+            Path.Combine(AppContext.BaseDirectory, "context", "options.json"),
+            Path.Combine(Directory.GetCurrentDirectory(), "context", "options.json"),
+            Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "context", "options.json"),
+        };
+
+        var path = candidates.FirstOrDefault(File.Exists);
+        if (path is null)
+            return "<!-- options.json not found: specify parameters manually -->";
+
+        try
+        {
+            var doc = JsonSerializer.Deserialize<OptionsDoc>(File.ReadAllText(path), JsonOpts);
+            if (doc?.Parameters is null or { Count: 0 })
+                return "<!-- no parameters found in options.json -->";
+
+            var sb = new StringBuilder();
+            var topLevel = doc.Parameters.Where(p => p.Type != "Loop").ToList();
+            var loops    = doc.Parameters.Where(p => p.Type == "Loop").ToList();
+
+            // Top-level (non-loop) parameters
+            sb.AppendLine("### Top-level parameters (use directly in expressions)");
+            foreach (var grp in topLevel.GroupBy(p => p.Type).OrderBy(g => g.Key))
+                sb.AppendLine($"  {grp.Key}: {string.Join(", ", grp.Select(p => p.Name))}");
+
+            sb.AppendLine();
+            sb.AppendLine("### Loop parameters (MUST be accessed inside ForEach/ForAtLeastOne)");
+            sb.AppendLine("  NESTING RULE: A child parameter can ONLY appear inside a ForEach/ForAtLeastOne");
+            sb.AppendLine("  over its parent loop. Nested loops require nested ForEach nodes.");
+            sb.AppendLine();
+
+            foreach (var loop in loops)
+                RenderLoop(sb, loop, 0);
+
+            return sb.ToString();
+        }
+        catch (Exception ex)
+        {
+            return $"<!-- failed to load options.json: {ex.Message} -->";
+        }
+    }
+
+    private static void RenderLoop(StringBuilder sb, OptionsParam loop, int depth)
+    {
+        var indent = new string(' ', depth * 4);
+        sb.AppendLine($"{indent}  [Loop: {loop.Name}] → ForEach/ForAtLeastOne(\"{loop.Name}\", ...)");
+
+        if (loop.Children is { Count: > 0 })
+        {
+            var simple  = loop.Children.Where(c => c.Type != "Loop").ToList();
+            var nested  = loop.Children.Where(c => c.Type == "Loop").ToList();
+
+            foreach (var grp in simple.GroupBy(c => c.Type).OrderBy(g => g.Key))
+                sb.AppendLine($"{indent}      {grp.Key}: {string.Join(", ", grp.Select(c => c.Name))}");
+
+            foreach (var child in nested)
+                RenderLoop(sb, child, depth + 1);
+        }
+
+        sb.AppendLine();
+    }
+
     public BusinessRuleParser(
         IConfiguration config,
         ILogger<BusinessRuleParser> logger,
@@ -112,159 +193,126 @@ public class BusinessRuleParser : IBusinessRuleParser
     // ─── Prompt construction ─────────────────────────────────────────────
 
     private static string BuildSystemPrompt() =>
-        """
-        You are an expert Dutch mortgage business rule engineer. Your task is to translate 
-        mortgage policy documents into structured business rules that can be executed by 
-        the Assessment Configuration API.
+        $$"""
+        You are a Dutch mortgage business rule engineer. Translate policy text into structured
+        business rules for the Assessment Configuration API.
 
-        ## Output format
-        Each business rule must have:
-        - **code**: An integer (will be overwritten, use 0)
-        - **description**: A concise Dutch description of the rule (max 800 chars)
-        - **startDate**: ISO-8601 datetime, use "2025-01-01T00:00:00Z" as default
-        - **endDate**: null unless the policy has an explicit expiry
-        - **nhgApplicableType**: One of "OnlyNotNhg", "OnlyNhg", "Both"
-        - **categoryType**: One of: Conditions, RealEstate, CurrentProperty, ChangeExistingMortgage, Subsidy, Insurance, Applicant, EmploymentSituation, FinancialObligations, Depots, Interest, Other, Guarantees, OfferMotivations, ConstructionAccount, DeedPassing, Financial, Collateral, ResidualDebtFinancing, CurrentMortgageElsewhere, FRB
-        - **rejectionType**: One of: GV, O, GG, P, F2, BB, V, VZ, F1
-        - **employeeExplanation**: Dutch explanation for employees (max 1000 chars)
-        - **customerExplanation**: Dutch explanation for customers (max 1000 chars, nullable)
-        - **jsonExpression**: An expression tree using the ExpressionNode schema (see below). This is the executable logic of the rule. Can be null if the rule is purely procedural.
-        - **arrangementTypes**: Array of applicable arrangement types from: None, NoArrangement, FirstMortgage, SequentialMortgageSameLender, SequentialMortgageOtherLender, FurtherAdvance, Conversion, Remortgage, ConversionAndAdvance, ConversionAndSequentialMortgage, ContinuationNewInterest, ContinuationMortgage, SecondOrHigherInRankMortgage, RelayMortgage
-        - **decisionGroups**: Array of decision group names. Use: ["Rabobank acceptatiebeleid"] as default
-        - **productLines**: Array of product line names. Use: ["Woningfinanciering Plus", "Woningfinanciering Basis"] as default
-        - **datePolicyType**: One of: "ApplicationStartDate", "BindingOfferDate". Default: "ApplicationStartDate"
+        ## Rule fields
+        | Field               | Value / format                                                                                    |
+        |---------------------|---------------------------------------------------------------------------------------------------|
+        | code                | 0 (overwritten)                                                                                   |
+        | description         | Dutch, ≤800 chars                                                                                 |
+        | startDate           | ISO-8601, default "2025-01-01T00:00:00Z"                                                          |
+        | endDate             | null unless explicit expiry                                                                       |
+        | nhgApplicableType   | OnlyNotNhg · OnlyNhg · Both                                                                       |
+        | categoryType        | Conditions · RealEstate · CurrentProperty · ChangeExistingMortgage · Subsidy · Insurance ·       |
+        |                     | Applicant · EmploymentSituation · FinancialObligations · Depots · Interest · Other ·             |
+        |                     | Guarantees · OfferMotivations · ConstructionAccount · DeedPassing · Financial ·                  |
+        |                     | Collateral · ResidualDebtFinancing · CurrentMortgageElsewhere · FRB                              |
+        | rejectionType       | GV · O · GG · P · F2 · BB · V · VZ · F1                                                          |
+        | employeeExplanation | Dutch, ≤1000 chars                                                                               |
+        | customerExplanation | Dutch, ≤1000 chars, nullable                                                                     |
+        | jsonExpression      | ExpressionNode tree; null if rule is purely procedural                                            |
+        | arrangementTypes    | NoArrangement · FirstMortgage · SequentialMortgageSameLender · SequentialMortgageOtherLender ·   |
+        |                     | FurtherAdvance · Conversion · Remortgage · ConversionAndAdvance ·                                |
+        |                     | ConversionAndSequentialMortgage · ContinuationNewInterest · ContinuationMortgage ·               |
+        |                     | SecondOrHigherInRankMortgage · RelayMortgage                                                     |
+        | decisionGroups      | default ["Rabobank acceptatiebeleid"]                                                             |
+        | productLines        | default ["Woningfinanciering Plus", "Woningfinanciering Basis"]                                   |
+        | datePolicyType      | ApplicationStartDate · BindingOfferDate (default: ApplicationStartDate)                           |
 
-        ## ExpressionNode Schema
-        The jsonExpression is a recursive tree. Each node has a "type" and type-specific fields:
+        ## ExpressionNode — contract specification
+        Every jsonExpression is a recursive ExpressionNode object.
+        The object MUST only contain the fields defined below — no extra fields (additionalProperties: false).
+        The expression MUST evaluate to boolean: true = PASS, false = FAIL.
 
-        ### Node types and their fields:
-        - **Constant**: { type: "Constant", valueType: "Boolean"|"Decimal"|"String"|"DateTime"|"Enum", value: <value>, enumType?: <string> }
-        - **Parameter**: { type: "Parameter", name: "<parameterName>", parameterType: "Boolean"|"Decimal"|"String"|"DateTime" }
-        - **Characteristic**: { type: "Characteristic", name: "<name>", value: <value> }
-        - **And**: { type: "And", left: <node>, right: <node> }
-        - **Or**: { type: "Or", left: <node>, right: <node> }
-        - **Equals**: { type: "Equals", left: <node>, right: <node> }
-        - **NotEquals**: { type: "NotEquals", left: <node>, right: <node> }
-        - **GreaterThan**: { type: "GreaterThan", left: <node>, right: <node> }
-        - **LessThan**: { type: "LessThan", left: <node>, right: <node> }
-        - **GreaterThanOrEqual**: { type: "GreaterThanOrEqual", left: <node>, right: <node> }
-        - **LessThanOrEqual**: { type: "LessThanOrEqual", left: <node>, right: <node> }
-        - **Add**: { type: "Add", left: <node>, right: <node> }
-        - **Subtract**: { type: "Subtract", left: <node>, right: <node> }
-        - **Multiply**: { type: "Multiply", left: <node>, right: <node> }
-        - **Divide**: { type: "Divide", left: <node>, right: <node> }
-        - **Min**: { type: "Min", left: <node>, right: <node> }
-        - **Max**: { type: "Max", left: <node>, right: <node> }
-        - **IsNull**: { type: "IsNull", expression: <node> }
-        - **IsNotNull**: { type: "IsNotNull", expression: <node> }
-        - **IsNullOrZero**: { type: "IsNullOrZero", expression: <node> }
-        - **IsNullReturn**: { type: "IsNullReturn", expression: <node>, returnValue: <number> }
-        - **If**: { type: "If", condition: <node>, trueExpression: <node>, falseExpression: <node> }
-        - **ForEach**: { type: "ForEach", collection: "<collectionName>", expression: <node> }
-        - **ForAtLeastOne**: { type: "ForAtLeastOne", collection: "<collectionName>", expression: <node> }
-        - **IsOneOf**: { type: "IsOneOf", expression: <node>, values: [<value>, ...] }
-        - **SubtractDate**: { type: "SubtractDate", left: <node>, right: <node>, subtractionType: "Days"|"Months"|"Years" }
+        ### Top-level shape
+        Every node has exactly one required field: "type" (string, see allowed values below).
+        All other fields are nullable and only populated when required by that node type.
 
-        ### Expression logic:
-        - The expression must evaluate to a boolean: **true** = rule passes, **false** = rule fails (triggers rejection).
-        - Use **If** nodes to create conditional logic: if the condition applies, check the rule; otherwise return true (pass).
-        - Use **IsNullReturn** to handle nullable parameters gracefully (provide a safe default).
-        - Use **ForEach** / **ForAtLeastOne** for collection-based checks (e.g. iterate over "Aanvragers", "Leningdelen", "Onderpanden").
+        ### Allowed values for enum fields
+        type         (ExpressionNodeType):
+          Constant · Parameter · Characteristic
+          And · Or
+          Equals · NotEquals · GreaterThan · LessThan · GreaterThanOrEqual · LessThanOrEqual
+          Add · Subtract · Multiply · Divide · Min · Max
+          IsNull · IsNotNull · IsNullOrZero · IsNullReturn
+          If · ForEach · ForAtLeastOne · IsOneOf · SubtractDate
 
-        ## Available Parameters
-        YOU MUST ONLY use parameter names from the following list. Do NOT invent parameter names.
-        If a policy concept cannot be mapped to an available parameter, set jsonExpression to null
-        and add a note in employeeExplanation that the rule requires manual configuration.
+        parameterType (ParameterType):   Boolean · Decimal · String · DateTime
+        valueType     (ConstantValueType): Boolean · Decimal · String · DateTime · Enum
+        subtractionType (SubtractionType): Days · Months · Years
 
-        Available parameters:
-        TotaleInschrijving, RestantTotaleHoofdsomInProces, OnderpandStatus, DatumOntbindendeVoorwaarden,
-        Vandaag, OnderpandType, OuderdomTaxatie, Onderpanden, BedragEBV, BedragEBB,
-        TotaalBedragRestschuldFinanciering, Verstrekkingspercentage, NHGVolledigheidstoets,
-        IsTeFinancierenObject, EigenBewoning, VerhuurType, IsVerhuur, AanvragerLeeftijd, Aanvragers,
-        OnderpandBouwSoort, HeeftBouwdepot, ProefTijdVerstreken, AanvragerDienstverbanden,
-        OnderpandHeeftOverbruggingJN, Land, AanvragerNationaliteitEULandJN, AanvragerNationaliteitEERLand,
-        Nationaliteit, AanvragerTypeVerblijfsvergunning, AanvragerInkomensMeetellenJN,
-        DienstverbandOuderdomOudsteInkomensverklaring, MoraliteitsToetsResultaat, MarktwaardeBepaling,
-        MarktwaardePeildatum, OverigInkomenSoort, OverigeInkomens, AandeelInEigendom, BouwSoort,
-        LTVVoorVerbouw, Verbouwingskosten, StartsomBouwdepot,
-        DienstverbandOuderdomOudstePerspectiefverklaring, RiskRating,
-        DienstverbandOuderdomOudsteWerkgeversVerklaring, DienstverbandType,
-        OnderpandMetAppartementsrechtJN, SomTeVerkopenWoningen, RestschuldBestaandeFinanciering,
-        SomTeVerkopenWoningenZonderDatumOntbVoorw, BetrouwbaarheidCalcasaRapport, IsErfpacht,
-        VerkoopOnderVoorwaardeType, TotaleHoofdsomZonderOverbrugging, OverbruggingJN,
-        HoofdsomOverbrugging, BedragTotaleFinancieringskosten, HoofdsomNieuw, OverbruggingLooptijd,
-        Overbruggingen, EersteHypotheekOoit, AflossingsVorm, FiscaalRegimeOvergangsrechtType,
-        Leningdelen, HeeftLoonbeslag, AanvragerGeldigheidstermijnUWVVerzekeringsbericht, WoonachtigIn,
-        IsNieuweLening, LeningdeelBedragConsumptief, OnterechteVerbintenisJN, AantalAanvragers,
-        TypeContractant, Burgelijkestaat, BurgerlijkeStaatAanvragersZijnGelijkAanElkaar,
-        AanvullendeDossierGegevensOmschrijving, AanvullendeDossierGegevens,
-        BeschikbareRuimteWoonLastenAnnuitaireMaandlast, BeschikbareRuimteWoonLastenMaximaalToegestaneMaandlast,
-        BeschikbareRuimteWoonLastenWerkelijkeMaandlast, BeschikbareRuimteWoonLasten,
-        AantalHandmatigeRentecomponenten, AanvragerOuderdomOudsteSalarisstrook,
-        AanvragerAlleSalarisstrokenHebbenGeldigeDatums, MutatieType, LeningdeelLooptijd,
-        InkomenUitNederland, DienstverbandLandCode, BKRContractHeeftCode1OfA,
-        BkrContractPraktischeAflosDatum, BKRContractBkrHeeftHCodering, BkrContracten,
-        BKRContractHeeftCode2tm5, LaatsteCodering, BKRContractKredietSoort, LaatsteBijzonderheid,
-        VruchtGebruik, TotaalAflossingsvrijBestaandLeningen, TotaalAflossingsvrijBestaandEldersLeningen,
-        TotaalAflossingsvrijVerplichtingEigenBewoningLeningen, BerekendeMarktwaarde,
-        TotaalAflossingsvrijNieuwLeningen, SomAflossingsvrijLeningen, LTIPercentage,
-        LopendeHypotheekEldersHeeftBetereRang, BevatCustomRenteComponentZwarteLijst, IsBestaandeLening,
-        VrijeVerkoopwaardeNaVerbouw, ProductNaam, TotaleGroenhypotheekHoofdsom,
-        VerkoopOnderVoorwaardenJN, TotaleAanschafkosten, HeeftVasteInschrijving, HoofdverblijfJN,
-        OnderpandBerekendeMarktwaarde, OuderdomCalcasarapport, OuderdomInJaren, EengezinswoningType,
-        LeningdeelHoofdsom, LangstLopendeRestschuldFinanciering, LangstLopendeNietRestschuldFinanciering,
-        Recreatiewoning, MaximaleVerstrekkingObvMarktwaardeEBVenEBB,
-        TotaleHoofdsomZonderOverbruggingMetLHE, AnnuitaireMaandLastJaar10,
-        MaximaalToegestaneMaandLastJaar10, BeschikbareRuimteWoonLastenJaar,
-        BeschikbareRuimteWoonLastenDatum, AOWDatumJongsteAanvrager, DoelgroepIsSeniorJN,
-        RenteGedrag, VasteRenteEindDatum, RestantRentevastPeriode, RestantLooptijd,
-        BedragLeningdelenEindNaAOWLeeftijdJongsteAanvrager, AantalMaatwerkoplossingenUitLijst,
-        WoningVanAanvraag, TotaalWerkelijkeMaandbedragLopendeHypothekenElders,
-        TotaalCanonMaandbedragLopendeHypothekenElders, BeschikbareRuimteWoonLastenErfpachtMaandlast,
-        BeschikbareRuimteWoonLastenBox1Maandlast, BeschikbareRuimteWoonLastenBox3Maandlast,
-        TotaleOorspronkelijkeHoofdsomLopendeHypothekenEldersLigtInDeToekomst, Zelfbouw, IsCPO,
-        NieuwbouwgarantieVanToepassingJN, AchterstalligOnderhoud, Hoofdsom, OnderpandMarktwaarde,
-        LeningDeelNHG, BinnenGeldigheidstermijnInkomensverklaringOndernemer, Omschrijving,
-        UitbetalenBijPasseren, BouwdepotRubrieken,
-        RestschuldLeningdelenEindNaAOWLeeftijdJongsteAanvrager,
-        TotaleRestschuldLopendeHypothekenEldersTeInlossen, BkrContractIsLopend, EindDatum,
-        VerwachtePasseerdatum, HeeftGeweigerdeRenteArrangementInDonorlening,
-        IsDonorLeningRestschuldfinanciering, NieuweOverbruggingJN, MaxOverbruggingsbedrag,
-        TekortOverBruggingsBedragComply, HeeftSVN, BedragSVN, LopendeHypotheekEldersHypotheeknemer,
-        VerbondenOnderpandIsTeFinancierenObject, Inlossen, LopendeHypotheekElders,
-        OnderdeelVanHypotheekMetSVn, Rentevastperiode, TussenpersoonGemachtigd, TussenpersoonStatus,
-        BijzonderWoningType, EengezinswoningJN, FlatwoningJN, WoningType, HeeftGarageJN,
-        DubbeleLastenBerekeningUitgevoerd, TekortDubbeleLasten, MaximaleDubbeleLasten,
-        WerkelijkeDubbeleLasten
+        ### Node-type field requirements (set unused fields to null / omit them)
 
-        ## Collections (for ForEach / ForAtLeastOne):
-        Aanvragers, Leningdelen, Onderpanden, Overbruggingen, AanvragerDienstverbanden,
-        OverigeInkomens, BkrContracten, AanvullendeDossierGegevens, BouwdepotRubrieken,
-        LopendeHypotheekElders
+        Constant
+          { "type": "Constant", "valueType": "<ConstantValueType>", "value": <literal>,
+            "enumType": "<string|null>" }
+          enumType is required only when valueType = "Enum".
 
-        ## Key rules for expression generation:
-        1. The expression must evaluate to **true** when the rule PASSES and **false** when it FAILS.
-        2. If a policy only applies under certain conditions, wrap with If: condition → check → true (pass by default).
-        3. Use IsNullReturn for nullable decimals with a safe default (typically 0).
-        4. Prefer simple, readable expressions. Use And/Or for combining conditions.
-        5. For percentage checks, values are expressed as decimals (e.g., 100% = 100, not 1.0).
-        6. For date comparisons, use SubtractDate with the appropriate unit.
-        7. If you cannot express the rule as an expression (e.g., purely procedural/qualitative), set jsonExpression to null.
+        Parameter
+          { "type": "Parameter", "name": "<parameterName>", "parameterType": "<ParameterType>" }
+
+        Characteristic
+          { "type": "Characteristic", "name": "<characteristicName>", "value": <literal> }
+
+        Binary comparison / arithmetic  (And · Or · Equals · NotEquals · GreaterThan · LessThan ·
+          GreaterThanOrEqual · LessThanOrEqual · Add · Subtract · Multiply · Divide · Min · Max)
+          { "type": "<NodeType>", "left": <ExpressionNode>, "right": <ExpressionNode> }
+
+        SubtractDate
+          { "type": "SubtractDate", "left": <ExpressionNode>, "right": <ExpressionNode>,
+            "subtractionType": "<Days|Months|Years>" }
+
+        Unary null-checks  (IsNull · IsNotNull · IsNullOrZero)
+          { "type": "<NodeType>", "expression": <ExpressionNode> }
+
+        IsNullReturn
+          { "type": "IsNullReturn", "expression": <ExpressionNode>, "returnValue": <number> }
+
+        If
+          { "type": "If", "condition": <ExpressionNode>,
+            "trueExpression": <ExpressionNode>, "falseExpression": <ExpressionNode> }
+
+        ForEach          (ALL children in the loop must be true)
+          { "type": "ForEach", "collection": "<collectionName>", "expression": <ExpressionNode> }
+
+        ForAtLeastOne    (at least one child must be true)
+          { "type": "ForAtLeastOne", "collection": "<collectionName>", "expression": <ExpressionNode> }
+
+        IsOneOf
+          { "type": "IsOneOf", "expression": <ExpressionNode>, "values": [<literal>, ...] }
+
+        ### Critical generation rules
+        1. true = PASS, false = FAIL. Design expressions so they return true when the rule is satisfied.
+        2. Wrap partial-application rules in If: if condition doesn't apply → trueExpression returns true (pass by default).
+        3. Wrap nullable decimals in IsNullReturn with a safe default (usually 0).
+        4. Child parameters inside a Loop MUST be accessed inside a ForEach/ForAtLeastOne over that loop.
+           Nested loops need nested ForEach nodes.
+        5. Percentages are plain numbers (100 % = 100, NOT 1.0).
+        6. Use SubtractDate for date arithmetic; left = later date, right = earlier date.
+        7. Field names are case-sensitive and must match the contract exactly.
+        8. Set jsonExpression = null only for purely procedural or qualitative rules that cannot be expressed.
+
+        ## Parameters
+        ONLY use parameter names from the structured list below. Do NOT invent names.
+        If a concept cannot be mapped, set jsonExpression=null and note it in employeeExplanation.
+
+        {{_parameterRef.Value}}
         """;
 
     private static string BuildUserPrompt(string policyText) =>
         $"""
-        ## Policy Document Content
+        ## Policy document
         {policyText}
 
         ## Instructions
-        Translate each distinct policy rule from the document above into a business rule.
-        For each rule:
-        1. Determine the correct categoryType, rejectionType, and nhgApplicableType.
-        2. Write a clear Dutch description and employee/customer explanations.
-        3. Build a jsonExpression tree using ONLY the available parameters listed in the system prompt.
-        4. Select appropriate arrangementTypes (use all common types if the rule applies broadly).
-        5. If the rule cannot be expressed as a jsonExpression (procedural/qualitative), set jsonExpression to null.
+        Translate every distinct policy rule into a business rule:
+        1. Choose categoryType, rejectionType, nhgApplicableType.
+        2. Write Dutch description + employee/customer explanations.
+        3. Build jsonExpression using ONLY parameters from the system prompt.
+           - Respect nesting: parameters inside a Loop MUST be accessed via ForEach/ForAtLeastOne.
+        4. Choose arrangementTypes (use all common types when the rule applies broadly).
 
         Generate the business rules now.
         """;
@@ -297,7 +345,7 @@ public class BusinessRuleParser : IBusinessRuleParser
                 }
             },
             temperature = 0.1,
-            max_tokens = 8000
+            max_tokens = 16000
         };
 
         var json = JsonSerializer.Serialize(requestBody, JsonOpts);
@@ -337,8 +385,17 @@ public class BusinessRuleParser : IBusinessRuleParser
                         promptTokens, completionTokens, totalTokens);
                 }
 
-                var content = doc.RootElement
-                    .GetProperty("choices")[0]
+                var choice = doc.RootElement.GetProperty("choices")[0];
+
+                // Detect token-limit truncation before trying to parse
+                var finishReason = choice.TryGetProperty("finish_reason", out var fr) ? fr.GetString() : null;
+                if (finishReason == "length")
+                    throw new InvalidOperationException(
+                        "OpenAI response was truncated (finish_reason=length). " +
+                        "The generated expression trees are too large for the token budget. " +
+                        "Consider splitting the policy document into smaller chunks.");
+
+                var content = choice
                     .GetProperty("message")
                     .GetProperty("content")
                     .GetString();
