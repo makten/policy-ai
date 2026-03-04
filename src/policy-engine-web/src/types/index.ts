@@ -204,3 +204,84 @@ export interface UploadJobDto {
   result: PolicyUploadResultDto | null;
   progressEvents: PdfExtractionProgressEvent[];
 }
+
+// ─── Assessment Configuration Rules ─────────────────────────────────────
+
+export type AssessmentNhgApplicableType = "OnlyNotNhg" | "OnlyNhg" | "Both";
+
+export type AssessmentCategoryType =
+  | "Conditions"
+  | "RealEstate"
+  | "CurrentProperty"
+  | "ChangeExistingMortgage"
+  | "Subsidy"
+  | "Insurance"
+  | "Applicant"
+  | "EmploymentSituation"
+  | "FinancialObligations"
+  | "Depots"
+  | "Interest"
+  | "Other"
+  | "Guarantees"
+  | "OfferMotivations"
+  | "ConstructionAccount"
+  | "DeedPassing"
+  | "Financial"
+  | "Collateral"
+  | "ResidualDebtFinancing"
+  | "CurrentMortgageElsewhere"
+  | "FRB";
+
+export type AssessmentRejectionType =
+  | "GV"
+  | "O"
+  | "GG"
+  | "P"
+  | "F2"
+  | "BB"
+  | "V"
+  | "VZ"
+  | "F1";
+
+export type AssessmentArrangementType =
+  | "None"
+  | "NoArrangement"
+  | "FirstMortgage"
+  | "SequentialMortgageSameLender"
+  | "SequentialMortgageOtherLender"
+  | "FurtherAdvance"
+  | "Conversion"
+  | "Remortgage"
+  | "ConversionAndAdvance"
+  | "ConversionAndSequentialMortgage"
+  | "ContinuationNewInterest"
+  | "ContinuationMortgage"
+  | "SecondOrHigherInRankMortgage"
+  | "RelayMortgage";
+
+export type AssessmentDatePolicyType = "ApplicationStartDate" | "BindingOfferDate";
+
+export interface AssessmentBusinessRule {
+  code: string;
+  startDate: string;
+  endDate: string | null;
+  description: string;
+  nhgApplicableType: AssessmentNhgApplicableType;
+  categoryType: AssessmentCategoryType;
+  rejectionType: AssessmentRejectionType;
+  employeeExplanation: string;
+  customerExplanation: string | null;
+  logicalExpression: string;
+  jsonExpression: string | null;
+  arrangementTypes: AssessmentArrangementType[];
+  parameters: string[];
+  characteristics: string[];
+  decisionGroups: string[];
+  productLines: string[];
+  isActive: boolean;
+  datePolicyType: AssessmentDatePolicyType;
+}
+
+export interface AssessmentBusinessRuleListResponse {
+  businessRuleCollection: AssessmentBusinessRule[];
+}

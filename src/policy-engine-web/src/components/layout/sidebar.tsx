@@ -10,12 +10,13 @@ import {
   Upload,
   PlusCircle,
   FolderUp,
-  Workflow,
+  ListChecks,
 } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/policies", label: "Policies", icon: FileText },
+  { href: "/assessment-rules", label: "Assessly Rules", icon: ListChecks },
   { href: "/policies/new", label: "New Policy", icon: PlusCircle },
   { href: "/policies/upload", label: "Upload Policies", icon: FolderUp },
   // { href: "/rag", label: "RAG Pipeline", icon: Workflow },

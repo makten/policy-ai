@@ -1,5 +1,6 @@
 import api from "@/lib/api";
 import type {
+  AssessmentBusinessRuleListResponse,
   PolicyDto,
   PolicyDetailDto,
   PolicyDocumentDto,
@@ -89,6 +90,33 @@ export async function fetchPolicyDocuments(): Promise<PolicyDocumentDto[]> {
 export async function fetchCategories(): Promise<string[]> {
   const { data } = await api.get<string[]>("/policies/categories");
   return data;
+}
+
+// ─── Assessment Configuration ───────────────────────────────────────
+
+export async function fetchAssessmentBusinessRules(
+  active?: boolean
+): Promise<AssessmentBusinessRuleListResponse> {
+  const params = new URLSearchParams();
+  if (active != null) params.set("active", String(active));
+
+  const response = await fetch(
+    `/api/assessment/business-rules${params.toString() ? `?${params.toString()}` : ""}`,
+    {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || `Failed to load Assessment business rules (${response.status})`);
+  }
+
+  return (await response.json()) as AssessmentBusinessRuleListResponse;
 }
 
 // ─── Evaluations ─────────────────────────────────────────────────────

@@ -411,7 +411,7 @@ PolicyValidationEngine/
 
 | Layer | Technology | Version | NuGet/NPM Package |
 |-------|-----------|---------|-------------------|
-| API Runtime | .NET | 10.0-preview | — |
+| API Runtime | .NET | 10.0 | — |
 | Web Framework | ASP.NET Core | 10.0 | `Microsoft.AspNetCore.App` |
 | ORM | Entity Framework Core | 10.0.0 | `Microsoft.EntityFrameworkCore` |
 | DB Provider | Npgsql | 10.0.0 | `Npgsql.EntityFrameworkCore.PostgreSQL` |
