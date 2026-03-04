@@ -32,6 +32,10 @@ services:
       OpenAI__ApiKey: ${OPENAI_API_KEY:-}
       OpenAI__Model: ${OPENAI_MODEL:-gpt-4o}
       OpenAI__Endpoint: ${OPENAI_ENDPOINT:-https://api.openai.com/v1/chat/completions}
+      AssessApi__BaseUrl: ${ASSESS_API_URL:-https://z781843-volksbank-assessment-service-force-mortgages-assessment.mortgages.topicus.finance}
+      AssessApi__Path: ${ASSESS_API_PATH:-/api/v3/assess/assess-mortgage-application}
+      ConfigApi__BaseUrl: ${CONFIG_API_URL:-https://z781843-volksbank-assessment-service-force-mortgages-assessment.mortgages.topicus.finance}
+      ConfigApi__Path: ${CONFIG_API_PATH:-/api/v1/configuration/add-business-rule}
       PdfExtraction__OutputDir: /app/pdf-output
     volumes:
       - pdf-output:/app/pdf-output

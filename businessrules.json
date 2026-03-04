@@ -1,0 +1,456 @@
+[
+	{
+		"code": 701,
+		"description": "Aanvragers moeten voldoende binding met Nederland hebben; in deze basisregel moet iedere aanvrager in Nederland wonen.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "Applicant",
+		"rejectionType": "P",
+		"employeeExplanation": "Controleer per aanvrager of woonland Nederland is om basisbinding met Nederland te borgen.",
+		"customerExplanation": "Voor deze aanvraag geldt dat alle aanvragers in Nederland moeten wonen.",
+		"jsonExpression": {
+			"type": "ForEach",
+			"collection": "Aanvragers",
+			"expression": {
+				"type": "Equals",
+				"left": {
+					"type": "Parameter",
+					"name": "WoonachtigIn",
+					"parameterType": "String"
+				},
+				"right": {
+					"type": "Constant",
+					"value": "Nederland",
+					"valueType": "String"
+				}
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 702,
+		"description": "Aanvraag is niet toegestaan bij negatieve BKR-coderingen; er mag geen relevante negatieve codering aanwezig zijn.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "FinancialObligations",
+		"rejectionType": "F2",
+		"employeeExplanation": "Er mogen geen BKR-contracten zijn met code 2 t/m 5, code 1/A of H-codering.",
+		"customerExplanation": "Je aanvraag kan niet door als er negatieve BKR-coderingen aanwezig zijn.",
+		"jsonExpression": {
+			"type": "Equals",
+			"left": {
+				"type": "ForAtLeastOne",
+				"collection": "BkrContracten",
+				"expression": {
+					"type": "Or",
+					"left": {
+						"type": "Or",
+						"left": {
+							"type": "Parameter",
+							"name": "BKRContractHeeftCode2tm5",
+							"parameterType": "Boolean"
+						},
+						"right": {
+							"type": "Parameter",
+							"name": "BKRContractHeeftCode1OfA",
+							"parameterType": "Boolean"
+						}
+					},
+					"right": {
+						"type": "Parameter",
+						"name": "BKRContractBkrHeeftHCodering",
+						"parameterType": "Boolean"
+					}
+				}
+			},
+			"right": {
+				"type": "Constant",
+				"value": false,
+				"valueType": "Boolean"
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 703,
+		"description": "Inkomen uit dienstverband telt alleen mee wanneer het dienstverband als meetellend is gemarkeerd.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "EmploymentSituation",
+		"rejectionType": "O",
+		"employeeExplanation": "Er moet minimaal één aanvrager zijn met minimaal één dienstverband waarvan inkomen mag meetellen.",
+		"customerExplanation": "Voor je aanvraag moet er meetellend inkomen uit werk zijn.",
+		"jsonExpression": {
+			"type": "ForAtLeastOne",
+			"collection": "Aanvragers",
+			"expression": {
+				"type": "ForAtLeastOne",
+				"collection": "AanvragerDienstverbanden",
+				"expression": {
+					"type": "Equals",
+					"left": {
+						"type": "Parameter",
+						"name": "DienstverbandInkomensMeetellenJN",
+						"parameterType": "Boolean"
+					},
+					"right": {
+						"type": "Constant",
+						"value": true,
+						"valueType": "Boolean"
+					}
+				}
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 704,
+		"description": "Flexibele inkomsten tellen alleen mee als de dienstverbandgegevens hiervoor geschikt zijn ingericht.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "EmploymentSituation",
+		"rejectionType": "O",
+		"employeeExplanation": "Voor flexwerk moet minimaal één dienstverband zowel flexwerk=true als inkomensmeetellen=true hebben.",
+		"customerExplanation": "Bij flexibel werk moet je inkomen aantoonbaar meetellen voor de hypotheek.",
+		"jsonExpression": {
+			"type": "ForAtLeastOne",
+			"collection": "Aanvragers",
+			"expression": {
+				"type": "ForAtLeastOne",
+				"collection": "AanvragerDienstverbanden",
+				"expression": {
+					"type": "And",
+					"left": {
+						"type": "Equals",
+						"left": {
+							"type": "Parameter",
+							"name": "Flexwerk",
+							"parameterType": "Boolean"
+						},
+						"right": {
+							"type": "Constant",
+							"value": true,
+							"valueType": "Boolean"
+						}
+					},
+					"right": {
+						"type": "Equals",
+						"left": {
+							"type": "Parameter",
+							"name": "DienstverbandInkomensMeetellenJN",
+							"parameterType": "Boolean"
+						},
+						"right": {
+							"type": "Constant",
+							"value": true,
+							"valueType": "Boolean"
+						}
+					}
+				}
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 705,
+		"description": "Inkomen uit onderneming moet positief zijn om mee te nemen in de beoordeling.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "Financial",
+		"rejectionType": "O",
+		"employeeExplanation": "Controleer of totaal inkomen uit onderneming groter is dan 0.",
+		"customerExplanation": "Je ondernemingsinkomen moet positief zijn voor deze beoordeling.",
+		"jsonExpression": {
+			"type": "GreaterThan",
+			"left": {
+				"type": "Parameter",
+				"name": "TotaleInkomenUitOnderneming",
+				"parameterType": "Decimal"
+			},
+			"right": {
+				"type": "Constant",
+				"value": 0,
+				"valueType": "Decimal"
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 706,
+		"description": "Onderpand moet in Nederland liggen, voor hoofdverblijf bedoeld zijn en niet verhuurd worden.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "RealEstate",
+		"rejectionType": "F2",
+		"employeeExplanation": "Alle onderpanden moeten voldoen aan basiscriteria: land NL, hoofdverblijf en geen verhuur.",
+		"customerExplanation": "Je woning moet in Nederland liggen, bedoeld zijn als hoofdverblijf en niet voor verhuur.",
+		"jsonExpression": {
+			"type": "ForEach",
+			"collection": "Onderpanden",
+			"expression": {
+				"type": "And",
+				"left": {
+					"type": "And",
+					"left": {
+						"type": "Equals",
+						"left": {
+							"type": "Parameter",
+							"name": "OnderpandLand",
+							"parameterType": "String"
+						},
+						"right": {
+							"type": "Constant",
+							"value": "Nederland",
+							"valueType": "String"
+						}
+					},
+					"right": {
+						"type": "Equals",
+						"left": {
+							"type": "Parameter",
+							"name": "HoofdverblijfJN",
+							"parameterType": "Boolean"
+						},
+						"right": {
+							"type": "Constant",
+							"value": true,
+							"valueType": "Boolean"
+						}
+					}
+				},
+				"right": {
+					"type": "Equals",
+					"left": {
+						"type": "Parameter",
+						"name": "IsVerhuur",
+						"parameterType": "Boolean"
+					},
+					"right": {
+						"type": "Constant",
+						"value": false,
+						"valueType": "Boolean"
+					}
+				}
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 707,
+		"description": "Voor ieder onderpand moet een positieve marktwaarde beschikbaar zijn.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "RealEstate",
+		"rejectionType": "O",
+		"employeeExplanation": "Controleer per onderpand of de marktwaarde groter is dan 0.",
+		"customerExplanation": "Voor je woning moet een geldige marktwaarde bekend zijn.",
+		"jsonExpression": {
+			"type": "ForEach",
+			"collection": "Onderpanden",
+			"expression": {
+				"type": "GreaterThan",
+				"left": {
+					"type": "Parameter",
+					"name": "OnderpandMarktwaarde",
+					"parameterType": "Decimal"
+				},
+				"right": {
+					"type": "Constant",
+					"value": 0,
+					"valueType": "Decimal"
+				}
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 708,
+		"description": "De verstrekking mag in de basis niet boven 100% van de marktwaarde uitkomen.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "Conditions",
+		"rejectionType": "P",
+		"employeeExplanation": "Controleer of verstrekkingspercentage kleiner dan of gelijk aan 100 is.",
+		"customerExplanation": "Het leenbedrag mag niet hoger zijn dan de toegestane verhouding tot de woningwaarde.",
+		"jsonExpression": {
+			"type": "LessThanOrEqual",
+			"left": {
+				"type": "Parameter",
+				"name": "Verstrekkingspercentage",
+				"parameterType": "Decimal"
+			},
+			"right": {
+				"type": "Constant",
+				"value": 100,
+				"valueType": "Decimal"
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	},
+	{
+		"code": 709,
+		"description": "Als een bouwdepot aanwezig is, moet de startsom van het depot groter zijn dan 0.",
+		"startDate": "2024-01-01T00:00:00Z",
+		"endDate": null,
+		"nhgApplicableType": "Both",
+		"categoryType": "Conditions",
+		"rejectionType": "O",
+		"employeeExplanation": "Zonder bouwdepot is deze regel akkoord; met bouwdepot moet de startsom positief zijn.",
+		"customerExplanation": "Bij een bouwdepot moet een positief depotbedrag zijn vastgelegd.",
+		"jsonExpression": {
+			"type": "Or",
+			"left": {
+				"type": "Equals",
+				"left": {
+					"type": "Parameter",
+					"name": "HeeftBouwdepot",
+					"parameterType": "Boolean"
+				},
+				"right": {
+					"type": "Constant",
+					"value": false,
+					"valueType": "Boolean"
+				}
+			},
+			"right": {
+				"type": "GreaterThan",
+				"left": {
+					"type": "Parameter",
+					"name": "StartsomBouwdepot",
+					"parameterType": "Decimal"
+				},
+				"right": {
+					"type": "Constant",
+					"value": 0,
+					"valueType": "Decimal"
+				}
+			}
+		},
+		"arrangementTypes": [
+			"FirstMortgage",
+			"Remortgage",
+			"FurtherAdvance"
+		],
+		"decisionGroups": [
+			"Bindend aanbod",
+			"Voorlopig aanbod"
+		],
+		"productLines": [
+			"ASN Bank",
+			"ASN Bespaarhypotheek"
+		],
+		"datePolicyType": "ApplicationStartDate"
+	}
+]
