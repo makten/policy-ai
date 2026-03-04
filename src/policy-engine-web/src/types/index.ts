@@ -108,6 +108,7 @@ export interface EvaluationCheckDto {
   policyTitle: string;
   status: CheckStatus;
   reason: string;
+  reasoning: string | null;
   submittedValue: string | null;
   requiredValue: string | null;
 }

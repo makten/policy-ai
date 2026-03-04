@@ -95,6 +95,13 @@ if (app.Environment.IsDevelopment())
                 ALTER TABLE "PolicyDocuments" ADD COLUMN "ContentHash" character varying(64);
                 CREATE INDEX "IX_PolicyDocuments_ContentHash" ON "PolicyDocuments" ("ContentHash");
             END IF;
+
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_name = 'EvaluationChecks' AND column_name = 'Reasoning'
+            ) THEN
+                ALTER TABLE "EvaluationChecks" ADD COLUMN "Reasoning" character varying(4000) NOT NULL DEFAULT '';
+            END IF;
         END $$;
         """);
 }

@@ -184,6 +184,7 @@ public class EvaluationsController : ControllerBase
                 PolicyCode = check.PolicyCode ?? "",
                 PolicyTitle = check.PolicyTitle ?? "",
                 Status = status,
+                Reasoning = check.Reasoning ?? "",
                 Reason = check.Reason ?? "",
                 SubmittedValue = check.SubmittedValue,
                 RequiredValue = check.RequiredValue
@@ -301,6 +302,7 @@ public class EvaluationsController : ControllerBase
         c.PolicyTitle,
         c.Status.ToString().ToUpperInvariant(),
         c.Reason,
+        c.Reasoning,
         c.SubmittedValue,
         c.RequiredValue
     );

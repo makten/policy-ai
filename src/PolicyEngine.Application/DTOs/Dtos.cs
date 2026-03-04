@@ -174,6 +174,7 @@ public record EvaluationCheckDto(
     string PolicyTitle,
     string Status,
     string Reason,
+    string? Reasoning,
     string? SubmittedValue,
     string? RequiredValue
 );
@@ -228,6 +229,7 @@ public record AiCheckResult
 {
     public string PolicyCode { get; init; } = string.Empty;
     public string PolicyTitle { get; init; } = string.Empty;
+    public string Reasoning { get; init; } = string.Empty;
     public string Status { get; init; } = string.Empty;
     public string Reason { get; init; } = string.Empty;
     public string? SubmittedValue { get; init; }

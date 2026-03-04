@@ -89,7 +89,7 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
                 }
             },
             temperature = 0.1,
-            max_tokens = 8000
+            max_tokens = 16000
         };
 
         var jsonContent = JsonSerializer.Serialize(requestBody, JsonOpts);
@@ -161,37 +161,80 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         You are a Dutch mortgage policy compliance engine. Your job is to evaluate mortgage
         applications against a set of business policies from Dutch financial institutions.
 
-        You must evaluate EVERY policy provided and determine whether the application data
-        satisfies each policy's requirements.
+        You must produce EXACTLY ONE check result per policy code provided.
+        The total count of passedChecks + failedChecks + warnings MUST equal the number of policies.
+        If a policy cannot be evaluated due to missing data, it MUST still appear as a WARNING.
 
-        Rules:
-        - Be precise: cite specific values from the application data.
-        - Be thorough: check every policy, even if information is missing (mark as WARNING if data is insufficient).
-        - Be Dutch-domain aware: understand BKR, NHG, LTV, marktwaarde, AOW, etc.
+        ## Chain-of-Thought
+        For EVERY check, you MUST first reason step-by-step in the "reasoning" field BEFORE
+        assigning the status. State the relevant application value, state the policy requirement,
+        then reason whether the requirement is met.
+
+        ## Numeric Comparisons
+        When a policy involves a numeric threshold (LTV, LTI, age, income, debt ratios, etc.):
+        - State the exact numeric value found in the application.
+        - State the exact threshold from the policy.
+        - Perform the comparison explicitly (e.g., "85% ≤ 100% → PASS").
+        - Do NOT round values unless the policy explicitly allows it.
+
+        ## Domain Glossary
+        Key definitions for your evaluation:
+        - LTV (Loan-to-Value) = total mortgage / marktwaarde × 100
+        - LTI (Loan-to-Income) = total mortgage / gross annual household income
+        - NHG = Nationale Hypotheek Garantie, applicable when mortgage ≤ NHG limit
+        - BKR = Bureau Krediet Registratie, credit registration codes (A/1/2 = negative)
+        - AOW = state pension age (currently 67 in the Netherlands)
+        - Marktwaarde = market value of the property as appraised
+        - Toetsinkomen = qualifying income used for affordability calculations
+        - Eigenwoningforfait = deemed rental value percentage of property for tax
+
+        ## Anonymized Fields
+        Certain fields have been anonymized for privacy:
+        - "ageInYears" replaces dateOfBirth — use this for age-based policy checks.
+        - Zone classifications (NL / EU_EEA / NON_EU) replace nationality/country — use for residency policies.
+        - "yearsEmployed" replaces employment startDate — use for tenure checks.
+        Never flag these transformations as "missing data".
+
+        ## Verdict Rules
+        - REJECTED: Any check with status FAIL where the policy category is "Acceptatie", "Inkomen", "Zekerheden", or "Financiering".
+        - MANUAL_REVIEW: Any FAIL in other categories, OR 3 or more WARNINGs.
+        - APPROVED: All checks PASS or WARNING (with fewer than 3 warnings).
+
+        ## Output
         - Return ONLY valid JSON matching the required schema. No markdown, no explanations outside the JSON.
-
-        Verdict logic:
-        - APPROVED: All checks pass (warnings are acceptable).
-        - REJECTED: One or more critical checks fail.
-        - MANUAL_REVIEW: No hard failures, but significant warnings requiring human review.
+        - The "summary" field must be a human-readable paragraph in Dutch.
         """;
 
     private static string BuildUserPrompt(string policiesJson, string applicationJson) =>
-        $"""
+        $$"""
         ## Active Policies
-        {policiesJson}
+        {{policiesJson}}
 
         ## Mortgage Application Data (key fields extracted)
-        {applicationJson}
+        {{applicationJson}}
 
         ## Instructions
         Evaluate the mortgage application against ALL active policies listed above.
-        The application data above contains only the decision-relevant fields extracted from the full application.
-        Certain personal data has been anonymized for privacy: dates of birth appear as "ageInYears", nationality/birth countries as zone classifications (NL/EU_EEA/NON_EU), and employment start dates as "yearsEmployed".
-        If a field needed for a policy check is not present, mark the check as WARNING with a note that the data was not provided.
-        For each policy, determine: PASS, FAIL, or WARNING.
+        You MUST produce exactly one check per policy code — no more, no fewer.
+
+        For each check:
+        1. In "reasoning", think step-by-step: extract the relevant value, state the requirement, compare.
+        2. Set "status" to PASS, FAIL, or WARNING based on your reasoning.
+        3. Write a concise Dutch "reason" summarizing the outcome.
+        4. Fill "submittedValue" with the application value and "requiredValue" with the policy threshold.
+
+        ## Example check
+        {
+          "policyCode": "MUNT-004",
+          "policyTitle": "Maximum LTV-ratio",
+          "reasoning": "De marktwaarde is €380.000. De totale hypotheek is €320.000. LTV = 320000 / 380000 × 100 = 84,2%. Het beleid vereist LTV ≤ 100%.",
+          "status": "PASS",
+          "reason": "LTV is 84,2%, ruim binnen de maximale 100%.",
+          "submittedValue": "84,2%",
+          "requiredValue": "≤ 100%"
+        }
+
         Provide the overall verdict and a human-readable summary in Dutch.
-        For each check, specify what value was found in the application and what the policy requires.
         """;
 
     private static object GetJsonSchema() => new
@@ -228,12 +271,13 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         {
             policyCode = new { type = "string" },
             policyTitle = new { type = "string" },
+            reasoning = new { type = "string" },
             status = new { type = "string", @enum = new[] { "PASS", "FAIL", "WARNING" } },
             reason = new { type = "string" },
             submittedValue = new { type = new[] { "string", "null" } },
             requiredValue = new { type = new[] { "string", "null" } }
         },
-        required = new[] { "policyCode", "policyTitle", "status", "reason", "submittedValue", "requiredValue" },
+        required = new[] { "policyCode", "policyTitle", "reasoning", "status", "reason", "submittedValue", "requiredValue" },
         additionalProperties = false
     };
 }

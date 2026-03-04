@@ -537,6 +537,16 @@ function CheckGrid({
                   <p className="mt-1 text-xs text-foreground/60 leading-relaxed">
                     {check.reason}
                   </p>
+                  {check.reasoning && (
+                    <details className="mt-1.5">
+                      <summary className="text-[11px] text-muted-foreground cursor-pointer hover:text-foreground/70 select-none">
+                        Show reasoning
+                      </summary>
+                      <p className="mt-1 text-[11px] text-muted-foreground/80 leading-relaxed whitespace-pre-wrap bg-secondary/40 rounded-md px-2 py-1.5">
+                        {check.reasoning}
+                      </p>
+                    </details>
+                  )}
                 </div>
               </div>
               {(check.submittedValue || check.requiredValue) && (
