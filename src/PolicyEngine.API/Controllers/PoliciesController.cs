@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Channels;
@@ -6,6 +7,7 @@ using PolicyEngine.API.Services;
 using PolicyEngine.Application.DTOs;
 using PolicyEngine.Application.Interfaces;
 using PolicyEngine.Domain.Entities;
+using PolicyEngine.Infrastructure.Services;
 
 namespace PolicyEngine.API.Controllers;
 
@@ -187,13 +189,27 @@ public class PoliciesController : ControllerBase
         PolicyImportFile importFile;
         string sourceType;
 
+        // Read file bytes for content hash computation
+        byte[] fileBytes;
+        using (var ms = new MemoryStream())
+        {
+            await file.CopyToAsync(ms, ct);
+            fileBytes = ms.ToArray();
+        }
+
+        // Check for duplicate document by content hash
+        var contentHash = ComputeContentHash(fileBytes);
+        var existingDoc = await _repo.GetDocumentByHashAsync(contentHash, ct);
+        if (existingDoc != null)
+            return Conflict(new { message = $"A document with identical content already exists: '{existingDoc.FileName}' (uploaded previously)." });
+
         switch (ext)
         {
             case ".json":
                 sourceType = "JSON";
                 try
                 {
-                    using var jsonStream = file.OpenReadStream();
+                    using var jsonStream = new MemoryStream(fileBytes);
                     importFile = await DeserializePolicyJsonAsync(jsonStream, ct);
                 }
                 catch (JsonException ex)
@@ -206,8 +222,8 @@ public class PoliciesController : ControllerBase
                 sourceType = "PDF";
                 try
                 {
-                    using var pdfStream = file.OpenReadStream();
-                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, ct);
+                    using var pdfStream = new MemoryStream(fileBytes);
+                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, startCodeNumber: 0, ct);
                 }
                 catch (Exception ex)
                 {
@@ -222,7 +238,7 @@ public class PoliciesController : ControllerBase
         if (importFile.Documents == null || importFile.Documents.Count == 0)
             return BadRequest(new { message = "No policy documents found in the uploaded file." });
 
-        var result = await ImportWithConflictDetection(importFile, sourceType, ct);
+        var result = await ImportWithConflictDetection(importFile, sourceType, contentHash, ct);
         return Ok(result);
     }
 
@@ -259,7 +275,7 @@ public class PoliciesController : ControllerBase
                 try
                 {
                     using var pdfStream = file.OpenReadStream();
-                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, ct);
+                    importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, startCodeNumber: 0, ct);
                 }
                 catch (Exception ex)
                 {
@@ -328,15 +344,25 @@ public class PoliciesController : ControllerBase
             // Hold the file bytes so the stream survives after the IFormFile scope
             using var ms = new MemoryStream();
             await file.CopyToAsync(ms, ct);
+            var fileBytes = ms.ToArray();
             ms.Position = 0;
             var savedFileName = file.FileName;
+
+            // Compute content hash for dedup
+            var contentHash = ComputeContentHash(fileBytes);
+            var existingDoc = await _repo.GetDocumentByHashAsync(contentHash, ct);
+            if (existingDoc != null)
+            {
+                await WriteEvent("error", new { message = $"A document with identical content already exists: '{existingDoc.FileName}'." });
+                return;
+            }
 
             // Start the parser in the background — it writes progress events to the channel
             var parserTask = Task.Run(async () =>
             {
                 try
                 {
-                    var result = await _pdfParser.ParsePdfAsync(ms, savedFileName, maxPages, channelProgress, ct);
+                    var result = await _pdfParser.ParsePdfAsync(ms, savedFileName, maxPages, startCodeNumber: 0, channelProgress, ct);
                     return result;
                 }
                 finally
@@ -364,7 +390,7 @@ public class PoliciesController : ControllerBase
             PolicyUploadResultDto uploadResult;
             if (mode == "upload")
             {
-                uploadResult = await ImportWithConflictDetection(importFile, "PDF", ct);
+                uploadResult = await ImportWithConflictDetection(importFile, "PDF", contentHash, ct);
             }
             else
             {
@@ -539,7 +565,7 @@ public class PoliciesController : ControllerBase
     }
 
     private async Task<PolicyUploadResultDto> ImportWithConflictDetection(
-        PolicyImportFile importFile, string sourceType, CancellationToken ct)
+        PolicyImportFile importFile, string sourceType, string? contentHash, CancellationToken ct)
     {
         var warnings = new List<string>();
         var results = new List<PolicyUploadItemResult>();
@@ -547,12 +573,23 @@ public class PoliciesController : ControllerBase
 
         foreach (var doc in importFile.Documents)
         {
+            // Assign incremental entity-based codes before importing
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await _repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             // Create document
             var policyDoc = new PolicyDocument
             {
                 FileName = doc.Meta.FileName,
                 Entity = doc.Meta.Entity,
                 Version = doc.Meta.Version,
+                ContentHash = contentHash,
                 IsActive = true
             };
             await _repo.AddDocumentAsync(policyDoc, ct);
@@ -609,7 +646,7 @@ public class PoliciesController : ControllerBase
                     var policy = new Policy
                     {
                         PolicyDocumentId = policyDoc.Id,
-                        Code = string.IsNullOrWhiteSpace(item.Code) ? $"AUTO-{Guid.NewGuid():N}"[..12].ToUpperInvariant() : item.Code,
+                        Code = item.Code, // Already assigned with entity-based incremental code
                         Title = item.Title ?? string.Empty,
                         Category = item.Category ?? string.Empty,
                         SourcePage = item.SourcePage,
@@ -658,6 +695,16 @@ public class PoliciesController : ControllerBase
 
         foreach (var doc in importFile.Documents)
         {
+            // Pre-assign incremental entity-based codes for accurate analysis
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await _repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             docsProcessed++;
 
             foreach (var item in doc.Policies)
@@ -727,6 +774,12 @@ public class PoliciesController : ControllerBase
                 ? text
                 : text[..maxLength] + "…";
 
+    private static string ComputeContentHash(byte[] data)
+    {
+        var hash = SHA256.HashData(data);
+        return Convert.ToHexStringLower(hash);
+    }
+
     /// <summary>
     /// Seed the database with policies from JSON files in a specified folder path.
     /// Reads all *.json files matching the GoodPolicy.json structure.
@@ -782,6 +835,16 @@ public class PoliciesController : ControllerBase
 
         foreach (var doc in importFile.Documents)
         {
+            // Assign incremental entity-based codes
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await _repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             // Create or find PolicyDocument
             var policyDoc = new PolicyDocument
             {

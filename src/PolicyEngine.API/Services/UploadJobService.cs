@@ -1,9 +1,11 @@
 using System.Collections.Concurrent;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using PolicyEngine.Application.DTOs;
 using PolicyEngine.Application.Interfaces;
 using PolicyEngine.Domain.Entities;
+using PolicyEngine.Infrastructure.Services;
 
 namespace PolicyEngine.API.Services;
 
@@ -231,8 +233,13 @@ public class UploadJobService
             {
                 using var ms = new MemoryStream(fileBytes);
                 var progress = new JobProgressReporter(job);
+
+                // Determine the entity prefix so we can query the max existing code number.
+                // For PDFs, we do a preliminary parse to get entity from metadata,
+                // but the parser will handle it internally — we pass the start number.
+                // We'll re-assign codes after parsing if entity override is set.
                 importFile = await pdfParser.ParsePdfAsync(
-                    ms, job.FileName, job.MaxPages, progress, ct);
+                    ms, job.FileName, job.MaxPages, 0, progress, ct);
             }
             else
             {
@@ -275,12 +282,45 @@ public class UploadJobService
                 return;
             }
 
+            // Compute content hash for deduplication
+            var contentHash = ComputeContentHash(fileBytes);
+
+            // Check if a document with the same content already exists
+            var existingDoc = await repo.GetDocumentByHashAsync(contentHash, ct);
+            if (existingDoc != null)
+            {
+                job.Error = $"This file has already been imported as '{existingDoc.FileName}' (entity: {existingDoc.Entity}). "
+                          + $"Document contains {existingDoc.Policies.Count} policies.";
+                job.Status = "failed";
+                job.CompletedAt = DateTime.UtcNow;
+                job.AddEvent(new PdfExtractionProgressEvent
+                {
+                    Type = "duplicate_document",
+                    Message = job.Error
+                });
+                return;
+            }
+
             // Apply entity override: if user supplied an entity name, always use it
             if (!string.IsNullOrWhiteSpace(job.EntityOverride))
             {
                 foreach (var doc in importFile.Documents)
                 {
                     doc.Meta.Entity = job.EntityOverride;
+                }
+            }
+
+            // Re-assign incremental codes based on the entity prefix and existing DB codes.
+            // This ensures codes like MUNT-001, MUNT-002 continue from the highest in the DB.
+            foreach (var doc in importFile.Documents)
+            {
+                var entity = doc.Meta.Entity ?? "";
+                var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+                var maxExisting = await repo.GetMaxPolicyCodeNumberAsync(prefix, ct);
+
+                for (int i = 0; i < doc.Policies.Count; i++)
+                {
+                    doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
                 }
             }
 
@@ -297,7 +337,7 @@ public class UploadJobService
             PolicyUploadResultDto result;
             if (job.Mode == "upload")
                 result = await ImportWithConflictDetection(
-                    importFile, job.SourceType, repo, embeddingService, job);
+                    importFile, job.SourceType, contentHash, repo, embeddingService, job);
             else
                 result = await AnalyzeConflicts(importFile, job.SourceType, repo);
 
@@ -341,7 +381,7 @@ public class UploadJobService
     // ── Import logic (mirrors PoliciesController) ──────────────────
 
     private async Task<PolicyUploadResultDto> ImportWithConflictDetection(
-        PolicyImportFile importFile, string sourceType,
+        PolicyImportFile importFile, string sourceType, string contentHash,
         IPolicyRepository repo, IEmbeddingService embeddingService,
         UploadJob job)
     {
@@ -358,6 +398,7 @@ public class UploadJobService
                 FileName = doc.Meta.FileName,
                 Entity = doc.Meta.Entity,
                 Version = doc.Meta.Version,
+                ContentHash = contentHash,
                 IsActive = true
             };
             await repo.AddDocumentAsync(policyDoc, CancellationToken.None);
@@ -413,9 +454,7 @@ public class UploadJobService
                     var policy = new Policy
                     {
                         PolicyDocumentId = policyDoc.Id,
-                        Code = string.IsNullOrWhiteSpace(item.Code)
-                            ? $"AUTO-{Guid.NewGuid():N}"[..12].ToUpperInvariant()
-                            : item.Code,
+                        Code = item.Code, // Already assigned with entity-based incremental code
                         Title = item.Title ?? string.Empty,
                         Category = item.Category ?? string.Empty,
                         SourcePage = item.SourcePage,
@@ -487,6 +526,16 @@ public class UploadJobService
 
         foreach (var doc in importFile.Documents)
         {
+            // Pre-assign incremental entity-based codes for accurate analysis
+            var entity = doc.Meta.Entity ?? "";
+            var prefix = PdfPolicyParser.BuildCodePrefix(entity);
+            var maxExisting = await repo.GetMaxPolicyCodeNumberAsync(prefix, CancellationToken.None);
+
+            for (int i = 0; i < doc.Policies.Count; i++)
+            {
+                doc.Policies[i] = doc.Policies[i] with { Code = $"{prefix}-{maxExisting + i + 1:D3}" };
+            }
+
             docsProcessed++;
 
             foreach (var item in doc.Policies)
@@ -552,6 +601,12 @@ public class UploadJobService
 
     private static string Truncate(string? text, int maxLength) =>
         string.IsNullOrEmpty(text) ? "" : text.Length <= maxLength ? text : text[..maxLength] + "…";
+
+    private static string ComputeContentHash(byte[] data)
+    {
+        var hash = SHA256.HashData(data);
+        return Convert.ToHexStringLower(hash);
+    }
 
     private static string NormalizePolicyJson(string json)
     {

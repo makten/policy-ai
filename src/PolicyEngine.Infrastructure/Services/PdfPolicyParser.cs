@@ -58,11 +58,11 @@ public class PdfPolicyParser : IPolicyFileParser
     // ─── Public entry point ──────────────────────────────────────────────
 
     public Task<PolicyImportFile> ParsePdfAsync(
-        Stream pdfStream, string fileName, int? maxPages = null, CancellationToken ct = default)
-        => ParsePdfAsync(pdfStream, fileName, maxPages, progress: null!, ct);
+        Stream pdfStream, string fileName, int? maxPages = null, int startCodeNumber = 0, CancellationToken ct = default)
+        => ParsePdfAsync(pdfStream, fileName, maxPages, startCodeNumber, progress: null!, ct);
 
     public async Task<PolicyImportFile> ParsePdfAsync(
-        Stream pdfStream, string fileName, int? maxPages,
+        Stream pdfStream, string fileName, int? maxPages, int startCodeNumber,
         IProgress<PdfExtractionProgressEvent> progress, CancellationToken ct = default)
     {
         _logger.LogInformation("Extracting text from PDF: {FileName}", fileName);
@@ -194,11 +194,12 @@ public class PdfPolicyParser : IPolicyFileParser
             Message = $"De-duplication: {allPolicies.Count} → {deduplicated.Count} policies"
         });
 
-        // Step 4 — Assign sequential codes
+        // Step 4 — Assign sequential codes using entity prefix (no -POL- infix)
         var prefix = BuildCodePrefix(meta.Entity);
+        // startCodeNumber is 0-based offset; codes start at startCodeNumber + 1
         for (int i = 0; i < deduplicated.Count; i++)
         {
-            deduplicated[i] = deduplicated[i] with { Code = $"{prefix}-POL-{i + 1:D3}" };
+            deduplicated[i] = deduplicated[i] with { Code = $"{prefix}-{startCodeNumber + i + 1:D3}" };
         }
 
         var result = new PolicyImportFile
@@ -567,10 +568,14 @@ public class PdfPolicyParser : IPolicyFileParser
 
     // ─── Code prefix helper ──────────────────────────────────────────────
 
-    private static string BuildCodePrefix(string entity)
+    /// <summary>
+    /// Builds a code prefix from the entity name.
+    /// E.g. "MUNT Hypotheken" → "MUNT", "Volksbank" → "VOLKSBANK"
+    /// Falls back to "POLICY" when entity is empty.
+    /// </summary>
+    public static string BuildCodePrefix(string entity)
     {
-        if (string.IsNullOrWhiteSpace(entity))
-            return "POL";
+        if (string.IsNullOrWhiteSpace(entity)) return "POLICY";
 
         // Take the first alphanumeric token and upper-case it (e.g. "MUNT Hypotheken" → "MUNT")
         var word =
@@ -581,7 +586,7 @@ public class PdfPolicyParser : IPolicyFileParser
 
         word = new string(word.Where(char.IsLetterOrDigit).ToArray());
         if (string.IsNullOrWhiteSpace(word))
-            return "POL";
+            return "POLICY";
 
         return word.ToUpperInvariant();
     }
