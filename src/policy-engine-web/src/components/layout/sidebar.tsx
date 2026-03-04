@@ -10,7 +10,10 @@ import {
   Upload,
   PlusCircle,
   FolderUp,
+  Workflow,
   ListChecks,
+  Wand2,
+  Activity,
 } from "lucide-react";
 
 const navItems = [
@@ -22,6 +25,8 @@ const navItems = [
   // { href: "/rag", label: "RAG Pipeline", icon: Workflow },
   { href: "/evaluate", label: "Evaluate", icon: Upload },
   { href: "/evaluations", label: "Results", icon: ShieldCheck },
+  { href: "/business-rules", label: "Generate Business Rules", icon: Wand2 },
+  { href: "/assessment", label: "Assessment", icon: Activity },
 ];
 
 export function Sidebar() {
