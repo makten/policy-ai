@@ -20,5 +20,10 @@
     <ProjectReference Include="..\PolicyEngine.Application\PolicyEngine.Application.csproj" />
     <ProjectReference Include="..\PolicyEngine.Infrastructure\PolicyEngine.Infrastructure.csproj" />
   </ItemGroup>
-
+  <!-- Copy options.json to the output directory so BuildSystemPrompt can load it at runtime -->
+  <ItemGroup>
+    <Content Include="..\..\context\options.json" Link="context\options.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

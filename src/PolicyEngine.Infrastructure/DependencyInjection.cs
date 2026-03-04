@@ -64,6 +64,19 @@ public static class DependencyInjection
             CheckCertificateRevocationList = false
         });
 
+        // Decision API proxy
+        services.AddHttpClient("DecisionAPI", client =>
+        {
+            var baseUrl = configuration["DecisionApi:BaseUrl"]
+                ?? throw new InvalidOperationException("DecisionApi:BaseUrl is not configured");
+            client.BaseAddress = new Uri(baseUrl);
+            client.Timeout = TimeSpan.FromMinutes(2);
+        })
+        .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+        {
+            CheckCertificateRevocationList = false
+        });
+
         // RAG Services
         services.AddScoped<IEmbeddingService, OpenAiEmbeddingService>();
         services.AddScoped<IPolicyRetriever, PgVectorPolicyRetriever>();

@@ -31,6 +31,8 @@ interface GeneratedBusinessRule {
 interface GenerateResponse {
   businessRules: GeneratedBusinessRule[];
   totalGenerated: number;
+  totalPolicies: number;
+  hasMore: boolean;
   tokenUsage: { callType: string; model: string; promptTokens: number; completionTokens: number; totalTokens: number } | null;
   warnings: string[];
 }
@@ -38,6 +40,10 @@ interface GenerateResponse {
 export default function GenerateBusinessRulesPage() {
   const [policyText, setPolicyText] = useState("");
   const [selectedDocumentId, setSelectedDocumentId] = useState<string>("");
+  const [batchSize, setBatchSize] = useState(3);
+  const [currentSkip, setCurrentSkip] = useState(0);
+  const [allRules, setAllRules] = useState<GeneratedBusinessRule[]>([]);
+  const [lastResponse, setLastResponse] = useState<GenerateResponse | null>(null);
   const [result, setResult] = useState<GenerateResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,41 +60,55 @@ export default function GenerateBusinessRulesPage() {
 
   const documents = documentsQuery.data ?? [];
 
-  async function handleGenerate() {
-    if (!policyText.trim() && !selectedDocumentId) return;
+  async function runBatch(skip: number) {
     setIsLoading(true);
     setError(null);
-    setResult(null);
 
     try {
       const { data } = await api.post<GenerateResponse>("/businessrules/generate", {
         policyText: policyText || undefined,
         policyDocumentId: selectedDocumentId || undefined,
+        batchSize,
+        skip,
       }, { timeout: 300_000 });
 
+      setAllRules((prev) => skip === 0 ? data.businessRules : [...prev, ...data.businessRules]);
+      setLastResponse(data);
       setResult(data);
+      setCurrentSkip(skip + data.businessRules.length);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unexpected error occurred.");
-      }
+      setError(err instanceof Error ? err.message : "An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }
   }
 
+  async function handleGenerate() {
+    if (!policyText.trim() && !selectedDocumentId) return;
+    setAllRules([]);
+    setCurrentSkip(0);
+    setResult(null);
+    setImportStatus({});
+    setImportErrors({});
+    setImportRefs({});
+    await runBatch(0);
+  }
+
+  async function handleNextBatch() {
+    await runBatch(currentSkip);
+  }
+
   async function handleCopy() {
-    if (!result) return;
-    const json = JSON.stringify(result.businessRules, null, 2);
+    if (!allRules.length) return;
+    const json = JSON.stringify(allRules, null, 2);
     await navigator.clipboard.writeText(json);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
 
   function handleDownload() {
-    if (!result) return;
-    const json = JSON.stringify(result.businessRules, null, 2);
+    if (!allRules.length) return;
+    const json = JSON.stringify(allRules, null, 2);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -115,8 +135,7 @@ export default function GenerateBusinessRulesPage() {
   }
 
   async function handleImportAll() {
-    if (!result) return;
-    for (const rule of result.businessRules) {
+    for (const rule of allRules) {
       if (importStatus[rule.code] === "success") continue;
       await handleImport(rule);
     }
@@ -132,6 +151,8 @@ export default function GenerateBusinessRulesPage() {
   }
 
   const canGenerate = !isLoading && (policyText.trim().length > 0 || !!selectedDocumentId);
+  const hasMore = lastResponse?.hasMore ?? false;
+  const totalPolicies = lastResponse?.totalPolicies ?? 0;
 
   return (
     <div className="space-y-6">
@@ -187,6 +208,24 @@ export default function GenerateBusinessRulesPage() {
             />
           </div>
 
+          {/* Batch size */}
+          <div className="flex items-center gap-3">
+            <label className="text-sm font-medium text-foreground whitespace-nowrap">
+              Policies per batch
+            </label>
+            <input
+              type="number"
+              min={1}
+              max={20}
+              value={batchSize}
+              onChange={(e) => setBatchSize(Math.max(1, Math.min(20, Number(e.target.value))))}
+              className="w-20 h-10 rounded-lg border border-border bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+            />
+            <span className="text-xs text-muted-foreground">
+              Max 20 per request — lower values are faster and more reliable.
+            </span>
+          </div>
+
           <Button
             onClick={handleGenerate}
             disabled={!canGenerate}
@@ -213,7 +252,12 @@ export default function GenerateBusinessRulesPage() {
             <CardContent className="pt-6 flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4">
                 <Badge variant="secondary" className="text-sm">
-                  {result.totalGenerated} business rule{result.totalGenerated !== 1 ? "s" : ""} generated
+                  {allRules.length} rule{allRules.length !== 1 ? "s" : ""} generated
+                  {totalPolicies > 0 && (
+                    <span className="ml-1 opacity-70">
+                      ({currentSkip}/{totalPolicies} policies processed)
+                    </span>
+                  )}
                 </Badge>
                 {result.tokenUsage && (
                   <span className="text-xs text-muted-foreground">
@@ -251,7 +295,7 @@ export default function GenerateBusinessRulesPage() {
           )}
 
           {/* Individual rules */}
-          {result.businessRules.map((rule) => (
+          {allRules.map((rule) => (
             <Card key={rule.code} className="overflow-hidden">
               <button
                 onClick={() => toggleRule(rule.code)}
@@ -358,6 +402,38 @@ export default function GenerateBusinessRulesPage() {
               )}
             </Card>
           ))}
+
+          {/* Load next batch */}
+          {hasMore && (
+            <div className="flex items-center justify-center pt-2">
+              <Button
+                onClick={handleNextBatch}
+                disabled={isLoading}
+                variant="outline"
+                className="gap-2"
+              >
+                {isLoading ? (
+                  <><Loader2 className="h-4 w-4 animate-spin" /> Generating…</>
+                ) : (
+                  <>
+                    <Wand2 className="h-4 w-4" />
+                    Generate next {batchSize} policies
+                    {totalPolicies > 0 && (
+                      <span className="text-muted-foreground ml-1">
+                        ({Math.min(batchSize, totalPolicies - currentSkip)} remaining of {totalPolicies - currentSkip})
+                      </span>
+                    )}
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+
+          {!hasMore && totalPolicies > 0 && (
+            <p className="text-center text-sm text-muted-foreground pt-2">
+              All {totalPolicies} policies processed.
+            </p>
+          )}
         </div>
       )}
     </div>
