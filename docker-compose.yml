@@ -46,6 +46,7 @@ services:
       dockerfile: Dockerfile.web
       args:
         NEXT_PUBLIC_API_URL: http://localhost:5236/api
+        NEXT_PUBLIC_ASSESSMENT_CONFIGURATION_API_URL: https://z781843-volksbank-assessment-service-force-mortgages-assessment.mortgages.topicus.finance/
     restart: unless-stopped
     ports:
       - "3000:3000"

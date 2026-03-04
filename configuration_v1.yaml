@@ -1,0 +1,893 @@
+openapi: 3.0.3
+info:
+  title: Assessment Configuration Api
+  version: 1.2.0
+  description: |
+    ## General rules:
+    * DateTimes are formatted as ISO-8601(yyyy-MM-dd'T'HH:mm:ss'Z')
+    * Dates are formatted as ISO-8601(yyyy-MM-dd) 
+    * Booleans are are formatted as 'true' or 'false'
+    * Decimals are separated by . symbol
+
+paths:
+  /api/v1/configuration/get-business-rule-details-list:
+    get:
+      description: Get business rule details list
+      parameters:
+        - name: active
+          in: query
+          schema:
+            type: boolean
+            default: default
+            description: Bool that indicates to include business rules that are active or not
+          nullable: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBusinessRuleDetailsListResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v1/configuration/get-business-rules:
+    get:
+      description: Get business rule list
+      parameters:
+        - name: request
+          in: query
+          schema:
+            $ref: "#/components/schemas/GetBusinessRulesRequest"
+            description: The filters are used to filter the business rules
+          required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBusinessRulesResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v1/configuration/get-business-rule-details:
+    get:
+      description: Get business rule details
+      parameters:
+        - name: ruleReference
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: The reference of the business rule
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBusinessRuleDetailsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v1/configuration/get-business-rule-options:
+    get:
+      description: Get business rule options
+      parameters:
+        - name: onlyActiveRulesOptions
+          in: query
+          required: true
+          schema:
+            type: boolean
+            description: Bool to decide the if the filter should include only the properties of active rules
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBusinessRuleOptionsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v1/configuration/add-business-rule:
+    post:
+      operationId: AddBusinessRule
+      description: Add a new business rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddBusinessRuleRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddBusinessRuleResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v1/configuration/update-business-rule:
+    put:
+      operationId: UpdateBusinessRule
+      description: Update an existing business rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBusinessRuleRequest"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/v1/configuration/delete-business-rule:
+    delete:
+      operationId: DeleteBusinessRule
+      description: Delete a business rule
+      parameters:
+        - name: ruleReference
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: The reference of the business rule to delete
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViolationProblemDetails"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+
+components:
+  schemas:
+    GetBusinessRulesRequest:
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: bool that indicates to include business rules that are active or not
+        decisionGroupReference:
+          type: string
+          format: uuid
+          description: The reference of the decision group
+        nhgApplicableType:
+          $ref: "#/components/schemas/NhgApplicableType"
+          description: The NHG applicable type
+        categoryType:
+          $ref: "#/components/schemas/CategoryType"
+          description: The arrangement type
+          maxLength: 255
+        arrangementType:
+          $ref: "#/components/schemas/ArrangementType"
+          description: The arrangement type
+        rejectionType:
+          $ref: "#/components/schemas/RejectionType"
+          description: The rejection type
+        parameterName:
+          type: string
+          description: The parameter name
+        productLineReference:
+          type: string
+          format: uuid
+          description: The reference to the productline
+      additionalProperties: false
+
+    GetBusinessRuleDetailsListResponse:
+      type: object
+      properties:
+        businessRuleCollection:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/BusinessRule"
+          description: Collection of the business rules
+      additionalProperties: false
+
+    GetBusinessRulesResponse:
+      type: object
+      properties:
+        businessRuleCollection:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/BusinessRuleListItem"
+          description: Collection of the business rules
+      additionalProperties: false
+
+    GetBusinessRuleDetailsResponse:
+      type: object
+      properties:
+        businessRule:
+          $ref: "#/components/schemas/BusinessRule"
+          description: The business rule
+      additionalProperties: false
+
+    GetBusinessRuleOptionsResponse:
+      required:
+      - decisionGroups
+      - categories
+      - arrangements
+      - rejectionTypes
+      - parameters
+      - nhgApplicableTypes
+      - productLines
+      type: object
+      properties:
+        decisionGroups:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ReferenceItem"
+          description: Array of the supported decision groups 
+        categories:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/CategoryType"
+          description: Array of category types in use by business rules
+        arrangements:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ArrangementType"
+          description: Array of arrangement types in use by business rules
+        rejectionTypes:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/RejectionType"
+          description: Array of rejection types in use by business rules
+        parameters:
+          type: array
+          items:
+            type: string
+          description: Array of the parameters in use by Assessment
+        nhgApplicableTypes:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/NhgApplicableType"
+          description: The NHG types supported
+        productLines:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ReferenceItem"
+          description: Array of the product lines in use by Assessment
+      additionalProperties: false
+    
+    BusinessRule:
+      required:
+      - code
+      - startDate
+      - description
+      - nhgApplicableType
+      - categoryType
+      - rejectionType
+      - employeeExplanation
+      - logicalExpression
+      - arrangementTypes
+      - parameters
+      - characteristics
+      - decisionGroups
+      - productLines
+      - isActive
+      - datePolicyType
+      type: object
+      properties:
+        code:
+          type: string
+          description: The code of the business rule
+        startDate:
+          type: string
+          format: date-time
+          description: Start date of the business rule
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of the business rule
+        description:
+          type: string
+          maxLength: 800
+          description: The description of the business rule
+        nhgApplicableType:
+          $ref: "#/components/schemas/NhgApplicableType"
+          description: Indicates if the business rule is applicable for NHG or not
+        categoryType:
+          $ref: "#/components/schemas/CategoryType"
+          description: Describes the category the business rule belongs to
+          maxLength: 255
+        rejectionType:
+          $ref: "#/components/schemas/RejectionType"
+          description: The result code when the business rule is false
+        employeeExplanation:
+          type: string
+          maxLength: 1000
+          description: The explanation the employee gets to see
+        customerExplanation:
+          type: string
+          maxLength: 1000
+          nullable: true
+          description: The explanation the customer gets to see
+        logicalExpression:
+          type: string
+          description: The logical expression
+        jsonExpression:
+          type: string
+          nullable: true
+          description: The JSON expression used for dynamic rule evaluation
+        arrangementTypes:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ArrangementType"
+          description: The arrangement types used
+        parameters:
+          type: array
+          items:
+            type: string
+          description: The names of the parameters used
+        characteristics:
+          type: array
+          items:
+            type: string
+          description: The names of the Characteristics used
+        decisionGroups:
+          type: array
+          items:
+            type: string
+          description: The names of the decision groups the business rule is used for
+        productLines:
+          type: array
+          items:
+            type: string
+          description: The names of the product lines the business rule is connected to
+        isActive:
+          type: boolean
+          description: Bool that indicates whether the business rule is active or not.
+        datePolicyType:
+          $ref: '#/components/schemas/DatePolicyType'
+          description: Indicates the date policy type of the business rule
+      additionalProperties: false
+
+    BusinessRuleListItem:
+      required:
+      - code
+      - ruleReference
+      - description
+      - categoryType
+      - rejectionType
+      type: object
+      properties:
+        code:
+          type: string
+          description: The code of the business rule 
+        ruleReference:
+          type: string
+          format: uuid
+          description: The Reference of the business rule
+        description:
+          type: string
+          maxLength: 800
+          description: The description of the business rule
+        categoryType:
+          $ref: "#/components/schemas/CategoryType"
+          description: Describes the category the business rule belongs to
+          maxLength: 255
+        rejectionType:
+          $ref: "#/components/schemas/RejectionType"
+          description: The result code when the business rule is false
+      additionalProperties: false
+
+    ReferenceItem:
+      required:
+      - reference
+      - value
+      type: object
+      properties:
+        reference:
+          type: string
+          format: uuid
+        value:
+          type: string
+      additionalProperties: false
+
+    NhgApplicableType:
+      type: string
+      enum:
+        - OnlyNotNhg
+        - OnlyNhg
+        - Both
+      description: The NHG applicable types
+
+    CategoryType:
+      type: string
+      enum:
+        - Conditions
+        - RealEstate
+        - CurrentProperty
+        - ChangeExistingMortgage
+        - Subsidy
+        - Insurance
+        - Applicant
+        - EmploymentSituation
+        - FinancialObligations
+        - Depots
+        - Interest
+        - Other
+        - Guarantees
+        - OfferMotivations
+        - ConstructionAccount
+        - DeedPassing
+        - Financial
+        - Collateral
+        - ResidualDebtFinancing
+        - CurrentMortgageElsewhere
+        - FRB
+      description: The category types
+
+    RejectionType:
+      type: string
+      enum:
+        - GV
+        - O
+        - GG
+        - P
+        - F2
+        - BB
+        - V
+        - VZ
+        - F1
+      description: The rejection types
+
+    ArrangementType:
+      type: string
+      enum:
+        - None
+        - NoArrangement
+        - FirstMortgage
+        - SequentialMortgageSameLender
+        - SequentialMortgageOtherLender
+        - FurtherAdvance
+        - Conversion
+        - Remortgage
+        - ConversionAndAdvance
+        - ConversionAndSequentialMortgage
+        - ContinuationNewInterest
+        - ContinuationMortgage
+        - SecondOrHigherInRankMortgage
+        - RelayMortgage
+      description: The arrangement types
+
+    AddBusinessRuleRequest:
+      required:
+      - code
+      - description
+      - startDate
+      - nhgApplicableType
+      - categoryType
+      - rejectionType
+      - employeeExplanation
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The code of the business rule
+        description:
+          type: string
+          maxLength: 800
+          description: The description of the business rule
+        startDate:
+          type: string
+          format: date-time
+          description: Start date of the business rule
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of the business rule
+        nhgApplicableType:
+          $ref: "#/components/schemas/NhgApplicableType"
+          description: Indicates if the business rule is applicable for NHG or not
+        categoryType:
+          $ref: "#/components/schemas/CategoryType"
+          description: Describes the category the business rule belongs to
+        rejectionType:
+          $ref: "#/components/schemas/RejectionType"
+          description: The result code when the business rule is false
+        employeeExplanation:
+          type: string
+          maxLength: 1000
+          description: The explanation the employee gets to see
+        customerExplanation:
+          type: string
+          maxLength: 1000
+          nullable: true
+          description: The explanation the customer gets to see
+        jsonExpression:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: The expression tree used for dynamic rule evaluation
+        arrangementTypes:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ArrangementType"
+          description: The arrangement types
+        decisionGroups:
+          type: array
+          items:
+            type: string
+          description: The names of the decision groups
+        productLines:
+          type: array
+          items:
+            type: string
+          description: The names of the product lines
+        datePolicyType:
+          $ref: "#/components/schemas/DatePolicyType"
+          nullable: true
+          description: The date policy type
+      additionalProperties: false
+
+    UpdateBusinessRuleRequest:
+      required:
+      - ruleReference
+      - code
+      - description
+      - startDate
+      - nhgApplicableType
+      - categoryType
+      - rejectionType
+      - employeeExplanation
+      - isActive
+      type: object
+      properties:
+        ruleReference:
+          type: string
+          format: uuid
+          description: The reference of the business rule
+        code:
+          type: integer
+          description: The code of the business rule
+        description:
+          type: string
+          maxLength: 800
+          description: The description of the business rule
+        startDate:
+          type: string
+          format: date-time
+          description: Start date of the business rule
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of the business rule
+        isActive:
+          type: boolean
+          description: Bool that indicates whether the business rule is active or not
+        nhgApplicableType:
+          $ref: "#/components/schemas/NhgApplicableType"
+          description: Indicates if the business rule is applicable for NHG or not
+        categoryType:
+          $ref: "#/components/schemas/CategoryType"
+          description: Describes the category the business rule belongs to
+        rejectionType:
+          $ref: "#/components/schemas/RejectionType"
+          description: The result code when the business rule is false
+        employeeExplanation:
+          type: string
+          maxLength: 1000
+          description: The explanation the employee gets to see
+        customerExplanation:
+          type: string
+          maxLength: 1000
+          nullable: true
+          description: The explanation the customer gets to see
+        jsonExpression:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: The expression tree used for dynamic rule evaluation
+        arrangementTypes:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ArrangementType"
+          description: The arrangement types
+        decisionGroups:
+          type: array
+          items:
+            type: string
+          description: The names of the decision groups
+        productLines:
+          type: array
+          items:
+            type: string
+          description: The names of the product lines
+        datePolicyType:
+          $ref: "#/components/schemas/DatePolicyType"
+          nullable: true
+          description: The date policy type
+      additionalProperties: false
+
+    AddBusinessRuleResponse:
+      type: object
+      properties:
+        ruleReference:
+          type: string
+          format: uuid
+          description: The reference of the created business rule
+      additionalProperties: false
+
+    DatePolicyType:
+      type: string
+      enum:
+        - ApplicationStartDate
+        - BindingOfferDate
+      description: The date policy types
+
+    ########################################################
+    #  Expression Node Model
+    ########################################################
+
+    ExpressionNode:
+      type: object
+      required:
+        - type
+      description: A node in the expression tree. The required fields depend on the node type.
+      properties:
+        type:
+          $ref: "#/components/schemas/ExpressionNodeType"
+          description: The type of expression node
+        left:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: Left operand (for binary expressions)
+        right:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: Right operand (for binary expressions)
+        expression:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: Inner expression (for unary and collection expressions)
+        condition:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: Condition expression (for If nodes)
+        trueExpression:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: Expression when condition is true (for If nodes)
+        falseExpression:
+          allOf:
+            - $ref: "#/components/schemas/ExpressionNode"
+          nullable: true
+          description: Expression when condition is false (for If nodes)
+        name:
+          type: string
+          nullable: true
+          description: Name of the parameter or characteristic
+        parameterType:
+          $ref: "#/components/schemas/ParameterType"
+          nullable: true
+          description: Type of the parameter (for Parameter nodes)
+        value:
+          nullable: true
+          description: Value for Constant or Characteristic nodes
+        valueType:
+          $ref: "#/components/schemas/ConstantValueType"
+          nullable: true
+          description: Type of the constant value (for Constant nodes)
+        enumType:
+          type: string
+          nullable: true
+          description: Enum type name (for Constant nodes with valueType Enum)
+        collection:
+          type: string
+          nullable: true
+          description: Collection property name (for ForEach and ForAtLeastOne nodes)
+        values:
+          type: array
+          nullable: true
+          items: {}
+          description: List of values (for IsOneOf nodes)
+        subtractionType:
+          $ref: "#/components/schemas/SubtractionType"
+          nullable: true
+          description: Unit of date subtraction (for SubtractDate nodes)
+        returnValue:
+          type: number
+          format: double
+          nullable: true
+          description: Return value when expression is null (for IsNullReturn nodes)
+      additionalProperties: false
+
+    ExpressionNodeType:
+      type: string
+      enum:
+        - Constant
+        - Parameter
+        - Characteristic
+        - And
+        - Or
+        - Equals
+        - NotEquals
+        - GreaterThan
+        - LessThan
+        - GreaterThanOrEqual
+        - LessThanOrEqual
+        - Add
+        - Subtract
+        - Multiply
+        - Divide
+        - Min
+        - Max
+        - IsNull
+        - IsNotNull
+        - IsNullOrZero
+        - IsNullReturn
+        - If
+        - ForEach
+        - ForAtLeastOne
+        - IsOneOf
+        - SubtractDate
+      description: The available expression node types
+
+    ParameterType:
+      type: string
+      enum:
+        - Boolean
+        - Decimal
+        - String
+        - DateTime
+      description: The available parameter types for Parameter nodes
+
+    ConstantValueType:
+      type: string
+      enum:
+        - Boolean
+        - Decimal
+        - String
+        - DateTime
+        - Enum
+      description: The available value types for Constant nodes
+
+    SubtractionType:
+      type: string
+      enum:
+        - Days
+        - Months
+        - Years
+      description: The unit for date subtraction
+
+    ########################################################
+    #  Error Response
+    ########################################################
+
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
+      additionalProperties: false
+
+    ViolationProblemDetails:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ProblemDetails"
+      properties:
+        violations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Violation"
+      additionalProperties: false
+
+    Violation:
+      required:
+        - field
+      type: object
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+      additionalProperties: false
