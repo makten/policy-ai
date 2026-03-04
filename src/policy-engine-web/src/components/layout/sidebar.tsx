@@ -37,7 +37,7 @@ export function Sidebar() {
       {/* Logo */}
       <div className="flex h-16 items-center gap-2 px-5 border-b border-white/10">
         <ShieldCheck className="h-7 w-7 text-primary" />
-        <span className="text-base font-bold tracking-tight">PolicyEngine</span>
+        <span className="text-base font-bold tracking-tight">Assessly</span>
       </div>
 
       {/* Navigation */}

@@ -1,4 +1,4 @@
-# PolicyEngine — AI-Powered Mortgage & Contract Validation Engine
+# Assessly — AI-Powered Mortgage & Contract Validation Engine
 
 ## Complete Application Documentation
 

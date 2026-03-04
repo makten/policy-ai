@@ -9,6 +9,7 @@ public class PolicyDocument : BaseEntity
     public string FileName { get; set; } = string.Empty;
     public string Entity { get; set; } = string.Empty;      // e.g., "ASN Bank", "MUNT Hypotheken"
     public string Version { get; set; } = string.Empty;      // e.g., "1 januari 2024"
+    public string? ContentHash { get; set; }                  // SHA-256 of original file bytes for dedup
     public bool IsActive { get; set; } = true;
 
     // Navigation

@@ -83,6 +83,20 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.EnsureCreatedAsync();
+
+    // Apply incremental schema changes not covered by EnsureCreated
+    await db.Database.ExecuteSqlRawAsync("""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_name = 'PolicyDocuments' AND column_name = 'ContentHash'
+            ) THEN
+                ALTER TABLE "PolicyDocuments" ADD COLUMN "ContentHash" character varying(64);
+                CREATE INDEX "IX_PolicyDocuments_ContentHash" ON "PolicyDocuments" ("ContentHash");
+            END IF;
+        END $$;
+        """);
 }
 
 app.Run();

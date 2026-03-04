@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PolicyEngine — AI-Powered Mortgage Validation",
+  title: "Assessly — AI-Powered Mortgage Validation",
   description:
     "Validate mortgage applications against dynamic business policies using AI.",
 };

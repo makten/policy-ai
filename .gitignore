@@ -24,3 +24,7 @@ Desktop.ini
 
 # Docker volumes
 pgdata/
+
+src/policy-engine-web/pnpm-lock.yaml
+
+src/policy-engine-web/pnpm-workspace.yaml
