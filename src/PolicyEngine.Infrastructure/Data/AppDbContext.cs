@@ -28,6 +28,8 @@ public class AppDbContext : DbContext
             e.Property(x => x.FileName).HasMaxLength(500).IsRequired();
             e.Property(x => x.Entity).HasMaxLength(200).IsRequired();
             e.Property(x => x.Version).HasMaxLength(100);
+            e.Property(x => x.ContentHash).HasMaxLength(64);
+            e.HasIndex(x => x.ContentHash);
             e.HasMany(x => x.Policies)
              .WithOne(p => p.PolicyDocument)
              .HasForeignKey(p => p.PolicyDocumentId)

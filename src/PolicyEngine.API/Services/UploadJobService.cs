@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using PolicyEngine.Application.DTOs;
@@ -281,6 +282,25 @@ public class UploadJobService
                 return;
             }
 
+            // Compute content hash for deduplication
+            var contentHash = ComputeContentHash(fileBytes);
+
+            // Check if a document with the same content already exists
+            var existingDoc = await repo.GetDocumentByHashAsync(contentHash, ct);
+            if (existingDoc != null)
+            {
+                job.Error = $"This file has already been imported as '{existingDoc.FileName}' (entity: {existingDoc.Entity}). "
+                          + $"Document contains {existingDoc.Policies.Count} policies.";
+                job.Status = "failed";
+                job.CompletedAt = DateTime.UtcNow;
+                job.AddEvent(new PdfExtractionProgressEvent
+                {
+                    Type = "duplicate_document",
+                    Message = job.Error
+                });
+                return;
+            }
+
             // Apply entity override: if user supplied an entity name, always use it
             if (!string.IsNullOrWhiteSpace(job.EntityOverride))
             {
@@ -317,7 +337,7 @@ public class UploadJobService
             PolicyUploadResultDto result;
             if (job.Mode == "upload")
                 result = await ImportWithConflictDetection(
-                    importFile, job.SourceType, repo, embeddingService, job);
+                    importFile, job.SourceType, contentHash, repo, embeddingService, job);
             else
                 result = await AnalyzeConflicts(importFile, job.SourceType, repo);
 
@@ -361,7 +381,7 @@ public class UploadJobService
     // ── Import logic (mirrors PoliciesController) ──────────────────
 
     private async Task<PolicyUploadResultDto> ImportWithConflictDetection(
-        PolicyImportFile importFile, string sourceType,
+        PolicyImportFile importFile, string sourceType, string contentHash,
         IPolicyRepository repo, IEmbeddingService embeddingService,
         UploadJob job)
     {
@@ -378,6 +398,7 @@ public class UploadJobService
                 FileName = doc.Meta.FileName,
                 Entity = doc.Meta.Entity,
                 Version = doc.Meta.Version,
+                ContentHash = contentHash,
                 IsActive = true
             };
             await repo.AddDocumentAsync(policyDoc, CancellationToken.None);
@@ -580,6 +601,12 @@ public class UploadJobService
 
     private static string Truncate(string? text, int maxLength) =>
         string.IsNullOrEmpty(text) ? "" : text.Length <= maxLength ? text : text[..maxLength] + "…";
+
+    private static string ComputeContentHash(byte[] data)
+    {
+        var hash = SHA256.HashData(data);
+        return Convert.ToHexStringLower(hash);
+    }
 
     private static string NormalizePolicyJson(string json)
     {

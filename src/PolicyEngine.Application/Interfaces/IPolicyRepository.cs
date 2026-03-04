@@ -11,6 +11,7 @@ public interface IPolicyRepository
     // PolicyDocument
     Task<List<PolicyDocument>> GetAllDocumentsAsync(CancellationToken ct = default);
     Task<PolicyDocument?> GetDocumentByIdAsync(Guid id, CancellationToken ct = default);
+    Task<PolicyDocument?> GetDocumentByHashAsync(string contentHash, CancellationToken ct = default);
     Task<PolicyDocument> AddDocumentAsync(PolicyDocument document, CancellationToken ct = default);
 
     // Policy

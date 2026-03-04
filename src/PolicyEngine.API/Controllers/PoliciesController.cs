@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Channels;
@@ -188,13 +189,27 @@ public class PoliciesController : ControllerBase
         PolicyImportFile importFile;
         string sourceType;
 
+        // Read file bytes for content hash computation
+        byte[] fileBytes;
+        using (var ms = new MemoryStream())
+        {
+            await file.CopyToAsync(ms, ct);
+            fileBytes = ms.ToArray();
+        }
+
+        // Check for duplicate document by content hash
+        var contentHash = ComputeContentHash(fileBytes);
+        var existingDoc = await _repo.GetDocumentByHashAsync(contentHash, ct);
+        if (existingDoc != null)
+            return Conflict(new { message = $"A document with identical content already exists: '{existingDoc.FileName}' (uploaded previously)." });
+
         switch (ext)
         {
             case ".json":
                 sourceType = "JSON";
                 try
                 {
-                    using var jsonStream = file.OpenReadStream();
+                    using var jsonStream = new MemoryStream(fileBytes);
                     importFile = await DeserializePolicyJsonAsync(jsonStream, ct);
                 }
                 catch (JsonException ex)
@@ -207,7 +222,7 @@ public class PoliciesController : ControllerBase
                 sourceType = "PDF";
                 try
                 {
-                    using var pdfStream = file.OpenReadStream();
+                    using var pdfStream = new MemoryStream(fileBytes);
                     importFile = await _pdfParser.ParsePdfAsync(pdfStream, file.FileName, maxPages, startCodeNumber: 0, ct);
                 }
                 catch (Exception ex)
@@ -223,7 +238,7 @@ public class PoliciesController : ControllerBase
         if (importFile.Documents == null || importFile.Documents.Count == 0)
             return BadRequest(new { message = "No policy documents found in the uploaded file." });
 
-        var result = await ImportWithConflictDetection(importFile, sourceType, ct);
+        var result = await ImportWithConflictDetection(importFile, sourceType, contentHash, ct);
         return Ok(result);
     }
 
@@ -329,8 +344,18 @@ public class PoliciesController : ControllerBase
             // Hold the file bytes so the stream survives after the IFormFile scope
             using var ms = new MemoryStream();
             await file.CopyToAsync(ms, ct);
+            var fileBytes = ms.ToArray();
             ms.Position = 0;
             var savedFileName = file.FileName;
+
+            // Compute content hash for dedup
+            var contentHash = ComputeContentHash(fileBytes);
+            var existingDoc = await _repo.GetDocumentByHashAsync(contentHash, ct);
+            if (existingDoc != null)
+            {
+                await WriteEvent("error", new { message = $"A document with identical content already exists: '{existingDoc.FileName}'." });
+                return;
+            }
 
             // Start the parser in the background — it writes progress events to the channel
             var parserTask = Task.Run(async () =>
@@ -365,7 +390,7 @@ public class PoliciesController : ControllerBase
             PolicyUploadResultDto uploadResult;
             if (mode == "upload")
             {
-                uploadResult = await ImportWithConflictDetection(importFile, "PDF", ct);
+                uploadResult = await ImportWithConflictDetection(importFile, "PDF", contentHash, ct);
             }
             else
             {
@@ -540,7 +565,7 @@ public class PoliciesController : ControllerBase
     }
 
     private async Task<PolicyUploadResultDto> ImportWithConflictDetection(
-        PolicyImportFile importFile, string sourceType, CancellationToken ct)
+        PolicyImportFile importFile, string sourceType, string? contentHash, CancellationToken ct)
     {
         var warnings = new List<string>();
         var results = new List<PolicyUploadItemResult>();
@@ -564,6 +589,7 @@ public class PoliciesController : ControllerBase
                 FileName = doc.Meta.FileName,
                 Entity = doc.Meta.Entity,
                 Version = doc.Meta.Version,
+                ContentHash = contentHash,
                 IsActive = true
             };
             await _repo.AddDocumentAsync(policyDoc, ct);
@@ -747,6 +773,12 @@ public class PoliciesController : ControllerBase
             : text.Length <= maxLength
                 ? text
                 : text[..maxLength] + "…";
+
+    private static string ComputeContentHash(byte[] data)
+    {
+        var hash = SHA256.HashData(data);
+        return Convert.ToHexStringLower(hash);
+    }
 
     /// <summary>
     /// Seed the database with policies from JSON files in a specified folder path.

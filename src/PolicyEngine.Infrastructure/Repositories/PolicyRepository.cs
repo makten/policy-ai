@@ -33,6 +33,13 @@ public class PolicyRepository : IPolicyRepository
             .FirstOrDefaultAsync(d => d.Id == id, ct);
     }
 
+    public async Task<PolicyDocument?> GetDocumentByHashAsync(string contentHash, CancellationToken ct = default)
+    {
+        return await _db.PolicyDocuments
+            .Include(d => d.Policies)
+            .FirstOrDefaultAsync(d => d.ContentHash == contentHash && d.IsActive, ct);
+    }
+
     public async Task<PolicyDocument> AddDocumentAsync(PolicyDocument document, CancellationToken ct = default)
     {
         _db.PolicyDocuments.Add(document);
