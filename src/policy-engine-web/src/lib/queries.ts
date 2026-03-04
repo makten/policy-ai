@@ -1,5 +1,6 @@
 import api from "@/lib/api";
 import type {
+  AssessmentDecisionResponseDto,
   AssessmentBusinessRuleListResponse,
   PolicyDto,
   PolicyDetailDto,
@@ -93,6 +94,23 @@ export async function fetchCategories(): Promise<string[]> {
 }
 
 // ─── Assessment Configuration ───────────────────────────────────────
+
+export async function executeAssessment(requestBody: unknown): Promise<Record<string, unknown>> {
+  const { data } = await api.post<Record<string, unknown>>("/assessment/execute", requestBody, {
+    timeout: 180_000,
+  });
+  return data;
+}
+
+export async function fetchAssessmentDecision(
+  assessmentCorrelationReference: string
+): Promise<AssessmentDecisionResponseDto> {
+  const { data } = await api.get<AssessmentDecisionResponseDto>("/decision/get-decision", {
+    params: { assessmentCorrelationReference },
+    timeout: 30_000,
+  });
+  return data;
+}
 
 export async function fetchAssessmentBusinessRules(
   active?: boolean

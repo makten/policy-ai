@@ -285,3 +285,31 @@ export interface AssessmentBusinessRule {
 export interface AssessmentBusinessRuleListResponse {
   businessRuleCollection: AssessmentBusinessRule[];
 }
+
+// ─── Assessment Decision API ────────────────────────────────────────────
+
+export interface DecisionOverruleResultDto {
+  motivation: string;
+  employeeReference: string;
+  reasonForOverrule: string | null;
+  overruleDateTime: string;
+  isApproved: boolean;
+}
+
+export interface DecisionRuleResultDto {
+  ruleReference: string;
+  resultCode: string;
+  employeeExplanation: string | null;
+  customerExplanation: string | null;
+  category: string;
+  ruleDescription: string;
+  overruleResultCollection: DecisionOverruleResultDto[] | null;
+}
+
+export interface AssessmentDecisionResponseDto {
+  resultCode: string;
+  decisionTimeStamp: number;
+  rejectMotivation: string | null;
+  secondApprovalReference: string | null;
+  ruleResultCollection: DecisionRuleResultDto[] | null;
+}
