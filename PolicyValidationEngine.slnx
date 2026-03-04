@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PolicyEngine.API/PolicyEngine.API.csproj" />
+    <Project Path="src/PolicyEngine.Application/PolicyEngine.Application.csproj" />
+    <Project Path="src/PolicyEngine.Domain/PolicyEngine.Domain.csproj" />
+    <Project Path="src/PolicyEngine.Infrastructure/PolicyEngine.Infrastructure.csproj" />
+  </Folder>
+</Solution>

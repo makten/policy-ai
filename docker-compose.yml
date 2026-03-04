@@ -1,0 +1,57 @@
+services:
+  # ── PostgreSQL + pgvector ──
+  postgres:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: policy_engine
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # ── .NET API ──
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    ports:
+      - "5236:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=policy_engine;Username=postgres;Password=postgres"
+      OpenAI__ApiKey: ${OPENAI_API_KEY:-}
+      OpenAI__Model: ${OPENAI_MODEL:-gpt-4o}
+      OpenAI__Endpoint: ${OPENAI_ENDPOINT:-https://api.openai.com/v1/chat/completions}
+      PdfExtraction__OutputDir: /app/pdf-output
+    volumes:
+      - pdf-output:/app/pdf-output
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ── Next.js Frontend ──
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:5236/api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  pdf-output:

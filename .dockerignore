@@ -1,0 +1,31 @@
+# Build artifacts
+**/bin/
+**/obj/
+**/.vs/
+
+# Node
+**/node_modules/
+**/.next/
+
+# IDE
+**/.idea/
+**/.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+**/Dockerfile*
+docker-compose*.yml
+
+# Docs
+*.md
+docs/
+
+# Tests
+tests/
+
+# OS
+**/.DS_Store
+**/Thumbs.db

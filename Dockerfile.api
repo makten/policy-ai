@@ -1,0 +1,34 @@
+# ── Build stage ──
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
+WORKDIR /src
+
+# Copy project files and restore
+COPY src/PolicyEngine.Domain/PolicyEngine.Domain.csproj src/PolicyEngine.Domain/
+COPY src/PolicyEngine.Application/PolicyEngine.Application.csproj src/PolicyEngine.Application/
+COPY src/PolicyEngine.Infrastructure/PolicyEngine.Infrastructure.csproj src/PolicyEngine.Infrastructure/
+COPY src/PolicyEngine.API/PolicyEngine.API.csproj src/PolicyEngine.API/
+COPY PolicyValidationEngine.slnx .
+RUN dotnet restore PolicyValidationEngine.slnx
+
+# Copy source and publish
+COPY src/PolicyEngine.Domain/ src/PolicyEngine.Domain/
+COPY src/PolicyEngine.Application/ src/PolicyEngine.Application/
+COPY src/PolicyEngine.Infrastructure/ src/PolicyEngine.Infrastructure/
+COPY src/PolicyEngine.API/ src/PolicyEngine.API/
+RUN dotnet publish src/PolicyEngine.API/PolicyEngine.API.csproj -c Release -o /app/publish --no-restore
+
+# ── Runtime stage ──
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS runtime
+WORKDIR /app
+
+COPY --from=build /app/publish .
+
+# Copy seed data files
+COPY GoodPolicy.json /app/seed-data/
+COPY mun_policies.json /app/seed-data/
+
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Development
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "PolicyEngine.API.dll"]

@@ -1,0 +1,2941 @@
+{
+  "documents": [
+    {
+      "meta": {
+        "fileName": "munt_hypotheekgids_2026.pdf",
+        "entity": "MUNT Hypotheken",
+        "version": "2026.001"
+      },
+      "policies": [
+    {
+      "policy_code": "POL-0001",
+      "title": "In deze ‘regels voor het accepteren en verstrekken van een hypotheek’ staat wie",
+      "category": "Mortgage Policy",
+      "source_page": 4,
+      "section": "1.1",
+      "description": "In deze ‘regels voor het accepteren en verstrekken van een hypotheek’ staat wie we met een hypotheek kunnen helpen, hoe het huis er uitziet en hoe de hypotheek wordt terugbetaald."
+    },
+    {
+      "policy_code": "POL-0002",
+      "title": "De aanvrager gebruikt het huis niet zakelijk of als belegging en verhuurt het hu",
+      "category": "Mortgage Policy",
+      "source_page": 4,
+      "section": "1.1",
+      "description": "De aanvrager gebruikt het huis niet zakelijk of als belegging en verhuurt het huis ook niet, tenzij daarvoor schriftelijke toestemming van de Volksbank is gegeven."
+    },
+    {
+      "policy_code": "POL-0003",
+      "title": "In deze lijst beschrijven we waar de meest voorkomende stukken bij een hypotheek",
+      "category": "Mortgage Policy",
+      "source_page": 4,
+      "section": "1.1",
+      "description": "In deze lijst beschrijven we waar de meest voorkomende stukken bij een hypotheekaanvraag aan moeten voldoen."
+    },
+    {
+      "policy_code": "POL-0004",
+      "title": "Tenzij we in onze regels extra voorwaarden stellen.",
+      "category": "Mortgage Policy",
+      "source_page": 5,
+      "section": "1.2",
+      "description": "Tenzij we in onze regels extra voorwaarden stellen."
+    },
+    {
+      "policy_code": "POL-0005",
+      "title": "Onze aanvrager is handelingsbekwaam, woont in Nederland en mag hier voor de duur",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "1.2",
+      "description": "Onze aanvrager is handelingsbekwaam, woont in Nederland en mag hier voor de duur van de hypotheek wonen en onbeperkt werken."
+    },
+    {
+      "policy_code": "POL-0006",
+      "title": "De partner moet dan voor een gelijk deel eigenaar worden van het huis 1.",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "1.2",
+      "description": "De partner moet dan voor een gelijk deel eigenaar worden van het huis 1."
+    },
+    {
+      "policy_code": "POL-0007",
+      "title": "De aanvrager mag 1 mede ­ aanvrager hebben.",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "1.2",
+      "description": "De aanvrager mag 1 mede ­ aanvrager hebben."
+    },
+    {
+      "policy_code": "POL-0008",
+      "title": "• Iemand op grond van een tijdelijke verblijfsvergunning, als het verblijfdoel p",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "1.2",
+      "description": "• Iemand op grond van een tijdelijke verblijfsvergunning, als het verblijfdoel permanent is (tenzij het inkomen van die aanvrager niet nodig is voor de aanvraag)."
+    },
+    {
+      "policy_code": "POL-0009",
+      "title": "• Iemand die een hypotheek aanvraagt met maximaal 2 personen (dit geldt niet voo",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "1.2",
+      "description": "• Iemand die een hypotheek aanvraagt met maximaal 2 personen (dit geldt niet voor ouders die mee tekenen)."
+    },
+    {
+      "policy_code": "POL-0010",
+      "title": "Iemand die samen koopt met een broer, zus, vader, moeder, zoon of dochter Aanvra",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "1.2",
+      "description": "Iemand die samen koopt met een broer, zus, vader, moeder, zoon of dochter Aanvragers moeten aantonen dat er sprake is van een duurzame relatie voor het aangaan van een hypo­ theek."
+    },
+    {
+      "policy_code": "POL-0011",
+      "title": "7 2.1 Binding met Nederland We verstrekken een hypotheek als de aanvrager 3 jaar",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "2.1",
+      "description": "7 2.1 Binding met Nederland We verstrekken een hypotheek als de aanvrager 3 jaar in Nederland woont (ingezetene is) of heeft gewoond (ingezetene is geweest)."
+    },
+    {
+      "policy_code": "POL-0012",
+      "title": "Dan moet de aanvrager voldoende binding met Nederland aantonen.",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "2.1",
+      "description": "Dan moet de aanvrager voldoende binding met Nederland aantonen."
+    },
+    {
+      "policy_code": "POL-0013",
+      "title": "Tenzij het inkomen van deze aanvrager niet nodig is voor de hypotheek.",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "2.1",
+      "description": "Tenzij het inkomen van deze aanvrager niet nodig is voor de hypotheek."
+    },
+    {
+      "policy_code": "POL-0014",
+      "title": "2.2 Betaalgedrag Bij het verstrekken van een hypotheek houden we rekening met he",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "2.2",
+      "description": "2.2 Betaalgedrag Bij het verstrekken van een hypotheek houden we rekening met het betaalgedrag van de aanvrager."
+    },
+    {
+      "policy_code": "POL-0015",
+      "title": "Mogelijkheden voor klanten met een hypotheek bij de Volksbank • We staan maximaa",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "2.2",
+      "description": "Mogelijkheden voor klanten met een hypotheek bij de Volksbank • We staan maximaal 1 herstelde of afgeloste A­ of A1­codering per aanvraag toe, als een bestaande klant met een hypotheek bij 1 van de merk en van de Volksbank een onderhandse verhoging of vervolg­ hypotheek wil aanvragen vanwege relatiebreuk, verduurzaming of dringend noodzakelijk onderhoud."
+    },
+    {
+      "policy_code": "POL-0016",
+      "title": "8 CODE T OEGESTAAN VOOR A CHTERSTANDS- T OEGESTAAN VOOR FINANCIERING CODERING FI",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "2.2",
+      "description": "8 CODE T OEGESTAAN VOOR A CHTERSTANDS- T OEGESTAAN VOOR FINANCIERING CODERING FINANCIERING RK / AK Ja A Nee O A Ja H Nee ZK Ja 1 Nee HO Ja 2 Nee , alleen toegestaan in combinatie met finale kwijting NHG RO / Z O Nee 3 Nee , alleen toegestaan in combinatie met • HY met finale kwijting NHG of; • RN, de praktisch laatste aflosdatum moet dan gelijk zijn aan de registratie- datum van de 3-codering."
+    },
+    {
+      "policy_code": "POL-0017",
+      "title": "HY Nee , tenzij finale 4 Nee kwijting NHG RN Ja 5 Nee RH Ja SR / SK / SH Nee Reg",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "2.3",
+      "description": "HY Nee , tenzij finale 4 Nee kwijting NHG RN Ja 5 Nee RH Ja SR / SK / SH Nee Regels ook voor NHG De regels die gelden voor het betaalgedrag van de aanvrager, gelden voor klanten die een hypotheek met NHG en zonder NHG aanvragen."
+    },
+    {
+      "policy_code": "POL-0018",
+      "title": "De verklaring moet zijn afgegeven nadat de proeftijd is verstreken en voldoen aa",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "2.3.1",
+      "description": "De verklaring moet zijn afgegeven nadat de proeftijd is verstreken en voldoen aan de richtlijnen van de NHG."
+    },
+    {
+      "policy_code": "POL-0019",
+      "title": "• Structureel inkomen uit overwerk, bonus en provisie van de afgelopen 12 maande",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "2.3.1",
+      "description": "• Structureel inkomen uit overwerk, bonus en provisie van de afgelopen 12 maanden tot maximaal 20% van het vaste inkomen, als: • dit gebruikelijk is in de bedrijfstak; • en het inkomen naar de toekomst ook te verwachten is; • het bedrag aan bonus of provisie niet verbonden is aan het bedrijfsresultaat."
+    },
+    {
+      "policy_code": "POL-0020",
+      "title": "De gevraagde hypotheek moet in de huidige situatie en als het inkomen met een ei",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "2.3.7",
+      "description": "De gevraagde hypotheek moet in de huidige situatie en als het inkomen met een einddatum wegvalt, passen binnen de standaard­ norm."
+    },
+    {
+      "policy_code": "POL-0021",
+      "title": "2 Het uitzendbureau moet gecertificeerd zijn en ingeschreven staan in het regist",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "2.3.7",
+      "description": "2 Het uitzendbureau moet gecertificeerd zijn en ingeschreven staan in het register van de S tichting Perspectiefverklaring (perspectief- verklaring.nl/register)."
+    },
+    {
+      "policy_code": "POL-0022",
+      "title": "• De hypotheek moet betaalbaar zijn op basis van de annuïtaire toets op het mome",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "2.3.9",
+      "description": "• De hypotheek moet betaalbaar zijn op basis van de annuïtaire toets op het moment van toetsen en wanneer beide aanvragers de pensioenleeftijd hebben bereikt."
+    },
+    {
+      "policy_code": "POL-0023",
+      "title": "• Het tekort op de annuïtaire toets is tijdelijk, met een maximum van 10 jaar.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "2.3.9",
+      "description": "• Het tekort op de annuïtaire toets is tijdelijk, met een maximum van 10 jaar."
+    },
+    {
+      "policy_code": "POL-0024",
+      "title": "• Bij een schuld­marktwaardeverhouding van ≤ 50% mag de rentevaste periode ook k",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "2.3.9",
+      "description": "• Bij een schuld­marktwaardeverhouding van ≤ 50% mag de rentevaste periode ook korter zijn."
+    },
+    {
+      "policy_code": "POL-0025",
+      "title": "• De huurinkomsten nemen we mee tot maximaal het inkomen uit arbeid.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "2.3.10",
+      "description": "• De huurinkomsten nemen we mee tot maximaal het inkomen uit arbeid."
+    },
+    {
+      "policy_code": "POL-0026",
+      "title": "• Een aanvrager heeft maximaal vier verhuurde huizen in bezit.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "2.3.10",
+      "description": "• Een aanvrager heeft maximaal vier verhuurde huizen in bezit."
+    },
+    {
+      "policy_code": "POL-0027",
+      "title": "Het toetsinkomen van Charlotte is: € 40.000 + € 9.750 (€ 35.000 x 85% ­ / ­ € 20",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "2.3.11",
+      "description": "Het toetsinkomen van Charlotte is: € 40.000 + € 9.750 (€ 35.000 x 85% ­ / ­ € 20.000) = € 49.750 2.3.11 Belastingplichtig in het buitenland Als een aanvrager in het buitenland belasting moet betalen, geldt alleen vast inkomen (in euro’s) als toets­ inkomen."
+    },
+    {
+      "policy_code": "POL-0028",
+      "title": "• Als de aanvrager een loondienstverband van 32 uur of meer heeft, dan mag het t",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "2.4.3",
+      "description": "• Als de aanvrager een loondienstverband van 32 uur of meer heeft, dan mag het toetsinkomen uit de onderneming niet meer bedragen dan maximaal 30% van het toetsinkomen uit loondienst op jaarbasis van dezelfde aanvrager."
+    },
+    {
+      "policy_code": "POL-0029",
+      "title": "• In geval van (opbouw van) pensioen in eigen beheer moet er een beoordelingsver",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "2.4.3",
+      "description": "• In geval van (opbouw van) pensioen in eigen beheer moet er een beoordelingsverklaring opgesteld worden."
+    },
+    {
+      "policy_code": "POL-0030",
+      "title": "• Het saldo fiscale winst van het laatste jaar is altijd het maximum.",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.5",
+      "description": "• Het saldo fiscale winst van het laatste jaar is altijd het maximum."
+    },
+    {
+      "policy_code": "POL-0031",
+      "title": "• Als maximum geldt het jaarsalaris van het laatste jaar.",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.5",
+      "description": "• Als maximum geldt het jaarsalaris van het laatste jaar."
+    },
+    {
+      "policy_code": "POL-0032",
+      "title": "• Als er in een boekjaar een verlies is gemaakt, dan nemen we dit mee bij het be",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.5",
+      "description": "• Als er in een boekjaar een verlies is gemaakt, dan nemen we dit mee bij het bepalen van het toets­ inkomen • Overwinst en dividend kunnen worden meegenomen maar alleen als de onderneming een vaste accountant of administrateur heeft die schriftelijk bevestigt dat deze onttrekkingen de bedrijfsvoering niet aantasten."
+    },
+    {
+      "policy_code": "POL-0033",
+      "title": "Dat is mogelijk tot maximaal het loon van de DGA, plus de winst na vennootschaps",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.5",
+      "description": "Dat is mogelijk tot maximaal het loon van de DGA, plus de winst na vennootschapsbelasting van het laatste jaar."
+    },
+    {
+      "policy_code": "POL-0034",
+      "title": "2.4.6 Meer dan drie entiteiten Er moet sprake zijn van een eenvoudige juridische",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.6",
+      "description": "2.4.6 Meer dan drie entiteiten Er moet sprake zijn van een eenvoudige juridische structuur."
+    },
+    {
+      "policy_code": "POL-0035",
+      "title": "Hiermee bedoelen we een organisatie­ structuur die bestaat uit maximaal 3 entite",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.6",
+      "description": "Hiermee bedoelen we een organisatie­ structuur die bestaat uit maximaal 3 entiteiten."
+    },
+    {
+      "policy_code": "POL-0036",
+      "title": "We keuren die jaarrapporten alleen goed als de vaste accountant of administrateu",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "2.4.6",
+      "description": "We keuren die jaarrapporten alleen goed als de vaste accountant of administrateur de consolidatie doet."
+    },
+    {
+      "policy_code": "POL-0037",
+      "title": "• Er moet een prognose worden aangeleverd die is opgesteld door de vaste account",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "2.4.7",
+      "description": "• Er moet een prognose worden aangeleverd die is opgesteld door de vaste accountant of administra­ teur."
+    },
+    {
+      "policy_code": "POL-0038",
+      "title": "Maar alleen als: • de aanvrager partner is geworden in het bedrijf waarin de aan",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "2.4.9",
+      "description": "Maar alleen als: • de aanvrager partner is geworden in het bedrijf waarin de aanvrager werknemer was, of; • de aanvrager een leidinggevende functie had in de onderneming die de aanvrager heeft overgeno­ men."
+    },
+    {
+      "policy_code": "POL-0039",
+      "title": "2.4.9 Beoordelingsverklaring Als de aanvrager 1 of meer inschrijvingen in de Kam",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "2.4.9",
+      "description": "2.4.9 Beoordelingsverklaring Als de aanvrager 1 of meer inschrijvingen in de Kamer van Koophandel heeft (en geen onderneming(en) naar buitenlands recht) en het inkomen uit deze onderneming(en) is niet nodig voor de hypotheek­ aanvraag, dan moet beoordeeld worden of de onderneming buiten beschouwing kan worden gelaten."
+    },
+    {
+      "policy_code": "POL-0040",
+      "title": "Het huis: • is goed onderhouden; • is door de gemeente bestemd voor permanente b",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "3.1.1",
+      "description": "Het huis: • is goed onderhouden; • is door de gemeente bestemd voor permanente bewoning; • is of komt in eigendom van de aanvrager; • is courant; • is in de 12 maanden voor de passeerdatum niet van eigenaar veranderd, tenzij de reden hiervoor verer­ ving of de terugkoopverplichting van een stichting is; • staat op schone grond; • is een volledig zelfstandige woning; • heeft een minimale woonoppervlakte van 30 m2 (indien met NHG); • heeft een minimale woonoppervlakte van 50 m2 (indien zonder NHG)."
+    },
+    {
+      "policy_code": "POL-0041",
+      "title": "3.1.2 Huizen met een gedeeltelijk e woonbestemming We kunnen een hypotheek verst",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "3.1.2",
+      "description": "3.1.2 Huizen met een gedeeltelijk e woonbestemming We kunnen een hypotheek verstrekken als een deel van het huis een zakelijke of agrarische bestemming heeft als: • het om 1 kadastraal geheel gaat; • de aanvragers minimaal 60% van de totale marktwaarde als huis gebruiken; • het hele huis in eigen gebruik is; • er geen boerenbedrijf in zit."
+    },
+    {
+      "policy_code": "POL-0042",
+      "title": "Dit zijn de regels die gelden: • De hypotheek is maximaal 70% van de marktwaarde",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "3.1.3",
+      "description": "Dit zijn de regels die gelden: • De hypotheek is maximaal 70% van de marktwaarde."
+    },
+    {
+      "policy_code": "POL-0043",
+      "title": "T oetsing van voormalige recreatie­ woningen tegen de reguliere acceptatienormen",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "T oetsing van voormalige recreatie­ woningen tegen de reguliere acceptatienormen is alleen mogelijk als: • het hele park de bestemming ‘wonen’ heeft gekregen; • de parkvoorwaarden zijn opgeheven."
+    },
+    {
+      "policy_code": "POL-0044",
+      "title": "3.1.4 Nieuwbouwhuizen in eigen beheer We verstrekken hypotheken voor huizen die",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "3.1.4 Nieuwbouwhuizen in eigen beheer We verstrekken hypotheken voor huizen die (voor een deel) in eigen beheer worden gebouwd."
+    },
+    {
+      "policy_code": "POL-0045",
+      "title": "De aanvrager koopt dus niet (of alleen casco) bij een projectontwikkelaar.",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "De aanvrager koopt dus niet (of alleen casco) bij een projectontwikkelaar."
+    },
+    {
+      "policy_code": "POL-0046",
+      "title": "Dat kan alleen als de bouw is goedgekeurd met een omgevingsvergunning.",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "Dat kan alleen als de bouw is goedgekeurd met een omgevingsvergunning."
+    },
+    {
+      "policy_code": "POL-0047",
+      "title": "Verder geldt: • Er moet een maximale aanneemsom in de aanneemovereenkomst zijn o",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "Verder geldt: • Er moet een maximale aanneemsom in de aanneemovereenkomst zijn opgenomen en; • Een waarborgcertificaat of afbouwgarantie is verplicht."
+    },
+    {
+      "policy_code": "POL-0048",
+      "title": "Bouw in eigen beheer Om in aanmerking te komen voor een hypotheek voor het bouwe",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "Bouw in eigen beheer Om in aanmerking te komen voor een hypotheek voor het bouwen van een huis (voor een deel) in eigen beheer zonder waarborgcertificaat of afbouwgarantie, moet de aanvraag voldoen aan de volgende criteria: • De maximale financiering op inkomen is 80% van de maximale hypotheek volgens de standaardnorm."
+    },
+    {
+      "policy_code": "POL-0049",
+      "title": "Om in aanmerking te komen voor een hypotheek voor het bouwen van een prefabwonin",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "3.1.4",
+      "description": "Om in aanmerking te komen voor een hypotheek voor het bouwen van een prefabwoning zonder waarborgcertificaat of afbouwgarantie, moet de aanvraag voldoen aan deze regels: • De maximale financiering op inkomen is 90% van de maximale hypotheek volgens de standaardnorm."
+    },
+    {
+      "policy_code": "POL-0050",
+      "title": "3.1.6 Coöperatief eigendom4 Als het onderpand onderdeel is van een coöperatieve",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.1.6",
+      "description": "3.1.6 Coöperatief eigendom4 Als het onderpand onderdeel is van een coöperatieve vereniging, kunnen we een hypotheek verstrekken als: • de aanvrager een eigen lidmaatschapsrecht heeft of krijgt; • het lidmaatschapsrecht verpand wordt aan ons door een notariële akte; • de statuten van de vereniging vóór het uitbrengen van de offerte bij ons bekend zijn."
+    },
+    {
+      "policy_code": "POL-0051",
+      "title": "Blijkt uit de statuten dat het lidmaatschapsrecht niet verpand mag worden?",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.1.6",
+      "description": "Blijkt uit de statuten dat het lidmaatschapsrecht niet verpand mag worden?"
+    },
+    {
+      "policy_code": "POL-0052",
+      "title": "Dan hebben we schriftelijke toestemming van de vereniging nodig waarin staat dat",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.1.6",
+      "description": "Dan hebben we schriftelijke toestemming van de vereniging nodig waarin staat dat het lidmaatschap aan ons verpand mag worden."
+    },
+    {
+      "policy_code": "POL-0053",
+      "title": "De coöperatieve vereniging moet gezond zijn.",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.1.6",
+      "description": "De coöperatieve vereniging moet gezond zijn."
+    },
+    {
+      "policy_code": "POL-0054",
+      "title": "We checken dat aan de hand van: • de inhoud van de statuten; • de omvang (minima",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.1.6",
+      "description": "We checken dat aan de hand van: • de inhoud van de statuten; • de omvang (minimaal 25 appartementen, tenzij we hiervoor al eens een hypotheek hebben verstrekt); • de manier van besturen (alleen professioneel bestuurde verenigingen); • de voorwaarde dat (aspirant­)leden zich moeten verantwoorden voor een commissie van toelating."
+    },
+    {
+      "policy_code": "POL-0055",
+      "title": "Vraagt iemand een hypotheek aan op alleen een opstalrecht?",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.1.7",
+      "description": "Vraagt iemand een hypotheek aan op alleen een opstalrecht?"
+    },
+    {
+      "policy_code": "POL-0056",
+      "title": "3.2 Bepaling van de marktwaarde Om een hypotheek af te sluiten moet de marktwaar",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "3.2",
+      "description": "3.2 Bepaling van de marktwaarde Om een hypotheek af te sluiten moet de marktwaarde van het huis worden vastgesteld."
+    },
+    {
+      "policy_code": "POL-0057",
+      "title": "Calcasa Desktop Taxatie Een Calcasa Desktop Taxatie kan niet worden gebruikt voo",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "3.2.1",
+      "description": "Calcasa Desktop Taxatie Een Calcasa Desktop Taxatie kan niet worden gebruikt voor het bepalen van de marktwaarde als: • er sprake is van maatwerk (artikel 4 lid 1 TRHK) • er sprake is van recht van erfpacht; • er sprake is van recht van opstal; • we het huis hebben uitgesloten in 3.1.7."
+    },
+    {
+      "policy_code": "POL-0058",
+      "title": "We gaan alleen uit van de marktwaarde na verbouwing, als dit blijkt uit een taxa",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "3.2.3",
+      "description": "We gaan alleen uit van de marktwaarde na verbouwing, als dit blijkt uit een taxatierapport."
+    },
+    {
+      "policy_code": "POL-0059",
+      "title": "het renteverlies (dat staat op een rentefinancieringsrek ening) tot maximaal 4%",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.2.4",
+      "description": "het renteverlies (dat staat op een rentefinancieringsrek ening) tot maximaal 4% van de optelsom van a tot en met c."
+    },
+    {
+      "policy_code": "POL-0060",
+      "title": "De aanvrager moet de prijsstijgingen wel kunnen betalen.",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.2.4",
+      "description": "De aanvrager moet de prijsstijgingen wel kunnen betalen."
+    },
+    {
+      "policy_code": "POL-0061",
+      "title": "Verder geldt: • Er moet een maximale aanneemsom in de aanneemovereenkomst zijn o",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.2.4",
+      "description": "Verder geldt: • Er moet een maximale aanneemsom in de aanneemovereenkomst zijn opgenomen en; • Een waarborgcertificaat of afbouwgarantie is verplicht."
+    },
+    {
+      "policy_code": "POL-0062",
+      "title": "Als een aanvraag voor projectbouw niet voldoet aan (een van) de bovenstaande cri",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.2.4",
+      "description": "Als een aanvraag voor projectbouw niet voldoet aan (een van) de bovenstaande criteria dan mag de verstrekking op inkomen niet hoger zijn dan 80% van de maximale hypotheek volgens de standaardnorm."
+    },
+    {
+      "policy_code": "POL-0063",
+      "title": "Dan kunnen we een hypotheek verstrekken.",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.3",
+      "description": "Dan kunnen we een hypotheek verstrekken."
+    },
+    {
+      "policy_code": "POL-0064",
+      "title": "Maar alleen als de overheid eigenaar is van de grond en de restduur van de erfpa",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.3",
+      "description": "Maar alleen als de overheid eigenaar is van de grond en de restduur van de erfpacht nog minimaal net zo lang loopt als de helft van de looptijd van de hypotheek."
+    },
+    {
+      "policy_code": "POL-0065",
+      "title": "We verstrekken geen hypotheek voor erfpacht als er sprake is van een minimale (a",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.3",
+      "description": "We verstrekken geen hypotheek voor erfpacht als er sprake is van een minimale (al dan niet verplichte) terugkoopsom/waarde van de grond."
+    },
+    {
+      "policy_code": "POL-0066",
+      "title": "3.4 Constructies ‘k open onder voorwaarden’ Koopconstructies onder voorwaarden a",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.4",
+      "description": "3.4 Constructies ‘k open onder voorwaarden’ Koopconstructies onder voorwaarden accepteren we alleen met NHG."
+    },
+    {
+      "policy_code": "POL-0067",
+      "title": "Voor al gefinancierde huizen bij de Volksbank kan hierop een uitzondering worden",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "3.4",
+      "description": "Voor al gefinancierde huizen bij de Volksbank kan hierop een uitzondering worden gemaakt voor zover het bestedingsdoel alleen verbeteren of verduurzamen van de woning is."
+    },
+    {
+      "policy_code": "POL-0068",
+      "title": "Dan moet de aanvrager de financiële verplichting aflossen en het krediet beëindi",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "4.1.1",
+      "description": "Dan moet de aanvrager de financiële verplichting aflossen en het krediet beëindigen."
+    },
+    {
+      "policy_code": "POL-0069",
+      "title": "Als de klant een verplichting niet op tijd kan aflossen, dan verstrekken we geen",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "4.1.1",
+      "description": "Als de klant een verplichting niet op tijd kan aflossen, dan verstrekken we geen hypotheek."
+    },
+    {
+      "policy_code": "POL-0070",
+      "title": "Dan moet de aanvrager genoeg eigen middelen hebben om zich deze situatie te kunn",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "4.1.2",
+      "description": "Dan moet de aanvrager genoeg eigen middelen hebben om zich deze situatie te kunnen veroor­ loven."
+    },
+    {
+      "policy_code": "POL-0071",
+      "title": "Dan verstrekken we de hypo­ theek als de woonlasten gedurende de tijdelijke situ",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "4.1.2",
+      "description": "Dan verstrekken we de hypo­ theek als de woonlasten gedurende de tijdelijke situatie met 2 huizen betaalbaar zijn."
+    },
+    {
+      "policy_code": "POL-0072",
+      "title": "Dan verstrekken we de hypotheek als de aanvrager aantoont de dubbele lasten te k",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "4.1.2",
+      "description": "Dan verstrekken we de hypotheek als de aanvrager aantoont de dubbele lasten te kunnen betalen: • Als het om bestaande bouw gaat, rekenen we met een periode van dubbele lasten van 1 jaar."
+    },
+    {
+      "policy_code": "POL-0073",
+      "title": "Haar maximaal toegestane financieringslast is € 12.000.",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.2",
+      "description": "Haar maximaal toegestane financieringslast is € 12.000."
+    },
+    {
+      "policy_code": "POL-0074",
+      "title": "Dan moet hij die eigen middelen als eerste gebruiken om de aankoop te betalen.",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.3",
+      "description": "Dan moet hij die eigen middelen als eerste gebruiken om de aankoop te betalen."
+    },
+    {
+      "policy_code": "POL-0075",
+      "title": "Dan moet de aanvrager aantonen dat hij dat heeft.",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.3",
+      "description": "Dan moet de aanvrager aantonen dat hij dat heeft."
+    },
+    {
+      "policy_code": "POL-0076",
+      "title": "Oversluiten van niet ­ NHG naar NHG is toegestaan als: • het aflossingsvrije dee",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.4",
+      "description": "Oversluiten van niet ­ NHG naar NHG is toegestaan als: • het aflossingsvrije deel van de hypotheek maximaal 50% van de marktwaarde is en; • in de nieuwe lening minimaal 10% meer lineair of annuïtair wordt afgelost dan in de oude lening, of; • er is sprake van een minimale verbouwing van € 2.500, of; • oversluiten naar NHG nodig is om woningbehoud voor de klant mogelijk te maken."
+    },
+    {
+      "policy_code": "POL-0077",
+      "title": "Zuivere oversluiting Gebruikt de aanvrager de nieuwe hypotheek alleen voor de af",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.4",
+      "description": "Zuivere oversluiting Gebruikt de aanvrager de nieuwe hypotheek alleen voor de aflossing van zijn huidige hypotheek, de betaling van de vergoeding voor het renteverlies van de bank, de advies ­ en oversluitkosten?"
+    },
+    {
+      "policy_code": "POL-0078",
+      "title": "Dan ver­ strekken we tot maximaal 100% van de marktwaarde, als de annuïtaire toe",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.4",
+      "description": "Dan ver­ strekken we tot maximaal 100% van de marktwaarde, als de annuïtaire toetslast lager is dan de toegestane financieringslast."
+    },
+    {
+      "policy_code": "POL-0079",
+      "title": "Dan verstrekken we tot maximaal 80% van de marktwaarde.",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.4",
+      "description": "Dan verstrekken we tot maximaal 80% van de marktwaarde."
+    },
+    {
+      "policy_code": "POL-0080",
+      "title": "Dan: • is de maximale schuld­marktwaardeverhouding 80%; • is de aanvraag betaalb",
+      "category": "Mortgage Policy",
+      "source_page": 20,
+      "section": "4.1.5",
+      "description": "Dan: • is de maximale schuld­marktwaardeverhouding 80%; • is de aanvraag betaalbaar volgens de standaardnorm; • worden deze leningdelen in maximaal 30 jaar afgelost volgens annuïtair of lineair aflosschema; • is het herfinancieren van een lening voor zakelijke doeleinde niet toegestaan."
+    },
+    {
+      "policy_code": "POL-0081",
+      "title": "Dan kunnen bestaande klanten6 tot maximaal 50% van de marktwaarde aflossingsvrij",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "4.1.5",
+      "description": "Dan kunnen bestaande klanten6 tot maximaal 50% van de marktwaarde aflossingsvrij lenen."
+    },
+    {
+      "policy_code": "POL-0082",
+      "title": "• Een kortere rentevaste periode met een minimum van 10 jaar is toegestaan als:",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "4.1.6",
+      "description": "• Een kortere rentevaste periode met een minimum van 10 jaar is toegestaan als: • de jongste aanvrager aan het einde van de rentevaste periode minimaal 85 jaar is, of; • de hypotheek aan het einde van de rentevaste periode kleiner is dan 50% van de marktwaarde van het huis."
+    },
+    {
+      "policy_code": "POL-0083",
+      "title": "Het renterisico van een kortere rentevaste periode moet dan onderbouwd zijn.",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "4.1.6",
+      "description": "Het renterisico van een kortere rentevaste periode moet dan onderbouwd zijn."
+    },
+    {
+      "policy_code": "POL-0084",
+      "title": "4.1.7 T oetslast van verplichtingen De toetslast van de financiële verplichtinge",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "4.1.7",
+      "description": "4.1.7 T oetslast van verplichtingen De toetslast van de financiële verplichtingen bepalen we zo: PRODUCT T OETSLAST Doorlopend krediet 2% van de limiet per maand Uitgestelde betaling Doorlopend krediet met contractuele Het bij BKR geregistreerde bedrag gedeeld door de looptijd, limietafbouw met een minimum van 2% van de oorspronk elijke kredietsom per maand A flopend krediet Het bij BKR geregistreerde bedrag gedeeld door de looptijd P ersoonlijke lening (werk elijke last) Leningen van de werkgever Operational Autolease Het bij BKR geregistreerde bedrag gedeeld door de looptijd (werk elijke last) BKR-registraties van voor 1-4-2022 moeten worden gecorrigeerd door de registratie te delen met een omrek en- factor van 0 ,65 Nieuwe restschuld bij ons of een restschuld 1e jaarlast."
+    },
+    {
+      "policy_code": "POL-0085",
+      "title": "Dan rekenen we met het termijnbedrag dat de aanvrager moet betalen aan rente en",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "4.1.8",
+      "description": "Dan rekenen we met het termijnbedrag dat de aanvrager moet betalen aan rente en aflossing van de studieschuld."
+    },
+    {
+      "policy_code": "POL-0086",
+      "title": "Of we verstrekken de restschuldfinanciering samen met de nieuwe hypotheek.",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "4.2.2",
+      "description": "Of we verstrekken de restschuldfinanciering samen met de nieuwe hypotheek."
+    },
+    {
+      "policy_code": "POL-0087",
+      "title": "• De financiering van de restschuld is maximaal € 30.000 (met uitzondering van k",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "4.2.2",
+      "description": "• De financiering van de restschuld is maximaal € 30.000 (met uitzondering van klanten die al een rest­ schuldfinanciering hebben)."
+    },
+    {
+      "policy_code": "POL-0088",
+      "title": "Bij NHG volgen we de Voorwaarden & Normen van NHG, waarin staat dat de ruimte in",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "4.2.2",
+      "description": "Bij NHG volgen we de Voorwaarden & Normen van NHG, waarin staat dat de ruimte in de financieringslast volledig benut moet zijn."
+    },
+    {
+      "policy_code": "POL-0089",
+      "title": "We verstrekken geen losse overbruggingshypotheek, waarbij het de verwachting is",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "4.2.3",
+      "description": "We verstrekken geen losse overbruggingshypotheek, waarbij het de verwachting is dat de hypotheek op korte termijn wordt afgelost."
+    },
+    {
+      "policy_code": "POL-0090",
+      "title": "Een overbruggingshypotheek bieden we alleen aan in combinatie met een eerste hyp",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "4.2.3",
+      "description": "Een overbruggingshypotheek bieden we alleen aan in combinatie met een eerste hypotheek van minimaal € 50.000."
+    },
+    {
+      "policy_code": "POL-0091",
+      "title": "Hoogte van de overbruggingshypotheek De maximale hoogte van de overbruggingshypo",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "4.2.3",
+      "description": "Hoogte van de overbruggingshypotheek De maximale hoogte van de overbruggingshypotheek berekenen we als volgt: De oude woning is verkocht (de koop kan niet meer ontbonden worden) Dan gaan we uit van 99% van de verkoopsom (excl."
+    },
+    {
+      "policy_code": "POL-0092",
+      "title": "W e gaan dan uit van maximaal 90% van de verkoopsom of getaxeerde marktwaarde.",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "4.2.3",
+      "description": "W e gaan dan uit van maximaal 90% van de verkoopsom of getaxeerde marktwaarde."
+    },
+    {
+      "policy_code": "POL-0093",
+      "title": "1 TRHK) is niet mogelijk Een aanvrager die in onze 25 90% Alleen lineair of annu",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "4.2.4",
+      "description": "1 TRHK) is niet mogelijk Een aanvrager die in onze 25 90% Alleen lineair of annuïtair grensstreek een huis koopt en blijft werken in eigen land Huizen met gedeeltelijke 30 100% woongedeelte Zak elijk/agrarisch woonbestemming 70% zak elijk/agrarisch gedeelte alleen gedeelte lineair of annuïtair R ecreatiewoning 30 70% Alleen lineair of annuïtair Overbrugging bij een 1  Bestaande bouw 99% Marktwaarde of verk oop- verkochte woning 2  Nieuwbouw prijs oude huis *99% - bestaande hypotheek- schuld = maximale over- brugging."
+    },
+    {
+      "policy_code": "POL-0094",
+      "title": "Maar alleen als de opbouw en het eindkapitaal gegarandeerd is.",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "4.2.5",
+      "description": "Maar alleen als de opbouw en het eindkapitaal gegarandeerd is."
+    },
+    {
+      "policy_code": "POL-0095",
+      "title": "Met bij 1 van onze merken bedoelen we: • SNS • ASN Bank • RegioBank • BLG Wonen1",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "5.1.1",
+      "description": "Met bij 1 van onze merken bedoelen we: • SNS • ASN Bank • RegioBank • BLG Wonen11 inclusief de volgende handelsnamen: • BLG Hypotheekbank N.V • Bouwfonds Limburg NV en Bouwfonds Limburg II NV • Holland Woning Financiering (HWF) • Woningfonds (WF) • DBV Finance*, • EuropeLife Finance* *Als de eerste hypotheek is afgesloten bij DBV Finance of EuropeLife Finance, kan een vervolglening alleen hier worden afgesloten."
+    },
+    {
+      "policy_code": "POL-0096",
+      "title": "Goed om te weten: • We verstrekken geen vervolgleningen of hogere inschrijvingen",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "5.1.1",
+      "description": "Goed om te weten: • We verstrekken geen vervolgleningen of hogere inschrijvingen voor coöperatief eigendom."
+    },
+    {
+      "policy_code": "POL-0097",
+      "title": "• We verstrekken geen hypotheek achter een hypotheek die niet bij ons loopt.",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "5.1.1",
+      "description": "• We verstrekken geen hypotheek achter een hypotheek die niet bij ons loopt."
+    },
+    {
+      "policy_code": "POL-0098",
+      "title": "• Een overbruggingshypotheek bieden we alleen aan in combinatie met een eerste h",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "5.1.2",
+      "description": "• Een overbruggingshypotheek bieden we alleen aan in combinatie met een eerste hypotheek van minimaal € 50.000."
+    },
+    {
+      "policy_code": "POL-0099",
+      "title": "5.1.2 Looptijd De looptijd van een hypotheek is minimaal 5 jaar en maximaal 30 j",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "5.1.3",
+      "description": "5.1.2 Looptijd De looptijd van een hypotheek is minimaal 5 jaar en maximaal 30 jaar, tenzij we sneller aflossen verplich­ ten of goedkeuren."
+    },
+    {
+      "policy_code": "POL-0100",
+      "title": "Aanvragen waarbij er wordt afgewek en van onze acceptatieregels Past de aanvraag",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "5.1.5",
+      "description": "Aanvragen waarbij er wordt afgewek en van onze acceptatieregels Past de aanvraag niet binnen onze regels maar denk je dat we toch een hypotheek kunnen verstrekken?"
+    },
+    {
+      "policy_code": "POL-0101",
+      "title": "Dan moet minimaal 80% van het toetsinkomen bestaan uit: • vast inkomen (2.3.1),",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "5.1.5",
+      "description": "Dan moet minimaal 80% van het toetsinkomen bestaan uit: • vast inkomen (2.3.1), of; • inkomen uit een tijdelijk dienstverband zonder intentie tot een vast dienstverband waarvan hoogte, duur en betalingsfrequentie schriftelijk zijn afgesproken maar alleen in combinatie met een Arbeids­ marktscan (2.3.2), of; • uitzendinkomen met een Perspectiefverklaring (2.3.2); • inkomen van een arts in opleiding of promovendus (2.3.3); • bijzonder inkomen met een einddatum (2.3.7) Deze inkomens noemen wij robuust bestendig inkomen."
+    },
+    {
+      "policy_code": "POL-0102",
+      "title": "5.1.6 W oonquote en samenstelling van het huishouden De maximaal toegestane fina",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "5.1.6",
+      "description": "5.1.6 W oonquote en samenstelling van het huishouden De maximaal toegestane financieringslast is gebaseerd op 2 aanvragers met 1 inkomen en zonder kinderen."
+    },
+    {
+      "policy_code": "POL-0103",
+      "title": "In de meeste gevallen kunnen tweeverdieners met kinderen of een alleenstaande ou",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "5.1.6",
+      "description": "In de meeste gevallen kunnen tweeverdieners met kinderen of een alleenstaande ouder met kinderen de financieringslasten ook betalen."
+    },
+    {
+      "policy_code": "POL-0104",
+      "title": "5.1.7 Opschor tende voorwaarden NHG Als een hypotheek verstrekt is met NHG onder",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "5.1.7",
+      "description": "5.1.7 Opschor tende voorwaarden NHG Als een hypotheek verstrekt is met NHG onder opschortende voorwaarden, dan moet de klant binnen 2 jaar voldoen aan de voorwaarden van NHG."
+    },
+    {
+      "policy_code": "POL-0105",
+      "title": "28 5.2 Fraudeprev entie en integriteit 5.2.1 Identificatie In de Wet ter voorkom",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "5.2.1",
+      "description": "28 5.2 Fraudeprev entie en integriteit 5.2.1 Identificatie In de Wet ter voorkoming van Witwassen en Financiering van Terrorisme (Wwft) staat dat de aanvrager zich moet identificeren met een geldig identiteitsbewijs."
+    },
+    {
+      "policy_code": "POL-0106",
+      "title": "Geen identificatie, geen hypotheek We verstrekken geen hypotheek aan een klant d",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "5.2.2",
+      "description": "Geen identificatie, geen hypotheek We verstrekken geen hypotheek aan een klant die zich niet bij ons heeft laten identificeren met een geldig identiteitsbewijs."
+    },
+    {
+      "policy_code": "POL-0107",
+      "title": "5.2.2 Burgerservicenummer Van iedere aanvrager of hoofdelijk aansprakelijke moet",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "5.2.2",
+      "description": "5.2.2 Burgerservicenummer Van iedere aanvrager of hoofdelijk aansprakelijke moeten we het Burgerservicenummer hebben bij de ondertekende bindende offerte."
+    },
+    {
+      "policy_code": "POL-0108",
+      "title": "Altijd externe toetsing We verstrekken geen hypotheek zonder toetsing van de ext",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "5.2.4",
+      "description": "Altijd externe toetsing We verstrekken geen hypotheek zonder toetsing van de externe databases."
+    },
+    {
+      "policy_code": "POL-0109",
+      "title": "Voorbeelden van deze branches zijn: • seksindustrie (zzp­er of onderneming met m",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "5.2.4",
+      "description": "Voorbeelden van deze branches zijn: • seksindustrie (zzp­er of onderneming met maximaal 1 medewerker in dienst) • belwinkels • gokindustrie • horeca • metaalrecycling en oud ijzer­ en schroothandel • handel in luxe goederen (kunst, edelmetalen, antiek etc.) • handel in gebruikte en luxe auto’s • schietverenigingen • tattooshops • projectontwikkelaars of onroerendgoedhandelaars Daarnaast krijgen aanvragers uit sommige branches bij ons geen hypotheek."
+    },
+    {
+      "policy_code": "POL-0110",
+      "title": "5.3.2 Geldige betaalbewijzen We doen alleen uitbetalingen uit een bouwdepot als",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "5.3.2 Geldige betaalbewijzen We doen alleen uitbetalingen uit een bouwdepot als we betaalbewijzen hebben."
+    },
+    {
+      "policy_code": "POL-0111",
+      "title": "Daar moeten dan deze gegevens opstaan: • de geleverde goederen en diensten • de",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "Daar moeten dan deze gegevens opstaan: • de geleverde goederen en diensten • de berekende prijzen • de plaats en datum van aflevering • Kassabonnen van de bouwmarkt."
+    },
+    {
+      "policy_code": "POL-0112",
+      "title": "Alle artikelen die een klant heeft afgerekend, moeten erop staan.",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "Alle artikelen die een klant heeft afgerekend, moeten erop staan."
+    },
+    {
+      "policy_code": "POL-0113",
+      "title": "De klant mag dan ook een rekeningoverzicht laten zien waar de betaling op staat.",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "De klant mag dan ook een rekeningoverzicht laten zien waar de betaling op staat."
+    },
+    {
+      "policy_code": "POL-0114",
+      "title": "Dit kan niet als er NHG op de hypotheek zit.",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "Dit kan niet als er NHG op de hypotheek zit."
+    },
+    {
+      "policy_code": "POL-0115",
+      "title": "Voorwaarden voor de nota of factuur Een nota of factuur moet aan deze voorwaarde",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "Voorwaarden voor de nota of factuur Een nota of factuur moet aan deze voorwaarden voldoen: • Op kopie van de nota of factuur staat het KvK­ nummer."
+    },
+    {
+      "policy_code": "POL-0116",
+      "title": "• Op de kopie van de nota of factuur moet dit staan: • product/dienst • prijs •",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "• Op de kopie van de nota of factuur moet dit staan: • product/dienst • prijs • aankoopmoment • datum aflevering • bedrag • De factuur(datum) of de datum op de kassabon mag niet ouder zij dan 6 maanden op het moment dat de klant die indient."
+    },
+    {
+      "policy_code": "POL-0117",
+      "title": "Dan moet de datum op de nota na de aanvraagdatum van de hypotheek liggen.",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.2",
+      "description": "Dan moet de datum op de nota na de aanvraagdatum van de hypotheek liggen."
+    },
+    {
+      "policy_code": "POL-0118",
+      "title": "De klant moet met een bankafschrift of bon van de pinbetaling bewijzen dat hij d",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.3",
+      "description": "De klant moet met een bankafschrift of bon van de pinbetaling bewijzen dat hij de nota of factuur heeft betaald."
+    },
+    {
+      "policy_code": "POL-0119",
+      "title": "Bij badkamers en keukens geldt een maximum van 15% van het aankoopbedrag tot max",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.3",
+      "description": "Bij badkamers en keukens geldt een maximum van 15% van het aankoopbedrag tot maximaal € 5.000."
+    },
+    {
+      "policy_code": "POL-0120",
+      "title": "Het bedrag dat overblijft en na de installatie betaald moet worden is geen vooru",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.3",
+      "description": "Het bedrag dat overblijft en na de installatie betaald moet worden is geen vooruitbetaling."
+    },
+    {
+      "policy_code": "POL-0121",
+      "title": "Maar soms moet de klant op de dag van levering dat bedrag betalen.",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.3",
+      "description": "Maar soms moet de klant op de dag van levering dat bedrag betalen."
+    },
+    {
+      "policy_code": "POL-0122",
+      "title": "Hij moet die rekening dan wel van tevoren bij ons indienen.",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.3",
+      "description": "Hij moet die rekening dan wel van tevoren bij ons indienen."
+    },
+    {
+      "policy_code": "POL-0123",
+      "title": "Klanten moeten altijd een factuur geven waaruit blijkt wat er betaald moet worde",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "5.3.4",
+      "description": "Klanten moeten altijd een factuur geven waaruit blijkt wat er betaald moet worden."
+    },
+    {
+      "policy_code": "POL-0124",
+      "title": "Dan kan het bouwdepot onder voorwaarden met maximaal 1 jaar worden ver­ lengd.",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.4",
+      "description": "Dan kan het bouwdepot onder voorwaarden met maximaal 1 jaar worden ver­ lengd."
+    },
+    {
+      "policy_code": "POL-0125",
+      "title": "Het saldo dat overblijft aan het einde van de bouw of looptijd moet afgelost wor",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.4",
+      "description": "Het saldo dat overblijft aan het einde van de bouw of looptijd moet afgelost worden op de hypotheek."
+    },
+    {
+      "policy_code": "POL-0126",
+      "title": "De looptijd van de rentefinancie­ ringsrekening is maximaal 2 jaar.",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.4",
+      "description": "De looptijd van de rentefinancie­ ringsrekening is maximaal 2 jaar."
+    },
+    {
+      "policy_code": "POL-0127",
+      "title": "Dan mag de klant het (resterend) bedrag in het bouwdepot voor andere verbouwinge",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.5",
+      "description": "Dan mag de klant het (resterend) bedrag in het bouwdepot voor andere verbouwingen gebruiken dan in het taxatierapport staat."
+    },
+    {
+      "policy_code": "POL-0128",
+      "title": "Dat mag alleen als we van tevoren een aangepaste verbouwingsspecificatie hebben",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.5",
+      "description": "Dat mag alleen als we van tevoren een aangepaste verbouwingsspecificatie hebben gekregen."
+    },
+    {
+      "policy_code": "POL-0129",
+      "title": "Dan moet er ook een taxatierapport bij, waarin de aangepaste verbouwing staat, d",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.5",
+      "description": "Dan moet er ook een taxatierapport bij, waarin de aangepaste verbouwing staat, dat niet ouder is dan 6 maanden."
+    },
+    {
+      "policy_code": "POL-0130",
+      "title": "Dan mag de klant die niet voor andere verbouwingen gebruiken, maar wordt het res",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.3.5",
+      "description": "Dan mag de klant die niet voor andere verbouwingen gebruiken, maar wordt het restant afgelost op de hypotheek."
+    },
+    {
+      "policy_code": "POL-0131",
+      "title": "Dan moet er altijd een nota voor kwaliteitsverbetering zijn uitbetaald, voordat",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "5.4",
+      "description": "Dan moet er altijd een nota voor kwaliteitsverbetering zijn uitbetaald, voordat hij het restant depot kan aflossen op de hypotheek."
+    },
+    {
+      "policy_code": "POL-0132",
+      "title": "31 5.5.2 Voorwaarden fiscale voortzetting bestaande verzekering of rekening?13 F",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "5.5.2",
+      "description": "31 5.5.2 Voorwaarden fiscale voortzetting bestaande verzekering of rekening?13 Fiscaal geruisloos voortzetten in een SEW mag alleen als de bestaande verzekering of rekening aan de regels voor een KEW, SEW en BEW voldoet."
+    },
+    {
+      "policy_code": "POL-0133",
+      "title": "Een aanvullende 1e storting, ‘hoog ­laag’ ­constructie of een inlegdepot kan nie",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "5.5.2",
+      "description": "Een aanvullende 1e storting, ‘hoog ­laag’ ­constructie of een inlegdepot kan niet."
+    },
+    {
+      "policy_code": "POL-0134",
+      "title": "We rekenen dus op voorhand uit hoe hoog het huishoudinkomen van de aanvra­ gers",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "5.6",
+      "description": "We rekenen dus op voorhand uit hoe hoog het huishoudinkomen van de aanvra­ gers moet zijn voor het hoofdelijk ontslag van de ouders."
+    },
+    {
+      "policy_code": "POL-0135",
+      "title": "We rekenen op voorhand uit hoe hoog het huishoud­ inkomen van de aanvragers moet",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "5.7",
+      "description": "We rekenen op voorhand uit hoe hoog het huishoud­ inkomen van de aanvragers moet zijn voor hoofdelijk ontslag van de ouders als de studieschuld niet al is afgelost."
+    },
+    {
+      "policy_code": "POL-0136",
+      "title": "In deze hypotheekgids leest u alles wat u moet weten over onze hypotheken en de",
+      "category": "Mortgage Policy",
+      "source_page": 2,
+      "section": null,
+      "description": "In deze hypotheekgids leest u alles wat u moet weten over onze hypotheken en de voorwaarden voor 2026."
+    },
+    {
+      "policy_code": "POL-0137",
+      "title": "5HYPOTHEEKGIDS 20264 MUNTHYPOTHEKEN.NL 0 PRODUCTKAART •  starters, doorstromers",
+      "category": "Mortgage Policy",
+      "source_page": 3,
+      "section": null,
+      "description": "5HYPOTHEEKGIDS 20264 MUNTHYPOTHEKEN.NL 0 PRODUCTKAART •  starters, doorstromers en oversluiters • leeftijd aanvrager: minimaal 18 jaar, geen maximum • BKR-codering: alleen RN 3 met finale kwijting • Nationale Hypotheek Garantie (NHG) mogelijk • minimaal bedrag nieuwe MUNT Hypotheek: € 75.000 •  minimaal bedrag verhoging: € 10.000 (algemeen) en € 5.000 (verduurzaming) • maximaal bedrag: € 1.000.000 (exclusief overbruggingshypotheek) •   loan to value: maximaal 100%, met energie besparende voorzieningen maximaal 106% • consumptief gebruik van de hypotheek is mogelijk • bouwdepot: •  looptijd: 24 maanden •  met maximaal 12 + 6 maanden te verlengen • rentevergoeding gelijk aan hypotheekrente, voor maximaal 6 maanden bij verbouw en 24 maanden bij nieuwbouw • overbrugging: • verkochte woning tot 98%, te verkopen woning tot 90% • kosten: € 500 •  rentevasteperioden: variabel, 5, 10, 15, 20, 25 en 30 jaar •  rente: offerterente of dagrente (laagste van de rente uit het renteaanbod en de rente op passeerdatum)."
+    },
+    {
+      "policy_code": "POL-0138",
+      "title": "Nationale\tHypotheek\tGarantie Een aanvraag met NHG moet altijd voldoen aan de NHG",
+      "category": "Mortgage Policy",
+      "source_page": 6,
+      "section": "3.4",
+      "description": "Nationale\tHypotheek\tGarantie Een aanvraag met NHG moet altijd voldoen aan de NHG- normen."
+    },
+    {
+      "policy_code": "POL-0139",
+      "title": "Eventuele wijzigingen hebben altijd direct effect, tenzij MUNT anders bepaalt.",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "3.4",
+      "description": "Eventuele wijzigingen hebben altijd direct effect, tenzij MUNT anders bepaalt."
+    },
+    {
+      "policy_code": "POL-0140",
+      "title": "1 Uw klant mag geen eigenaar of aandeelhouder zijn van de partij die bij de hypo",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "3.4",
+      "description": "1 Uw klant mag geen eigenaar of aandeelhouder zijn van de partij die bij de hypotheekaanvraag betrokken is."
+    },
+    {
+      "policy_code": "POL-0141",
+      "title": "Ook mag uw klant niet als werknemer betrokken zijn bij de transactie.",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "3.4",
+      "description": "Ook mag uw klant niet als werknemer betrokken zijn bij de transactie."
+    },
+    {
+      "policy_code": "POL-0142",
+      "title": "Hij mag bijvoorbeeld niet zelf de taxatie van zijn (aan te kopen) woning uitvoer",
+      "category": "Mortgage Policy",
+      "source_page": 7,
+      "section": "3.4",
+      "description": "Hij mag bijvoorbeeld niet zelf de taxatie van zijn (aan te kopen) woning uitvoeren of zijn eigen hypotheekakte passeren."
+    },
+    {
+      "policy_code": "POL-0143",
+      "title": "1.1 DE MUNT HYPOTHEEK Met een MUNT Hypotheek kan uw klant: • een bestaande of ni",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "1.1.1",
+      "description": "1.1 DE MUNT HYPOTHEEK Met een MUNT Hypotheek kan uw klant: • een bestaande of nieuwbouwwoning kopen • een verbouwing aan de woning financieren •  (een) bestaande lening(en) voor de eigen woning herfinancieren • een recht van erfpacht of opstal afkopen •  energiebesparende voorzieningen voor de woning financieren •  consumptieve uitgaven financieren 1.1.1\tVoorwaarden •  Het onderpand moet bij de aanvraag bekend zijn."
+    },
+    {
+      "policy_code": "POL-0144",
+      "title": "Het gedeelte boven 100% van de markt- waarde moet geheel aan zulke voorzieningen",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "1.1.1",
+      "description": "Het gedeelte boven 100% van de markt- waarde moet geheel aan zulke voorzieningen worden besteed."
+    },
+    {
+      "policy_code": "POL-0145",
+      "title": "3 •  De financieringslast van de hypotheek mag niet hoger zijn dan de toegestane",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "1.1.1",
+      "description": "3 •  De financieringslast van de hypotheek mag niet hoger zijn dan de toegestane financieringslast van uw klant."
+    },
+    {
+      "policy_code": "POL-0146",
+      "title": "De toegestane financierings last is het bedrag dat uw klant op basis van zijn in",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "1.1.1",
+      "description": "De toegestane financierings last is het bedrag dat uw klant op basis van zijn inkomen, burgerlijke staat en het energielabel van de woning maximaal aan hypotheeklasten mag besteden, minus de lasten van eventuele andere kredieten."
+    },
+    {
+      "policy_code": "POL-0147",
+      "title": "• In geval van een huwelijk of geregistreerd partnerschap dat wordt ontbonden, m",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "1.1.1",
+      "description": "• In geval van een huwelijk of geregistreerd partnerschap dat wordt ontbonden, moet de akte van verdeling vóór of uiterlijk gelijktijdig met de hypotheekakte passeren."
+    },
+    {
+      "policy_code": "POL-0148",
+      "title": "De kostprijs of waarde van de grond die de klant al bezit kan niet worden meegef",
+      "category": "Mortgage Policy",
+      "source_page": 8,
+      "section": "1.1.2",
+      "description": "De kostprijs of waarde van de grond die de klant al bezit kan niet worden meegefinancierd."
+    },
+    {
+      "policy_code": "POL-0149",
+      "title": "MUNT verstrekt alleen hypotheken in euro.",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.3",
+      "description": "MUNT verstrekt alleen hypotheken in euro."
+    },
+    {
+      "policy_code": "POL-0150",
+      "title": "1.1.3\tLooptijd MUNT verstrekt hypotheken met een looptijd van minimaal 5 en maxi",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.4",
+      "description": "1.1.3\tLooptijd MUNT verstrekt hypotheken met een looptijd van minimaal 5 en maximaal 30 jaar."
+    },
+    {
+      "policy_code": "POL-0151",
+      "title": "Het aflossingsvrije deel van de hypotheek mag in totaal maximaal 50% van de mark",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.5",
+      "description": "Het aflossingsvrije deel van de hypotheek mag in totaal maximaal 50% van de marktwaarde van de woning zijn."
+    },
+    {
+      "policy_code": "POL-0152",
+      "title": "1.1.5\tLeningdelen\ten\tfiscaliteit De MUNT Hypotheek heeft geen maximum aantal len",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.5",
+      "description": "1.1.5\tLeningdelen\ten\tfiscaliteit De MUNT Hypotheek heeft geen maximum aantal leningdelen."
+    },
+    {
+      "policy_code": "POL-0153",
+      "title": "Wij gaan daarvoor uit van uw opgave bij de hypotheekaanvraag, tenzij die opgave",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.5",
+      "description": "Wij gaan daarvoor uit van uw opgave bij de hypotheekaanvraag, tenzij die opgave onmogelijk is op grond van fiscale wetgeving, de productvoorwaarden of acceptatiecriteria."
+    },
+    {
+      "policy_code": "POL-0154",
+      "title": "Dit kan tot maximaal 100% van de marktwaarde van de woning, of 106% als het gede",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.6",
+      "description": "Dit kan tot maximaal 100% van de marktwaarde van de woning, of 106% als het gedeelte boven 100% volledig aan energiebesparende voorzieningen wordt besteed."
+    },
+    {
+      "policy_code": "POL-0155",
+      "title": "De bestaande lening moet uiterlijk bij het passeren van de MUNT Hypotheek (via d",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.6",
+      "description": "De bestaande lening moet uiterlijk bij het passeren van de MUNT Hypotheek (via de notaris) worden afgelost."
+    },
+    {
+      "policy_code": "POL-0156",
+      "title": "Als de bestaande lening een doorlopend krediet is, moet uw klant aantonen dat di",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.7",
+      "description": "Als de bestaande lening een doorlopend krediet is, moet uw klant aantonen dat dit krediet na aflossing wordt beëindigd."
+    },
+    {
+      "policy_code": "POL-0157",
+      "title": "Het hypotheekbedrag moet bij verkoop van de woning of uiterlijk aan het einde va",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.7",
+      "description": "Het hypotheekbedrag moet bij verkoop van de woning of uiterlijk aan het einde van de looptijd worden ONS PRODUCT 5 NHG: Het meefinancieren van een bestaande lening is alleen mogelijk als dit al een box 1-lening is."
+    },
+    {
+      "policy_code": "POL-0158",
+      "title": "Dit moet blijken uit de laatste aangifte voor de inkomsten belasting.",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.7",
+      "description": "Dit moet blijken uit de laatste aangifte voor de inkomsten belasting."
+    },
+    {
+      "policy_code": "POL-0159",
+      "title": "3 NHG: Een aflossingsvrij lening- deel tot 50% van de marktwaarde van de woning",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.7",
+      "description": "3 NHG: Een aflossingsvrij lening- deel tot 50% van de marktwaarde van de woning is alleen mogelijk als dit deel al bestond op 31 december 2012 én is aangegaan voor de aankoop, verbouwing of het vergroten van de eigendom van de eigen woning."
+    },
+    {
+      "policy_code": "POL-0160",
+      "title": "ONS PRODUCT 8 Een leningdeel voor energie- besparende voorzieningen waarvoor geb",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.7",
+      "description": "ONS PRODUCT 8 Een leningdeel voor energie- besparende voorzieningen waarvoor gebruik wordt gemaakt van de ruimere leennormen van de TRHK, moet altijd annuïtair of lineair worden afgelost."
+    },
+    {
+      "policy_code": "POL-0161",
+      "title": "9 Dit geldt alleen voor nieuw af te sluiten leningdelen bij MUNT.",
+      "category": "Mortgage Policy",
+      "source_page": 9,
+      "section": "1.1.7",
+      "description": "9 Dit geldt alleen voor nieuw af te sluiten leningdelen bij MUNT."
+    },
+    {
+      "policy_code": "POL-0162",
+      "title": "De verkoopprijs moet blijken uit de verkoopakte.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.7",
+      "description": "De verkoopprijs moet blijken uit de verkoopakte."
+    },
+    {
+      "policy_code": "POL-0163",
+      "title": "De verkoopprijs moet blijken uit de verkoopakte.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.7",
+      "description": "De verkoopprijs moet blijken uit de verkoopakte."
+    },
+    {
+      "policy_code": "POL-0164",
+      "title": "Ook gelden de volgende voorwaarden: •  De courantheid van de woning is volgens h",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.7",
+      "description": "Ook gelden de volgende voorwaarden: •  De courantheid van de woning is volgens het taxatierapport maximaal 6 maanden."
+    },
+    {
+      "policy_code": "POL-0165",
+      "title": "•  De woning moet binnen 1 maand nadat uw klant de nieuwe woning betrekt, maar u",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.7",
+      "description": "•  De woning moet binnen 1 maand nadat uw klant de nieuwe woning betrekt, maar uiterlijk 24 maanden na passeren van de MUNT Hypotheek, zichtbaar te koop staan bij een makelaar."
+    },
+    {
+      "policy_code": "POL-0166",
+      "title": "18 •  De woning moet uiterlijk binnen 30 maanden na passeren van de MUNT Hypothe",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.7",
+      "description": "18 •  De woning moet uiterlijk binnen 30 maanden na passeren van de MUNT Hypotheek verkocht en geleverd zijn."
+    },
+    {
+      "policy_code": "POL-0167",
+      "title": "Bij gebruik van een Desktop Taxatie moet de overbruggingshypotheek lager zijn da",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.7",
+      "description": "Bij gebruik van een Desktop Taxatie moet de overbruggingshypotheek lager zijn dan 90% van de marktwaarde minus de schuldrest van de (eerste) hypotheek voor de woning."
+    },
+    {
+      "policy_code": "POL-0168",
+      "title": "In dat geval moet hij wel naar de notaris.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.8",
+      "description": "In dat geval moet hij wel naar de notaris."
+    },
+    {
+      "policy_code": "POL-0169",
+      "title": "7 NHG: Een verhoging met NHG is alleen mogelijk tot de NHG-grens én als de besta",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.8",
+      "description": "7 NHG: Een verhoging met NHG is alleen mogelijk tot de NHG-grens én als de bestaande leningdelen ook met NHG zijn."
+    },
+    {
+      "policy_code": "POL-0170",
+      "title": "Is dat niet het geval, dan verstrekken wij de verhoging alleen zonder NHG.",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.8",
+      "description": "Is dat niet het geval, dan verstrekken wij de verhoging alleen zonder NHG."
+    },
+    {
+      "policy_code": "POL-0171",
+      "title": "15 Als de huidige woning ook op naam van de ex-partner staat, moet deze bij de n",
+      "category": "Mortgage Policy",
+      "source_page": 10,
+      "section": "1.1.8",
+      "description": "15 Als de huidige woning ook op naam van de ex-partner staat, moet deze bij de notaris meetekenen voor het vestigen van het hypotheekrecht op de gezamenlijke woning."
+    },
+    {
+      "policy_code": "POL-0172",
+      "title": "Dan moet hij de herkomst van deze middelen aantonen als de eigen inbreng € 25.00",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.1.9",
+      "description": "Dan moet hij de herkomst van deze middelen aantonen als de eigen inbreng € 25.000 of meer is."
+    },
+    {
+      "policy_code": "POL-0173",
+      "title": "20 Uw klant moet de beschikbaarheid van de eigen middelen altijd aantonen bij: •",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.1.9",
+      "description": "20 Uw klant moet de beschikbaarheid van de eigen middelen altijd aantonen bij: • tijdelijk dubbele of te hoge hypotheeklasten, en/of  21 • verplichte aflossing van kredieten."
+    },
+    {
+      "policy_code": "POL-0174",
+      "title": "Als er twee aanvragers zijn, moet de bankrekening op naam van ten minste één van",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.1.10",
+      "description": "Als er twee aanvragers zijn, moet de bankrekening op naam van ten minste één van hen staan."
+    },
+    {
+      "policy_code": "POL-0175",
+      "title": "Wanneer uitgegaan mag worden van de werkelijke (gebruteerde) maandlast, dan bedo",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.2",
+      "description": "Wanneer uitgegaan mag worden van de werkelijke (gebruteerde) maandlast, dan bedoelen wij de som van de rente, de aflossing én de eventuele erfpachtcanon of opstalretributie."
+    },
+    {
+      "policy_code": "POL-0176",
+      "title": "• De werkelijke (gebruteerde) maandlast mag niet hoger zijn dan de toegestane  f",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.2.1",
+      "description": "• De werkelijke (gebruteerde) maandlast mag niet hoger zijn dan de toegestane  financieringslast van uw klant."
+    },
+    {
+      "policy_code": "POL-0177",
+      "title": "9 NHG: Alleen mogelijk als de bestaande hypotheek ook met NHG is en er geen spra",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.2.2",
+      "description": "9 NHG: Alleen mogelijk als de bestaande hypotheek ook met NHG is en er geen sprake is van een niet- NHG-lening deel."
+    },
+    {
+      "policy_code": "POL-0178",
+      "title": "24 Ten minste één van de oorspronkelijke schuldenaren moet de MUNT Hypotheek aan",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.2.2",
+      "description": "24 Ten minste één van de oorspronkelijke schuldenaren moet de MUNT Hypotheek aanvragen en in de woning blijven wonen."
+    },
+    {
+      "policy_code": "POL-0179",
+      "title": "25 Ook mag de totale hypotheek niet hoger zijn dan 100% van de marktwaarde van d",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.2.2",
+      "description": "25 Ook mag de totale hypotheek niet hoger zijn dan 100% van de marktwaarde van de woning, of 106% als het meerdere boven 100% volledig voor energiebesparende voorzieningen is gebruikt en uw klant dat ook kan aantonen."
+    },
+    {
+      "policy_code": "POL-0180",
+      "title": "Beide aanvragers moeten de AOW-leeftijd binnen 10 jaar bereiken.",
+      "category": "Mortgage Policy",
+      "source_page": 11,
+      "section": "1.2.2",
+      "description": "Beide aanvragers moeten de AOW-leeftijd binnen 10 jaar bereiken."
+    },
+    {
+      "policy_code": "POL-0181",
+      "title": "Hierop zijn 2 uitzonderingen mogelijk:  11 •  Een kortere rentevasteperiode mag",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.2",
+      "description": "Hierop zijn 2 uitzonderingen mogelijk:  11 •  Een kortere rentevasteperiode mag als het leningdeel aan het einde van de rentevaste periode volledig is afgelost.+ •  Een kortere rentevasteperiode met een minimum van 10 jaar mag als de leeftijd van de jongste partner aan het einde van de rentevasteperiode minimaal 85 jaar is."
+    },
+    {
+      "policy_code": "POL-0182",
+      "title": "Voor die situaties mag de financieringslast van de hypotheek vanaf de AOW-ingang",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.3",
+      "description": "Voor die situaties mag de financieringslast van de hypotheek vanaf de AOW-ingangsdatum van de oudste aanvrager tot de AOW-ingangsdatum van de jongste aanvrager worden vastgesteld op basis van de werkelijke (gebruteerde) maandlast in plaats van de last op basis van een 30-jarig annuïtair aflosschema."
+    },
+    {
+      "policy_code": "POL-0183",
+      "title": "•  De maximale periode waarvoor op basis van de werkelijke maandlast mag worden",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.3",
+      "description": "•  De maximale periode waarvoor op basis van de werkelijke maandlast mag worden getoetst is 120 maanden."
+    },
+    {
+      "policy_code": "POL-0184",
+      "title": "Een kortere rentevasteperiode is alleen toegestaan als het hypotheekdeel aan het",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.3",
+      "description": "Een kortere rentevasteperiode is alleen toegestaan als het hypotheekdeel aan het einde van de rentevasteperiode volledig is afgelost."
+    },
+    {
+      "policy_code": "POL-0185",
+      "title": "1.2.4\t\tKoopconstructies Een MUNT Hypotheek met een koopconstructie is alleen mog",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.4",
+      "description": "1.2.4\t\tKoopconstructies Een MUNT Hypotheek met een koopconstructie is alleen mogelijk met NHG."
+    },
+    {
+      "policy_code": "POL-0186",
+      "title": "De aanvraag voor een hypotheek met een koopconstructie moet aan alle normen van",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.4",
+      "description": "De aanvraag voor een hypotheek met een koopconstructie moet aan alle normen van MUNT voldoen voor zover deze strenger zijn dan de NHG-normen."
+    },
+    {
+      "policy_code": "POL-0187",
+      "title": "11 NHG: Ook voor aanvragen met NHG zijn alleen deze 2 uitzonderingen mogelijk.",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.4",
+      "description": "11 NHG: Ook voor aanvragen met NHG zijn alleen deze 2 uitzonderingen mogelijk."
+    },
+    {
+      "policy_code": "POL-0188",
+      "title": "Hierbij mag de financieringslast al vanaf de AOW- leeftijd van de oudste aanvrag",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.4",
+      "description": "Hierbij mag de financieringslast al vanaf de AOW- leeftijd van de oudste aanvrager op basis van de werkelijke bruto hypotheeklast worden vastgesteld."
+    },
+    {
+      "policy_code": "POL-0189",
+      "title": "Dan moet de jongste aanvrager toch zijn pensioeninkomen aantonen.",
+      "category": "Mortgage Policy",
+      "source_page": 12,
+      "section": "1.2.4",
+      "description": "Dan moet de jongste aanvrager toch zijn pensioeninkomen aantonen."
+    },
+    {
+      "policy_code": "POL-0190",
+      "title": "•  Het totaalbedrag van de leningen voor de eigen woning is maximaal 100% van de",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "1.2.5",
+      "description": "•  Het totaalbedrag van de leningen voor de eigen woning is maximaal 100% van de marktwaarde van de woning (na verbouw), of 106% als het gedeelte boven 100% volledig aan energiebesparende voorzieningen wordt besteed."
+    },
+    {
+      "policy_code": "POL-0191",
+      "title": "•  Het aflossingsvrije deel van de familiehypotheek en de MUNT Hypotheek samen i",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "1.2.5",
+      "description": "•  Het aflossingsvrije deel van de familiehypotheek en de MUNT Hypotheek samen is maximaal 50% van de marktwaarde van de woning."
+    },
+    {
+      "policy_code": "POL-0192",
+      "title": "Daarnaast moet uw klant aan alle voorwaarden en acceptatiecriteria voldoen.",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "1.2.6",
+      "description": "Daarnaast moet uw klant aan alle voorwaarden en acceptatiecriteria voldoen."
+    },
+    {
+      "policy_code": "POL-0193",
+      "title": "15 NHG: Een Energiebespaarbudget met NHG is alleen mogelijk tot de NHG-grens én",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "2.3.12",
+      "description": "15 NHG: Een Energiebespaarbudget met NHG is alleen mogelijk tot de NHG-grens én als de bestaande leningdelen ook met NHG zijn."
+    },
+    {
+      "policy_code": "POL-0194",
+      "title": "Is dat niet het geval, dan verstrekken wij het Energiebespaarbudget alleen zonde",
+      "category": "Mortgage Policy",
+      "source_page": 13,
+      "section": "2.3.12",
+      "description": "Is dat niet het geval, dan verstrekken wij het Energiebespaarbudget alleen zonder NHG."
+    },
+    {
+      "policy_code": "POL-0195",
+      "title": "•  De verhoging is minimaal € 5.000 en maximaal: • € 10.000 als de woning geen o",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "•  De verhoging is minimaal € 5.000 en maximaal: • € 10.000 als de woning geen of geen geldig energielabel heeft, • € 10.000 met energielabel A++, A+, A of B, • € 15.000 met energielabel C of D, en • € 20.000 met energielabel E, F of G."
+    },
+    {
+      "policy_code": "POL-0196",
+      "title": "• De verhoging wordt annuïtair of lineair afgelost in maximaal 30 jaar.",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "• De verhoging wordt annuïtair of lineair afgelost in maximaal 30 jaar."
+    },
+    {
+      "policy_code": "POL-0197",
+      "title": "• Uw klant kan alleen gebruikmaken van offerterente.",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "• Uw klant kan alleen gebruikmaken van offerterente."
+    },
+    {
+      "policy_code": "POL-0198",
+      "title": "16 • De totale hypotheek wordt niet hoger dan 106% van de marktwaarde van de won",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "16 • De totale hypotheek wordt niet hoger dan 106% van de marktwaarde van de woning."
+    },
+    {
+      "policy_code": "POL-0199",
+      "title": "Het deel boven 100% moet volledig aan energiebesparende  voorzieningen worden of",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "Het deel boven 100% moet volledig aan energiebesparende  voorzieningen worden of zijn besteed."
+    },
+    {
+      "policy_code": "POL-0200",
+      "title": "• Alleen de volgende (in BKR geregistreerde) kredieten zijn toegestaan: • Aflope",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "• Alleen de volgende (in BKR geregistreerde) kredieten zijn toegestaan: • Aflopend krediet (AK) • Doorlopend krediet (RK) • Operational autoleaseovereenkomst (OA) • Zakelijk krediet (ZK) • Restschuld hypothecair krediet met aanspraak op NHG (RN) • De verhoging past binnen de bestaande hypothecaire inschrijving."
+    },
+    {
+      "policy_code": "POL-0201",
+      "title": "Afhankelijk van zijn situatie moet hij één of meer van onderstaande documenten a",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "Afhankelijk van zijn situatie moet hij één of meer van onderstaande documenten aanleveren: • Een Desktop Taxatie of taxatierapport, niet ouder dan 12 maanden."
+    },
+    {
+      "policy_code": "POL-0202",
+      "title": "18 • Recent UWV-Verzekeringsbericht, ongewijzigd en zonder BSN, én een salarisst",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "18 • Recent UWV-Verzekeringsbericht, ongewijzigd en zonder BSN, én een salarisstrook van maximaal 1 maand oud."
+    },
+    {
+      "policy_code": "POL-0203",
+      "title": "ONS PRODUCTONS PRODUCT 17 NHG: De EVO is niet toegestaan.",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "ONS PRODUCTONS PRODUCT 17 NHG: De EVO is niet toegestaan."
+    },
+    {
+      "policy_code": "POL-0204",
+      "title": "43 De EVO is een kostenvriendelijk alternatief voor de IKV en kan alleen gebruik",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "43 De EVO is een kostenvriendelijk alternatief voor de IKV en kan alleen gebruikt worden voor de aanvraag van een Energiebespaarbudget via MijnHypotheekOnline."
+    },
+    {
+      "policy_code": "POL-0205",
+      "title": "18 NHG: Een Desktop Taxatie of taxatierapport mag niet ouder zijn dan 6 maanden.",
+      "category": "Mortgage Policy",
+      "source_page": 14,
+      "section": "2.3.2",
+      "description": "18 NHG: Een Desktop Taxatie of taxatierapport mag niet ouder zijn dan 6 maanden."
+    },
+    {
+      "policy_code": "POL-0206",
+      "title": "• De totale hypotheek moet na de wijziging voldoen aan een inkomenstoets op basi",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "1.3.1",
+      "description": "• De totale hypotheek moet na de wijziging voldoen aan een inkomenstoets op basis van het huidige inkomen."
+    },
+    {
+      "policy_code": "POL-0207",
+      "title": "Als de laatste aanvraag is goedgekeurd op basis van de werkelijke lastentoets, m",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "1.3.1",
+      "description": "Als de laatste aanvraag is goedgekeurd op basis van de werkelijke lastentoets, mag deze toets ook nu worden toegepast."
+    },
+    {
+      "policy_code": "POL-0208",
+      "title": "19 NHG: Verlenging van de looptijd is alleen toegestaan voor aflossingsvrije len",
+      "category": "Mortgage Policy",
+      "source_page": 15,
+      "section": "1.3.4",
+      "description": "19 NHG: Verlenging van de looptijd is alleen toegestaan voor aflossingsvrije leningdelen."
+    },
+    {
+      "policy_code": "POL-0209",
+      "title": "Een aantal zaken zijn daarbij belangrijk: •  De rentecondities kunnen alleen onv",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "1.3.5",
+      "description": "Een aantal zaken zijn daarbij belangrijk: •  De rentecondities kunnen alleen onverdeeld worden meegenomen."
+    },
+    {
+      "policy_code": "POL-0210",
+      "title": "Wanneer mag worden uitgegaan van de werkelijke (gebruteerde) maandlast, bedoelen",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "1.3.6",
+      "description": "Wanneer mag worden uitgegaan van de werkelijke (gebruteerde) maandlast, bedoelen wij daarmee de som van de rente, de aflossing en de eventuele erfpachtcanon of opstalretributie."
+    },
+    {
+      "policy_code": "POL-0211",
+      "title": "52 Ontslag\thoofdelijke\taansprakelijkheid Wil één van de partners in de woning bl",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "1.3.6",
+      "description": "52 Ontslag\thoofdelijke\taansprakelijkheid Wil één van de partners in de woning blijven wonen en de hypotheek alleen voortzetten?"
+    },
+    {
+      "policy_code": "POL-0212",
+      "title": "• Het hypotheekbedrag mag worden verhoogd met de eventuele uitkoopsom die aan de",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "1.3.6",
+      "description": "• Het hypotheekbedrag mag worden verhoogd met de eventuele uitkoopsom die aan de vertrekkende partner moet worden betaald, plus de kosten voor het vergroten van de eigendom van de woning."
+    },
+    {
+      "policy_code": "POL-0213",
+      "title": "• De koopsom van de aan te kopen woning, inclusief eventuele verbouwingskosten e",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "1.3.6",
+      "description": "• De koopsom van de aan te kopen woning, inclusief eventuele verbouwingskosten en energiebesparende voorzieningen, is niet hoger dan de marktwaarde of verkoopopbrengst van de vorige woning én bedraagt maximaal € 750.000."
+    },
+    {
+      "policy_code": "POL-0214",
+      "title": "21 NHG: De verhoging moet ten minste passen binnen de beheertoets.",
+      "category": "Mortgage Policy",
+      "source_page": 16,
+      "section": "1.3.6",
+      "description": "21 NHG: De verhoging moet ten minste passen binnen de beheertoets."
+    },
+    {
+      "policy_code": "POL-0215",
+      "title": "33HYPOTHEEKGIDS 202632 MUNTHYPOTHEKEN.NL • Het aandeel in de eventuele overwaard",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.6",
+      "description": "33HYPOTHEEKGIDS 202632 MUNTHYPOTHEKEN.NL • Het aandeel in de eventuele overwaarde van de vorige woning moet worden ingebracht als eigen middelen, eventueel verminderd met de kosten voor het verkrijgen van de eigendom van de woning."
+    },
+    {
+      "policy_code": "POL-0216",
+      "title": "De andere partner moet hiermee instemmen.",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.6",
+      "description": "De andere partner moet hiermee instemmen."
+    },
+    {
+      "policy_code": "POL-0217",
+      "title": "Zij moeten elkaar toestemming geven voor het vestigen van een hypotheekrecht op",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.6",
+      "description": "Zij moeten elkaar toestemming geven voor het vestigen van een hypotheekrecht op de gezamenlijke woning."
+    },
+    {
+      "policy_code": "POL-0218",
+      "title": "Ongeacht de situatie moet de MUNT Hypotheek binnen 1 jaar na het overlijden zijn",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.7",
+      "description": "Ongeacht de situatie moet de MUNT Hypotheek binnen 1 jaar na het overlijden zijn aangepast of afgelost:  57 1."
+    },
+    {
+      "policy_code": "POL-0219",
+      "title": "De achterblijvende partner is ook klant van MUNT: de achterblijvende partner mag",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.7",
+      "description": "De achterblijvende partner is ook klant van MUNT: de achterblijvende partner mag (eenmalig) zonder vergoe ding de rente omzetten als hij kiest voor dezelfde of een langere rentevasteperiode."
+    },
+    {
+      "policy_code": "POL-0220",
+      "title": "De achterblijvende partner is geen klant van MUNT: als de achter blijvende partn",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.7",
+      "description": "De achterblijvende partner is geen klant van MUNT: als de achter blijvende partner de hypotheek wil voort zetten, moet hij daarover contact opnemen met MUNT."
+    },
+    {
+      "policy_code": "POL-0221",
+      "title": "Hij mag altijd zonder vergoeding aflossen.",
+      "category": "Mortgage Policy",
+      "source_page": 17,
+      "section": "1.3.7",
+      "description": "Hij mag altijd zonder vergoeding aflossen."
+    },
+    {
+      "policy_code": "POL-0222",
+      "title": "2.1 DE AANVRAGER Leeftijd Wie een MUNT Hypotheek wil afsluiten moet 18 jaar of o",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1",
+      "description": "2.1 DE AANVRAGER Leeftijd Wie een MUNT Hypotheek wil afsluiten moet 18 jaar of ouder zijn en handelingsbekwaam en -bevoegd."
+    },
+    {
+      "policy_code": "POL-0223",
+      "title": "Burgerlijke\tstaat Uw klant is voor ons alleenstaand als hij ongehuwd, niet als p",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1",
+      "description": "Burgerlijke\tstaat Uw klant is voor ons alleenstaand als hij ongehuwd, niet als partner geregistreerd, gescheiden of verweduwd is, enig eigenaar van de woning is of wordt én de MUNT Hypotheek alleen aanvraagt."
+    },
+    {
+      "policy_code": "POL-0224",
+      "title": "Dan geldt dat wanneer uw klant samenwoont, hij niet als alleenstaand wordt gezie",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.1",
+      "description": "Dan geldt dat wanneer uw klant samenwoont, hij niet als alleenstaand wordt gezien."
+    },
+    {
+      "policy_code": "POL-0225",
+      "title": "2.1.1\tMede-eigenaars Twee\taanvragers,\ttwee\tschuldenaren  1 Een MUNT Hypotheek ka",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.1",
+      "description": "2.1.1\tMede-eigenaars Twee\taanvragers,\ttwee\tschuldenaren  1 Een MUNT Hypotheek kan door maximaal 2 personen worden aangevraagd."
+    },
+    {
+      "policy_code": "POL-0226",
+      "title": "Minimaal 1 van hen moet eigenaar van de woning zijn of worden.",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.1",
+      "description": "Minimaal 1 van hen moet eigenaar van de woning zijn of worden."
+    },
+    {
+      "policy_code": "POL-0227",
+      "title": "Ze wonen of gaan allebei ONZE ACCEPTATIE­ CRITERIA 2 1 NHG: Iedere schuldenaar m",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.1",
+      "description": "Ze wonen of gaan allebei ONZE ACCEPTATIE­ CRITERIA 2 1 NHG: Iedere schuldenaar moet eigenaar van de woning zijn of worden."
+    },
+    {
+      "policy_code": "POL-0228",
+      "title": "•  De aanvrager is op of na 1 januari 2018 getrouwd of een geregistreerd partner",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.1",
+      "description": "•  De aanvrager is op of na 1 januari 2018 getrouwd of een geregistreerd partner schap aangegaan in beperkte gemeenschap van goederen én de woning is alleen door de aanvrager verkregen vóór de datum van het huwelijk of geregistreerd partnerschap."
+    },
+    {
+      "policy_code": "POL-0229",
+      "title": "Indien de aanvrager is gehuwd of een geregistreerd partnerschap heeft, moet de p",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.2",
+      "description": "Indien de aanvrager is gehuwd of een geregistreerd partnerschap heeft, moet de partner bij het passeren van de hypotheekakte toestemming geven voor het vestigen van het hypotheekrecht op de woning die zij samen (gaan) bewonen."
+    },
+    {
+      "policy_code": "POL-0230",
+      "title": "2.1.2\tNationaliteit\ten\tverblijfsstatus Een aanvrager, van wie het inkomen nodig",
+      "category": "Mortgage Policy",
+      "source_page": 18,
+      "section": "2.1.2",
+      "description": "2.1.2\tNationaliteit\ten\tverblijfsstatus Een aanvrager, van wie het inkomen nodig is voor de hypo theek, moet beschikken over: • de Nederlandse nationaliteit, of •  de nationaliteit van een andere lidstaat van de Europese Unie (inclusief Zwitserland, IJsland, Noorwegen en Liechtenstein), of •  een verblijfsvergunning in Nederland voor onbepaalde tijd, of •  een EU-verblijfsvergunning voor langdurig ingezetenen, of •  een document ‘Duurzaam verblijf burgers van de Unie’, of •  een verblijfsvergunning in Nederland die niet tijdelijk is (conform artikel 3.5 van het Vreemdelingenbesluit)."
+    },
+    {
+      "policy_code": "POL-0231",
+      "title": "37HYPOTHEEKGIDS 202636 MUNTHYPOTHEKEN.NL Een aanvrager die niet de Nederlandse n",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "2.1.2",
+      "description": "37HYPOTHEEKGIDS 202636 MUNTHYPOTHEKEN.NL Een aanvrager die niet de Nederlandse nationaliteit heeft en van wie het inkomen nodig is voor de hypotheek, moet minimaal 12 maanden in Nederland wonen én werken om meer dan 90% van de marktwaarde van de woning te kunnen lenen."
+    },
+    {
+      "policy_code": "POL-0232",
+      "title": "Dan kan hij maximaal 90% van de marktwaarde van de woning lenen.",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "2.1.2",
+      "description": "Dan kan hij maximaal 90% van de marktwaarde van de woning lenen."
+    },
+    {
+      "policy_code": "POL-0233",
+      "title": "Op het moment van het uitbrengen van het hypotheekaanbod moet de aanvrager besch",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "2.1.2",
+      "description": "Op het moment van het uitbrengen van het hypotheekaanbod moet de aanvrager beschikken over een burgerservicenummer (BSN)."
+    },
+    {
+      "policy_code": "POL-0234",
+      "title": "• Hypothecair krediet overige onroerende zaken (HO)  4 Kredietregistraties\tmet\tv",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "2.1.4",
+      "description": "• Hypothecair krediet overige onroerende zaken (HO)  4 Kredietregistraties\tmet\tvoorwaarden • Aflopend (AK) en doorlopend krediet (RK)  5 • Maximaal 3 lopende en 5 afgeloste verplichtingen per aanvrager."
+    },
+    {
+      "policy_code": "POL-0235",
+      "title": "7 MUNT accepteert een RN-registratie alleen als NHG uw klant finale kwijting voo",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "2.2",
+      "description": "7 MUNT accepteert een RN-registratie alleen als NHG uw klant finale kwijting voor de volledige restschuld heeft verleend."
+    },
+    {
+      "policy_code": "POL-0236",
+      "title": "Let op: met finale kwijting wordt niet de afboeking van een regresvordering bedo",
+      "category": "Mortgage Policy",
+      "source_page": 19,
+      "section": "2.2",
+      "description": "Let op: met finale kwijting wordt niet de afboeking van een regresvordering bedoeld."
+    },
+    {
+      "policy_code": "POL-0237",
+      "title": "De grondslag voor de berekening van de variabele inkomenscomponenten is als volg",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "De grondslag voor de berekening van de variabele inkomenscomponenten is als volgt: •  Bedrijfsresultaatafhankelijke bonus: het gemiddelde ontvangen bedrag in de afgelopen 3 kalenderjaren met een maximum van het laatste kalenderjaar."
+    },
+    {
+      "policy_code": "POL-0238",
+      "title": "•  De som van provisie, overwerk en bonus: maximaal 40% van het vaste inkomen.",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "•  De som van provisie, overwerk en bonus: maximaal 40% van het vaste inkomen."
+    },
+    {
+      "policy_code": "POL-0239",
+      "title": "De variabele inkomenscomponenten moeten herleid kunnen worden uit de werkgeversv",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "De variabele inkomenscomponenten moeten herleid kunnen worden uit de werkgeversverklaring én uit de meest recente salarisstrook of de salarisstrook van de maand december uit het voorafgaande kalenderjaar."
+    },
+    {
+      "policy_code": "POL-0240",
+      "title": "6 NHG: De salarisverhoging moet blijken uit een aanvullende verklaring van de we",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "6 NHG: De salarisverhoging moet blijken uit een aanvullende verklaring van de werkgever."
+    },
+    {
+      "policy_code": "POL-0241",
+      "title": "Een salarisverhoging alleen op basis van een CAO is onvoldoende.",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "Een salarisverhoging alleen op basis van een CAO is onvoldoende."
+    },
+    {
+      "policy_code": "POL-0242",
+      "title": "aantal contract uren nemen wij alleen mee als aan alle volgende voorwaarden word",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "aantal contract uren nemen wij alleen mee als aan alle volgende voorwaarden wordt voldaan: •  De salarisverhoging gaat in binnen 6 maanden na de datum van het hypotheekaanbod."
+    },
+    {
+      "policy_code": "POL-0243",
+      "title": "Dit moet blijken uit een definitieve CAO of een aanvullende verklaring van de we",
+      "category": "Mortgage Policy",
+      "source_page": 21,
+      "section": "2.2.1",
+      "description": "Dit moet blijken uit een definitieve CAO of een aanvullende verklaring van de werkgever."
+    },
+    {
+      "policy_code": "POL-0244",
+      "title": "•  De inkomenstoets wordt uitgevoerd op basis van de financieringslasttabellen v",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.1",
+      "description": "•  De inkomenstoets wordt uitgevoerd op basis van de financieringslasttabellen voor hypothecair krediet waarvan de rente niet fiscaal aftrekbaar is, tenzij: •  uit een belastingverdrag blijkt dat de fiscale behandeling van de eigen woning in Nederland plaatsvindt, of •  één van de aanvragers belastingplichtig is in Nederland én het inkomen van de in Nederland belastingplichtige het hoogste is."
+    },
+    {
+      "policy_code": "POL-0245",
+      "title": "•  Als de vestigingsplaats van de werkgever 150 kilometer of verder ligt van de",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.1",
+      "description": "•  Als de vestigingsplaats van de werkgever 150 kilometer of verder ligt van de woonplaats van de aanvrager, moet hij verklaren hoe hij zijn werk met zijn woon- en leef omgeving combineert."
+    },
+    {
+      "policy_code": "POL-0246",
+      "title": "• Een toekomstige salarisverhoging kan niet meegenomen worden in het toetsinkome",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.1",
+      "description": "• Een toekomstige salarisverhoging kan niet meegenomen worden in het toetsinkomen."
+    },
+    {
+      "policy_code": "POL-0247",
+      "title": "•  Heeft uw klant meerdere dienstverbanden, dan wordt het totaal van het inkomen",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.1",
+      "description": "•  Heeft uw klant meerdere dienstverbanden, dan wordt het totaal van het inkomen voor maximaal 40 uur per week meegenomen als standaard of vast inkomen en de extra uren als overwerk."
+    },
+    {
+      "policy_code": "POL-0248",
+      "title": "Uw klant moet in zo’n geval wel kunnen aantonen dat het inkomen bestendig is en",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.1",
+      "description": "Uw klant moet in zo’n geval wel kunnen aantonen dat het inkomen bestendig is en dat hij de dienstverbanden naast elkaar kan uitvoeren."
+    },
+    {
+      "policy_code": "POL-0249",
+      "title": "•  MUNT accepteert alleen inkomen dat per bank wordt betaald.",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.1",
+      "description": "•  MUNT accepteert alleen inkomen dat per bank wordt betaald."
+    },
+    {
+      "policy_code": "POL-0250",
+      "title": "De IKV moet opgemaakt zijn door een rekenexpert die door MUNT is geautoriseerd (",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.2",
+      "description": "De IKV moet opgemaakt zijn door een rekenexpert die door MUNT is geautoriseerd (zie www.munthypotheken.nl/ inkomensverklaring) en mag, op de datum van het hypotheekaanbod niet ouder zijn dan 6 maanden."
+    },
+    {
+      "policy_code": "POL-0251",
+      "title": "11 De kenmerken die in deze hypotheekgids zijn opgenomen 10 NHG: De IKV mag ook",
+      "category": "Mortgage Policy",
+      "source_page": 22,
+      "section": "2.2.2",
+      "description": "11 De kenmerken die in deze hypotheekgids zijn opgenomen 10 NHG: De IKV mag ook door een door NHG geaccepteer de rekenexpert zijn verstrekt (zie www."
+    },
+    {
+      "policy_code": "POL-0252",
+      "title": "45HYPOTHEEKGIDS 202644 MUNTHYPOTHEKEN.NL IB-ondernemer DGA (≥5% aandelen) Basisi",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.2",
+      "description": "45HYPOTHEEKGIDS 202644 MUNTHYPOTHEKEN.NL IB-ondernemer DGA (≥5% aandelen) Basisinkomen Gemiddeld saldo fiscale winst in de afgelopen 3 boekjaren (na correcties) met het laatste jaar als maximum."
+    },
+    {
+      "policy_code": "POL-0253",
+      "title": "Gemiddeld inkomen uit dienst- betrekking in de afgelopen 3 boek jaren (na correc",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.2",
+      "description": "Gemiddeld inkomen uit dienst- betrekking in de afgelopen 3 boek jaren (na correcties) met het laatste jaar als maximum."
+    },
+    {
+      "policy_code": "POL-0254",
+      "title": "Gemiddeld bruto dividend over de laatste 3 boekjaren met het laatste jaar als ma",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.2",
+      "description": "Gemiddeld bruto dividend over de laatste 3 boekjaren met het laatste jaar als maximum."
+    },
+    {
+      "policy_code": "POL-0255",
+      "title": "75% van de gemiddelde bruto over- winst over de laatste 3 boekjaren met het laat",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.2",
+      "description": "75% van de gemiddelde bruto over- winst over de laatste 3 boekjaren met het laatste jaar als maximum."
+    },
+    {
+      "policy_code": "POL-0256",
+      "title": "17 •  Het aandeel van de inkomsten uit overig werk in het toetsinkomen is maxima",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.3",
+      "description": "17 •  Het aandeel van de inkomsten uit overig werk in het toetsinkomen is maximaal: • 100% bij een stabiel of jaar-op-jaar stijgend inkomen."
+    },
+    {
+      "policy_code": "POL-0257",
+      "title": "De inkomsten zijn het gemiddelde resultaat uit overig werk (na aftrek van de kos",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.4",
+      "description": "De inkomsten zijn het gemiddelde resultaat uit overig werk (na aftrek van de kosten) van de laatste 3 jaar met als maximum het resultaat volgens de laatste aangifte Inkomstenbelasting."
+    },
+    {
+      "policy_code": "POL-0258",
+      "title": "Voor het meenemen van verhuurinkomsten gelden de volgende voorwaarden: •  De ver",
+      "category": "Mortgage Policy",
+      "source_page": 23,
+      "section": "2.2.4",
+      "description": "Voor het meenemen van verhuurinkomsten gelden de volgende voorwaarden: •  De verhuurde woning moet op de datum van het rente- aanbod minimaal 1 jaar in het bezit zijn van uw klant."
+    },
+    {
+      "policy_code": "POL-0259",
+      "title": "19 Uw klant mag er altijd voor kiezen om het verhuur inkomen met een Huur inkoms",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.4",
+      "description": "19 Uw klant mag er altijd voor kiezen om het verhuur inkomen met een Huur inkomstenverklaring aan te tonen."
+    },
+    {
+      "policy_code": "POL-0260",
+      "title": "•  Als de verhuurde woning is belast met een hypotheekrecht, bijvoorbeeld voor d",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.4",
+      "description": "•  Als de verhuurde woning is belast met een hypotheekrecht, bijvoorbeeld voor de financiering ervan, moet uit de leningovereenkomst of een toestemmings brief blijken dat verhuur is toegestaan door de betreffende financier c.q."
+    },
+    {
+      "policy_code": "POL-0261",
+      "title": "Voor de berekening van het bedrag dat in het toetsinkomen mag worden meegenomen,",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.4",
+      "description": "Voor de berekening van het bedrag dat in het toetsinkomen mag worden meegenomen, maken we onderscheid tussen een verhuurder die handelt als consument en een verhuurder die handelt als belegger."
+    },
+    {
+      "policy_code": "POL-0262",
+      "title": "Verhuurder\thandelt\tals\tconsument  19 Uw klant handelt als consument als aan alle",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.4",
+      "description": "Verhuurder\thandelt\tals\tconsument  19 Uw klant handelt als consument als aan alle onderstaande kenmerken wordt voldaan: •  De huurpenningen per woning zijn maximaal € 1.750 per maand."
+    },
+    {
+      "policy_code": "POL-0263",
+      "title": "• Het maximum aantal verhuurde woningen is 2.",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.4",
+      "description": "• Het maximum aantal verhuurde woningen is 2."
+    },
+    {
+      "policy_code": "POL-0264",
+      "title": "•  Het toetsinkomen bestaat voor maximaal 30% uit huurinkomsten.",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.4",
+      "description": "•  Het toetsinkomen bestaat voor maximaal 30% uit huurinkomsten."
+    },
+    {
+      "policy_code": "POL-0265",
+      "title": "2.2.5\tUitkering Inkomen uit een lopende uitkering nemen wij alleen mee in het to",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.5",
+      "description": "2.2.5\tUitkering Inkomen uit een lopende uitkering nemen wij alleen mee in het toetsinkomen als uw klant de uitkering gegarandeerd ontvangt tot aan zijn pensioendatum of AOW-leeftijd."
+    },
+    {
+      "policy_code": "POL-0266",
+      "title": "22 2.2.6\tPartneralimentatie Partneralimentatie telt voor 100% mee in het toetsin",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.6",
+      "description": "22 2.2.6\tPartneralimentatie Partneralimentatie telt voor 100% mee in het toetsinkomen voor de resterende periode waarvoor die is vastgesteld, tot een maximum van 30% van het toets inkomen."
+    },
+    {
+      "policy_code": "POL-0267",
+      "title": "De toewijzing moet gebaseerd zijn op een rechterlijke uitspraak of zijn vastgele",
+      "category": "Mortgage Policy",
+      "source_page": 24,
+      "section": "2.2.6",
+      "description": "De toewijzing moet gebaseerd zijn op een rechterlijke uitspraak of zijn vastgelegd in een overeenkomst tot beëindiging van het huwelijk of geregistreerde partnerschap."
+    },
+    {
+      "policy_code": "POL-0268",
+      "title": "Houdt u er dan rekening mee dat als wij geen hypotheekaanbod kunnen uitbrengen v",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "2.2.6",
+      "description": "Houdt u er dan rekening mee dat als wij geen hypotheekaanbod kunnen uitbrengen vóór het bereiken van de 10-jaarstermijn, uw klant alsnog zijn toekomstig pensioeninkomen moet aantonen."
+    },
+    {
+      "policy_code": "POL-0269",
+      "title": "Voor het inkomen gaan wij uit van het gemiddelde inkomen uit pgb van de laatste",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "2.2.7",
+      "description": "Voor het inkomen gaan wij uit van het gemiddelde inkomen uit pgb van de laatste 3 jaar, met als maximum het inkomen van het laatste jaar, of het huidige inkomen als dit lager is."
+    },
+    {
+      "policy_code": "POL-0270",
+      "title": "Het inkomen moet blijken uit de zorgovereenkomsten.",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "2.2.8",
+      "description": "Het inkomen moet blijken uit de zorgovereenkomsten."
+    },
+    {
+      "policy_code": "POL-0271",
+      "title": "Op onze website (www.munthypotheken.nl/lijfrente) vindt u een handige tool om he",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "2.2.10",
+      "description": "Op onze website (www.munthypotheken.nl/lijfrente) vindt u een handige tool om het bedrag te berekenen dat meegenomen mag worden."
+    },
+    {
+      "policy_code": "POL-0272",
+      "title": "2.2.10\tToekomstige\tinkomensdaling  27 Het inkomen van uw klant moet voor de gehe",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "2.2.10",
+      "description": "2.2.10\tToekomstige\tinkomensdaling  27 Het inkomen van uw klant moet voor de gehele looptijd voldoende zijn om de hypotheeklasten te kunnen betalen."
+    },
+    {
+      "policy_code": "POL-0273",
+      "title": "Dat kan betekenen dat uw klant een deel van de hypotheek versneld moet aflossen",
+      "category": "Mortgage Policy",
+      "source_page": 25,
+      "section": "2.3",
+      "description": "Dat kan betekenen dat uw klant een deel van de hypotheek versneld moet aflossen tot het bedrag dat hij op basis van zijn toekomstig lagere inkomen kan lenen."
+    },
+    {
+      "policy_code": "POL-0274",
+      "title": "Dit moet blijken uit de kredietovereenkomst of een opgave van de kredietverstrek",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "2.3.3",
+      "description": "Dit moet blijken uit de kredietovereenkomst of een opgave van de kredietverstrekker."
+    },
+    {
+      "policy_code": "POL-0275",
+      "title": "29 Het buiten beschouwing laten van de lasten is alleen toegestaan als de instal",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "2.3.3",
+      "description": "29 Het buiten beschouwing laten van de lasten is alleen toegestaan als de installatie ge(her)financierd wordt door MUNT."
+    },
+    {
+      "policy_code": "POL-0276",
+      "title": "Als de verplichting een geldlening is, gelden bovendien de volgende voorwaarden:",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "2.3.5",
+      "description": "Als de verplichting een geldlening is, gelden bovendien de volgende voorwaarden: • De lening mag bij beëindiging van het dienstverband niet opeisbaar zijn."
+    },
+    {
+      "policy_code": "POL-0277",
+      "title": "•  Er mag geen rekening worden gehouden met een eventuele rentekorting als deze",
+      "category": "Mortgage Policy",
+      "source_page": 26,
+      "section": "2.3.6",
+      "description": "•  Er mag geen rekening worden gehouden met een eventuele rentekorting als deze vervalt bij het beëindigen van het dienstverband."
+    },
+    {
+      "policy_code": "POL-0278",
+      "title": "Dan moet uit de laatste jaarrekening van de onderneming blijken dat het een zake",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "2.3.6",
+      "description": "Dan moet uit de laatste jaarrekening van de onderneming blijken dat het een zakelijk krediet is."
+    },
+    {
+      "policy_code": "POL-0279",
+      "title": "2.3.7\tPartneralimentatie Als uw klant partneralimentatie moet betalen, dan breng",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "2.3.7",
+      "description": "2.3.7\tPartneralimentatie Als uw klant partneralimentatie moet betalen, dan brengen wij dat voor de duur van de verplichting in mindering op het toetsinkomen."
+    },
+    {
+      "policy_code": "POL-0280",
+      "title": "Uit de jaarstukken van de onderneming moet dan wel duidelijk blijken dat het om",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "2.3.8",
+      "description": "Uit de jaarstukken van de onderneming moet dan wel duidelijk blijken dat het om een zakelijk krediet gaat."
+    },
+    {
+      "policy_code": "POL-0281",
+      "title": "De door MUNT geautoriseerde rekenexpert, die de in komens  verklaring ondernemer",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "2.3.9",
+      "description": "De door MUNT geautoriseerde rekenexpert, die de in komens  verklaring ondernemers opstelt, moet dit bevestigen."
+    },
+    {
+      "policy_code": "POL-0282",
+      "title": "2.3.10\tHypotheken\ten\tonroerend\tgoed Uw klant mag naast zijn eigen woning meerder",
+      "category": "Mortgage Policy",
+      "source_page": 27,
+      "section": "2.3.10",
+      "description": "2.3.10\tHypotheken\ten\tonroerend\tgoed Uw klant mag naast zijn eigen woning meerdere panden bezitten als hij de lasten van eventuele financieringen hiervoor kan dragen."
+    },
+    {
+      "policy_code": "POL-0283",
+      "title": "55HYPOTHEEKGIDS 202654 MUNTHYPOTHEKEN.NL Onroerend\tgoed\t(inclusief\tde\thuidige\tei",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.10",
+      "description": "55HYPOTHEEKGIDS 202654 MUNTHYPOTHEKEN.NL Onroerend\tgoed\t(inclusief\tde\thuidige\teigen\twoning)\tdat\tis of\twordt\tverkocht •  De werkelijke maandlast moet aantoonbaar betaald kunnen worden:  33 • Tot de leveringsdatum als de woning is verkocht en de ontbindende voorwaarden zijn verstreken."
+    },
+    {
+      "policy_code": "POL-0284",
+      "title": "• Tot de geplande betrekkingsdatum van de nieuwe woning of de verwachte levering",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.10",
+      "description": "• Tot de geplande betrekkingsdatum van de nieuwe woning of de verwachte leveringsdatum van de huidige woning, afhankelijk van welke datum verder in de toekomst ligt, met een minimum van 12 maanden."
+    },
+    {
+      "policy_code": "POL-0285",
+      "title": "35 •  Een mogelijk verkoopverlies moet uit eigen financiële middelen kunnen word",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.10",
+      "description": "35 •  Een mogelijk verkoopverlies moet uit eigen financiële middelen kunnen worden betaald."
+    },
+    {
+      "policy_code": "POL-0286",
+      "title": "Deze mag in mindering worden gebracht op het tekort.",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "Deze mag in mindering worden gebracht op het tekort."
+    },
+    {
+      "policy_code": "POL-0287",
+      "title": "39 •  Het bedrag dat aan eigen middelen moet worden aangetoond is de  (negatieve",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "39 •  Het bedrag dat aan eigen middelen moet worden aangetoond is de  (negatieve) uitkomst van de som vermenigvuldigd met het aantal maanden dat de situatie duurt."
+    },
+    {
+      "policy_code": "POL-0288",
+      "title": "Dan moet hij het totale bedrag aan eigen middelen aantonen.",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "Dan moet hij het totale bedrag aan eigen middelen aantonen."
+    },
+    {
+      "policy_code": "POL-0289",
+      "title": "41 Als eigen middelen worden alleen vrij beschikbare middelen geaccepteerd, zoal",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "41 Als eigen middelen worden alleen vrij beschikbare middelen geaccepteerd, zoals banksaldi."
+    },
+    {
+      "policy_code": "POL-0290",
+      "title": "Dan mag u de betaalbaarheid ook aantonen met een inkomsten/uitgavenformulier van",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "Dan mag u de betaalbaarheid ook aantonen met een inkomsten/uitgavenformulier van het Nibud of een nettolasten berekening."
+    },
+    {
+      "policy_code": "POL-0291",
+      "title": "40 Bijvoorbeeld: komt uw klant volgens deze berekening maande lijks € 600 tekort",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "40 Bijvoorbeeld: komt uw klant volgens deze berekening maande lijks € 600 tekort en betrekt hij de nieuwe woning over 12 maanden, dan moet hij € 7.200 (12 x 600) aan eigen middelen aantonen."
+    },
+    {
+      "policy_code": "POL-0292",
+      "title": "34 De geplande leveringsdatum moet blijken uit de verkoopoveropovereenkomst.",
+      "category": "Mortgage Policy",
+      "source_page": 28,
+      "section": "2.3.11",
+      "description": "34 De geplande leveringsdatum moet blijken uit de verkoopoveropovereenkomst."
+    },
+    {
+      "policy_code": "POL-0293",
+      "title": "Uw klant moet wel kunnen aantonen dat de aflossing met eigen middelen is of word",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "2.3.13",
+      "description": "Uw klant moet wel kunnen aantonen dat de aflossing met eigen middelen is of wordt gedaan en dat het krediet is afgelost."
+    },
+    {
+      "policy_code": "POL-0294",
+      "title": "De marktwaarde vermeerderd met het geleend bedrag voor de verbouwing mag dus nie",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "2.3.13",
+      "description": "De marktwaarde vermeerderd met het geleend bedrag voor de verbouwing mag dus niet hoger zijn dan de NHG-grens."
+    },
+    {
+      "policy_code": "POL-0295",
+      "title": "2.4 ONDERPAND Zodra wij een hypotheek voor een woning verstrekken, heeft MUNT ee",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "2.4",
+      "description": "2.4 ONDERPAND Zodra wij een hypotheek voor een woning verstrekken, heeft MUNT een eerste hypotheekrecht op deze woning, oftewel het onderpand."
+    },
+    {
+      "policy_code": "POL-0296",
+      "title": "Dit zijn de koop/aanneemsom, het volumevergrotende meerwerk, de energiebesparend",
+      "category": "Mortgage Policy",
+      "source_page": 29,
+      "section": "2.4.1",
+      "description": "Dit zijn de koop/aanneemsom, het volumevergrotende meerwerk, de energiebesparende voorzieningen, eventuele sloopkosten en het renteverlies tijdens de bouw, plus maximaal 25% van deze som  voor het overige meerwerk."
+    },
+    {
+      "policy_code": "POL-0297",
+      "title": "Uw klant moet dan een taxatierapport aanvragen.",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.2",
+      "description": "Uw klant moet dan een taxatierapport aanvragen."
+    },
+    {
+      "policy_code": "POL-0298",
+      "title": "49 De Desktop Taxatie mag op de datum van het hypotheekaanbod maximaal 6 maanden",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.2",
+      "description": "49 De Desktop Taxatie mag op de datum van het hypotheekaanbod maximaal 6 maanden oud zijn."
+    },
+    {
+      "policy_code": "POL-0299",
+      "title": "2.4.3\tTaxatierapport Geldigheid Het taxatierapport mag op de datum van het hypot",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "2.4.3\tTaxatierapport Geldigheid Het taxatierapport mag op de datum van het hypotheek- aanbod maximaal 6 maanden oud zijn."
+    },
+    {
+      "policy_code": "POL-0300",
+      "title": "Model\ten\tvalidatie Het rapport moet zijn opgesteld volgens het model ‘Taxatierap",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "Model\ten\tvalidatie Het rapport moet zijn opgesteld volgens het model ‘Taxatierapport financiering woonruimte’, inclusief alle bijlagen, zoals een kadastraal uittreksel en inzicht in de erfpacht- of opstalsituatie."
+    },
+    {
+      "policy_code": "POL-0301",
+      "title": "Een gecertificeerd instituut (geregistreerd bij de stichting Nederlands Register",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "Een gecertificeerd instituut (geregistreerd bij de stichting Nederlands Register Vastgoed Taxateurs) moet het taxatierapport valideren."
+    },
+    {
+      "policy_code": "POL-0302",
+      "title": "Courantheid De courantheid van de woning mag maximaal 12 maanden zijn.",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "Courantheid De courantheid van de woning mag maximaal 12 maanden zijn."
+    },
+    {
+      "policy_code": "POL-0303",
+      "title": "Onderhoud Het onderhoud moet ‘redelijk’ of ‘goed’ zijn.",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "Onderhoud Het onderhoud moet ‘redelijk’ of ‘goed’ zijn."
+    },
+    {
+      "policy_code": "POL-0304",
+      "title": "Dan moeten alle direct noodzakelijke herstelwerkzaamheden in een bouwdepot worde",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "Dan moeten alle direct noodzakelijke herstelwerkzaamheden in een bouwdepot worden opgenomen."
+    },
+    {
+      "policy_code": "POL-0305",
+      "title": "In alle situaties moet uit het taxatierapport blijken dat de onderhouds- en bouw",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "In alle situaties moet uit het taxatierapport blijken dat de onderhouds- en bouwkundige staat van het gebouw ‘voldoende’ of ‘goed’ is."
+    },
+    {
+      "policy_code": "POL-0306",
+      "title": "47 MUNT accepteert alleen de Desktop Taxatie van Calcasa.",
+      "category": "Mortgage Policy",
+      "source_page": 30,
+      "section": "2.4.3",
+      "description": "47 MUNT accepteert alleen de Desktop Taxatie van Calcasa."
+    },
+    {
+      "policy_code": "POL-0307",
+      "title": "Het bouwkundig rapport mag op de datum van het hypo- theek aanbod maximaal 6 maa",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.4",
+      "description": "Het bouwkundig rapport mag op de datum van het hypo- theek aanbod maximaal 6 maanden oud zijn."
+    },
+    {
+      "policy_code": "POL-0308",
+      "title": "Het moet zijn opgesteld door de gemeente, Vereniging Eigen Huis of een bouwkundi",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.4",
+      "description": "Het moet zijn opgesteld door de gemeente, Vereniging Eigen Huis of een bouwkundig bedrijf dat bij de Kamer van Koophandel is ingeschreven."
+    },
+    {
+      "policy_code": "POL-0309",
+      "title": "Indien een bouwkundig bedrijf de keuring uitvoert, moet het rapport opgesteld zi",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.4",
+      "description": "Indien een bouwkundig bedrijf de keuring uitvoert, moet het rapport opgesteld zijn volgens het laatste model ‘Bouwkundig Rapport NHG’."
+    },
+    {
+      "policy_code": "POL-0310",
+      "title": "52 MUNT accepteert de volgende vormen van nieuwbouw, mits met afbouwgarantie die",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.5",
+      "description": "52 MUNT accepteert de volgende vormen van nieuwbouw, mits met afbouwgarantie die is goedgekeurd door de Stichting GarantieWoning: • Projectverband • Collectief Particulier Opdrachtgeverschap (CPO) • Individueel (niet-projectverband) De koop-/aanneemovereenkomst is altijd vereist."
+    },
+    {
+      "policy_code": "POL-0311",
+      "title": "Dit taxatierapport moet zijn opgemaakt op basis van de bouwtekeningen en het bes",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.5",
+      "description": "Dit taxatierapport moet zijn opgemaakt op basis van de bouwtekeningen en het bestek, uitgaande van de aangevraagde omgevingsvergunning."
+    },
+    {
+      "policy_code": "POL-0312",
+      "title": "51 De bouwkundig adviseur mag op geen enkele manier (in)direct betrokken zijn bi",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.5",
+      "description": "51 De bouwkundig adviseur mag op geen enkele manier (in)direct betrokken zijn bij de transactie."
+    },
+    {
+      "policy_code": "POL-0313",
+      "title": "23 NHG: Alleen deze optie is toegestaan.",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.5",
+      "description": "23 NHG: Alleen deze optie is toegestaan."
+    },
+    {
+      "policy_code": "POL-0314",
+      "title": "53 De omgevingsvergunning moet uiterlijk op het moment van passeren onherroepeli",
+      "category": "Mortgage Policy",
+      "source_page": 31,
+      "section": "2.4.5",
+      "description": "53 De omgevingsvergunning moet uiterlijk op het moment van passeren onherroepelijk zijn."
+    },
+    {
+      "policy_code": "POL-0315",
+      "title": "58 2.4.6\tBouwdepot Een bouwdepot is verplicht in de volgende situaties:  24 •  D",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.6",
+      "description": "58 2.4.6\tBouwdepot Een bouwdepot is verplicht in de volgende situaties:  24 •  De hypotheekaanvraag is gebaseerd op de markt waarde na verbouwing."
+    },
+    {
+      "policy_code": "POL-0316",
+      "title": "60  61 •  Uw klant kan het (restant)saldo in het bouwdepot alleen gebruiken voor",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.6",
+      "description": "60  61 •  Uw klant kan het (restant)saldo in het bouwdepot alleen gebruiken voor aflossing op de hypotheek als hij met facturen of een gevalideerd taxatierapport aantoont dat de (ver)bouw volgens de koop-/aanneemovereenkomst of de verbouwingsspecificatie is uitgevoerd."
+    },
+    {
+      "policy_code": "POL-0317",
+      "title": "62 •  Als MUNT aan het einde van de looptijd van het bouwdepot nog niet alle fac",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.6",
+      "description": "62 •  Als MUNT aan het einde van de looptijd van het bouwdepot nog niet alle facturen volgens de koop-/ aanneemovereenkomst of verbouwingsspecificatie heeft ontvangen, moet uw klant op verzoek van MUNT binnen 1 maand met gevalideerd taxatierapport aantonen dat de woning naar - maatschappelijke normen - geschikt is om in te wonen."
+    },
+    {
+      "policy_code": "POL-0318",
+      "title": "•  Een bouwdepot is verplicht als de lasten van het Verbeterbudget worden getoet",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.7",
+      "description": "•  Een bouwdepot is verplicht als de lasten van het Verbeterbudget worden getoetst volgens de financieringslasttabellen waarvan de rente fiscaal aftrekbaar is."
+    },
+    {
+      "policy_code": "POL-0319",
+      "title": "62 Uw klant kan bij het insturen van de facturen aangeven dat deze op de hypothe",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.7",
+      "description": "62 Uw klant kan bij het insturen van de facturen aangeven dat deze op de hypotheek moeten worden afgelost in plaats van uitbetaald."
+    },
+    {
+      "policy_code": "POL-0320",
+      "title": "60 Uw klant moet gedurende de looptijd van de hypo theek alle facturen tot het b",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.7",
+      "description": "60 Uw klant moet gedurende de looptijd van de hypo theek alle facturen tot het bedrag van het bouwdepot bewaren in verband met (fiscale) controle."
+    },
+    {
+      "policy_code": "POL-0321",
+      "title": "64 Het gehele budget moet aan woningverbetering worden besteed (nagelvast aan de",
+      "category": "Mortgage Policy",
+      "source_page": 32,
+      "section": "2.4.7",
+      "description": "64 Het gehele budget moet aan woningverbetering worden besteed (nagelvast aan de woning verbonden)."
+    },
+    {
+      "policy_code": "POL-0322",
+      "title": "Het deel boven 100% moet volledig aan zulke voorzieningen worden besteed.",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Het deel boven 100% moet volledig aan zulke voorzieningen worden besteed."
+    },
+    {
+      "policy_code": "POL-0323",
+      "title": "Hieraan is wel een maximum gebonden, dat afhankelijk is van het energielabel van",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Hieraan is wel een maximum gebonden, dat afhankelijk is van het energielabel van de woning: • € 10.000 als de woning geen of geen geldig energielabel heeft én geen nieuwbouwwoning is."
+    },
+    {
+      "policy_code": "POL-0324",
+      "title": "Het deel van de lening dat niet meetelt voor de financieringslast moet volledig",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Het deel van de lening dat niet meetelt voor de financieringslast moet volledig aan energiebesparende voorzieningen worden besteed."
+    },
+    {
+      "policy_code": "POL-0325",
+      "title": "Ook moet dit deel annuïtair of lineair worden afgelost in maximaal 30 jaar.",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Ook moet dit deel annuïtair of lineair worden afgelost in maximaal 30 jaar."
+    },
+    {
+      "policy_code": "POL-0326",
+      "title": "67 Wil uw klant meer lenen dan het maximum?",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "67 Wil uw klant meer lenen dan het maximum?"
+    },
+    {
+      "policy_code": "POL-0327",
+      "title": "Hiervoor gelden de volgende voorwaarden: • Het gaat om een eenmalige extra bijdr",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Hiervoor gelden de volgende voorwaarden: • Het gaat om een eenmalige extra bijdrage aan het reservefonds die in één keer moet worden betaald."
+    },
+    {
+      "policy_code": "POL-0328",
+      "title": "Het gehele Energiebespaarbudget moet aan energiebesparende voorzieningen worden",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Het gehele Energiebespaarbudget moet aan energiebesparende voorzieningen worden besteed."
+    },
+    {
+      "policy_code": "POL-0329",
+      "title": "Alleen bij A++ kan uw klant gebruik maken van de ruimtere leennormen op inkomen.",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Alleen bij A++ kan uw klant gebruik maken van de ruimtere leennormen op inkomen."
+    },
+    {
+      "policy_code": "POL-0330",
+      "title": "68 Uw klant moet het deel waarvan de lasten niet meetellen volledig besteden aan",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "68 Uw klant moet het deel waarvan de lasten niet meetellen volledig besteden aan energiebesparende voorzieningen."
+    },
+    {
+      "policy_code": "POL-0331",
+      "title": "De nieuwe financieringslast mag niet hoger zijn dan de toegestane financieringsl",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "De nieuwe financieringslast mag niet hoger zijn dan de toegestane financieringslast van uw klant."
+    },
+    {
+      "policy_code": "POL-0332",
+      "title": "Ook mag in dat geval de totale hypotheek niet hoger zijn dan 100% van de (aangep",
+      "category": "Mortgage Policy",
+      "source_page": 33,
+      "section": "2.4.8",
+      "description": "Ook mag in dat geval de totale hypotheek niet hoger zijn dan 100% van de (aangepaste) marktwaarde van de woning."
+    },
+    {
+      "policy_code": "POL-0333",
+      "title": "•  Als de erfpachtovereenkomst vóór 1 januari 1992 is gesloten, mag de (resteren",
+      "category": "Mortgage Policy",
+      "source_page": 34,
+      "section": "2.4.9",
+      "description": "•  Als de erfpachtovereenkomst vóór 1 januari 1992 is gesloten, mag de (resterende) duur van het recht van erfpacht niet korter zijn dan de helft van de looptijd van de hypotheek, tenzij in de overeenkomst staat dat het recht van erfpacht na de (resterende) duur onvoor waardelijk wordt verlengd."
+    },
+    {
+      "policy_code": "POL-0334",
+      "title": "• Als het recht van opstal niet eeuwigdurend is: •  is de looptijd van de MUNT H",
+      "category": "Mortgage Policy",
+      "source_page": 34,
+      "section": "2.4.10",
+      "description": "• Als het recht van opstal niet eeuwigdurend is: •  is de looptijd van de MUNT Hypotheek gemaximeerd tot de loop tijd van het recht van opstal, en •  moet de gehele hypotheek aan het einde van de looptijd zijn afgelost."
+    },
+    {
+      "policy_code": "POL-0335",
+      "title": "2.4.11\tOnderpanden\tdie\tniet\tvoldoen MUNT verstrekt alleen een hypotheek als het",
+      "category": "Mortgage Policy",
+      "source_page": 34,
+      "section": "2.4.11",
+      "description": "2.4.11\tOnderpanden\tdie\tniet\tvoldoen MUNT verstrekt alleen een hypotheek als het onderpand courant is binnen een brede doelgroep en als de woning als zodanig gebruikt kan worden door uw klant."
+    },
+    {
+      "policy_code": "POL-0336",
+      "title": "75 2.5 VERZEKERINGEN Uw klant moet zorgeloos kunnen wonen.",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5",
+      "description": "75 2.5 VERZEKERINGEN Uw klant moet zorgeloos kunnen wonen."
+    },
+    {
+      "policy_code": "POL-0337",
+      "title": "2.5.1\tOpstalverzekering Uw klant is verplicht een opstalverzekering te sluiten v",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.1",
+      "description": "2.5.1\tOpstalverzekering Uw klant is verplicht een opstalverzekering te sluiten voor minimaal de herbouw waarde van de woning, inclusief de fundering."
+    },
+    {
+      "policy_code": "POL-0338",
+      "title": "De verzekering moet alle gebruikelijke gebeurte- nissen dekken, zoals schade als",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.1",
+      "description": "De verzekering moet alle gebruikelijke gebeurte- nissen dekken, zoals schade als gevolg van storm, brand, overstroming en ontploffing."
+    },
+    {
+      "policy_code": "POL-0339",
+      "title": "De opstal- verzekering is verplicht gedurende de looptijd van de MUNT Hypotheek.",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.1",
+      "description": "De opstal- verzekering is verplicht gedurende de looptijd van de MUNT Hypotheek."
+    },
+    {
+      "policy_code": "POL-0340",
+      "title": "De woonbestemming moet blijken uit het taxatierapport.",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.1",
+      "description": "De woonbestemming moet blijken uit het taxatierapport."
+    },
+    {
+      "policy_code": "POL-0341",
+      "title": "2.5.2\tOverlijdensrisicoverzekering\t  28  76 Een overlijdensrisicoverzekering is",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.2",
+      "description": "2.5.2\tOverlijdensrisicoverzekering\t  28  76 Een overlijdensrisicoverzekering is alleen verplicht: • als uw klant ouder is dan 70 jaar, en • zijn inkomen nodig is voor de MUNT Hypotheek, en •  het hypotheekbedrag hoger is dan 80% van de marktwaarde van de woning."
+    },
+    {
+      "policy_code": "POL-0342",
+      "title": "De verzekering moet dekking bieden voor het hypotheek- bedrag boven 80% van de m",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.2",
+      "description": "De verzekering moet dekking bieden voor het hypotheek- bedrag boven 80% van de marktwaarde van de woning en moet worden verpand aan MUNT."
+    },
+    {
+      "policy_code": "POL-0343",
+      "title": "Dit mag een bestaande of nieuwe verzekering zijn.",
+      "category": "Mortgage Policy",
+      "source_page": 35,
+      "section": "2.5.2",
+      "description": "Dit mag een bestaande of nieuwe verzekering zijn."
+    },
+    {
+      "policy_code": "POL-0344",
+      "title": "De beoordeling van de hypotheekaanvraag moet bin- nen deze termijn zijn afgerond",
+      "category": "Mortgage Policy",
+      "source_page": 36,
+      "section": "3.1",
+      "description": "De beoordeling van de hypotheekaanvraag moet bin- nen deze termijn zijn afgerond, zodat wij het hypotheekaan- bod kunnen uitbrengen."
+    },
+    {
+      "policy_code": "POL-0345",
+      "title": "1 De hypotheekakte moet binnen de geldigheidstermijn van het aanbod passeren.",
+      "category": "Mortgage Policy",
+      "source_page": 36,
+      "section": "3.1",
+      "description": "1 De hypotheekakte moet binnen de geldigheidstermijn van het aanbod passeren."
+    },
+    {
+      "policy_code": "POL-0346",
+      "title": "Overal waar u ‘recent’ leest, bedoelen wij: niet ouder dan 3 maanden gerekend va",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "Overal waar u ‘recent’ leest, bedoelen wij: niet ouder dan 3 maanden gerekend vanaf de datum van het hypotheekaanbod, tenzij anders vermeld."
+    },
+    {
+      "policy_code": "POL-0347",
+      "title": "1 Overal waar een handtekening wordt gevraagd, mag dit een digitale handtekening",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "1 Overal waar een handtekening wordt gevraagd, mag dit een digitale handtekening zijn."
+    },
+    {
+      "policy_code": "POL-0348",
+      "title": "Inkomensbepaling\tLoondienst: •  recent UWV-Verzekeringsbericht, ongewijzigd en z",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "Inkomensbepaling\tLoondienst: •  recent UWV-Verzekeringsbericht, ongewijzigd en zonder 1 NHG: Hiervoor geldt dat de documenten niet ouder mogen zijn dan 3 maanden vanaf de datum van het hypotheekaanbod, tenzij anders vermeld."
+    },
+    {
+      "policy_code": "POL-0349",
+      "title": "3 Alleen nodig als het inkomen benodigd is.",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "3 Alleen nodig als het inkomen benodigd is."
+    },
+    {
+      "policy_code": "POL-0350",
+      "title": "5 De salarisstrook mag op de datum van het hypotheekaanbod maximaal 3 maanden ou",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "5 De salarisstrook mag op de datum van het hypotheekaanbod maximaal 3 maanden oud zijn."
+    },
+    {
+      "policy_code": "POL-0351",
+      "title": "8 Alleen nodig als een werkgeversverklaring door de aard van de arbeidsrelatie n",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "8 Alleen nodig als een werkgeversverklaring door de aard van de arbeidsrelatie niet afgegeven wordt."
+    },
+    {
+      "policy_code": "POL-0352",
+      "title": "9 Alleen als de hypotheek op box-1 wordt getoetst, zie ook § 2.2.1 Inkomen uit l",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "9 Alleen als de hypotheek op box-1 wordt getoetst, zie ook § 2.2.1 Inkomen uit loondienst."
+    },
+    {
+      "policy_code": "POL-0353",
+      "title": "10 Alleen als de werkgever ≥ 150 kilometer van woning is gevestigd.",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "10 Alleen als de werkgever ≥ 150 kilometer van woning is gevestigd."
+    },
+    {
+      "policy_code": "POL-0354",
+      "title": "6 Alleen nodig als de variabele inkomensbestanddelen volgens de werkgeversverkla",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "6 Alleen nodig als de variabele inkomensbestanddelen volgens de werkgeversverklaring in totaal meer zijn dan 120% van die van het vorige kalenderjaar én de variabele inkomensbestanddelen volgens de werkgeversverklaring nodig zijn voor het toetsinkomen."
+    },
+    {
+      "policy_code": "POL-0355",
+      "title": "2 NHG: Een verklaring van de werkgever is verplicht.",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "2 NHG: Een verklaring van de werkgever is verplicht."
+    },
+    {
+      "policy_code": "POL-0356",
+      "title": "2 Alleen bij een eigen inbreng van €25.000 of meer.",
+      "category": "Mortgage Policy",
+      "source_page": 37,
+      "section": "3.4",
+      "description": "2 Alleen bij een eigen inbreng van €25.000 of meer."
+    },
+    {
+      "policy_code": "POL-0357",
+      "title": "Dan moet hij altijd een verbouwingsspecificatie aanleveren.",
+      "category": "Mortgage Policy",
+      "source_page": 38,
+      "section": "3.4",
+      "description": "Dan moet hij altijd een verbouwingsspecificatie aanleveren."
+    },
+    {
+      "policy_code": "POL-0358",
+      "title": "13 14 Nieuwbouw\tbasisdocumenten: • getekende koop-/aanneemovereenkomst •  waarbo",
+      "category": "Mortgage Policy",
+      "source_page": 39,
+      "section": "3.4",
+      "description": "13 14 Nieuwbouw\tbasisdocumenten: • getekende koop-/aanneemovereenkomst •  waarborgcertificaat van de instelling met keurmerk van de Stichting GarantieWoning  15 •  meerwerk specificatie • voorlopig energielabel indien inkomenstoets op A++++ Nieuwbouw\tIndividueel: • nieuwbouwtaxatierapport met bijlagen en eventuele meerwerkspecificatie Nieuwbouw\tCPO: • deelnemersovereenkomst • achtervangovereenkomst • procesbegeleidingsovereenkomst Recht van erfpacht of opstal • erfpacht- of opstalovereenkomst •  taxatierapport, niet ouder dan 6 maanden, met waarde van het onderpand na afkoop erfpacht of opstal  16 Energiebesparende voorzieningen • geldig energielabel indien afwijkend van EP-Online Bestaande leningen voor de eigen woning Hypothecair: •  recente schuldrestopgave of (pro forma) aflosnota van de huidige hypotheekaanbieder Overig: •  recente schuldrestopgave of (pro forma) aflosnota van de huidige kredietaanbieder •  opgave van de kredietaanbieder dat het krediet na aflossing wordt beëindigd  17 •  recente aangifte Inkomstenbelasting waaruit blijkt dat het een lening voor de eigen woning betreft  18  3 AAN TE LEVEREN DOCUMENTEN 19 Desktop Taxatie is alleen mogelijk als overbruggingshypotheek minus schuldrest huidige hypotheek lager is dan 90% van de marktwaarde is."
+    },
+    {
+      "policy_code": "POL-0359",
+      "title": "18 Niet nodig voor aanvragen zonder NHG, tenzij wij uw klant hierom vragen.",
+      "category": "Mortgage Policy",
+      "source_page": 39,
+      "section": "3.4",
+      "description": "18 Niet nodig voor aanvragen zonder NHG, tenzij wij uw klant hierom vragen."
+    },
+    {
+      "policy_code": "POL-0360",
+      "title": "17 Alleen nodig als het een doorlopend krediet betreft (BKR- registratie: RK).",
+      "category": "Mortgage Policy",
+      "source_page": 39,
+      "section": "3.4",
+      "description": "17 Alleen nodig als het een doorlopend krediet betreft (BKR- registratie: RK)."
+    },
+    {
+      "policy_code": "POL-0361",
+      "title": "16 Alleen als het recht van erfpacht of opstal wordt afgekocht en de financierin",
+      "category": "Mortgage Policy",
+      "source_page": 39,
+      "section": "3.4",
+      "description": "16 Alleen als het recht van erfpacht of opstal wordt afgekocht en de financiering uitgaat van de waarde na afkoop."
+    },
+    {
+      "policy_code": "POL-0362",
+      "title": "21 Alleen nodig als het krediet op werkelijke last wordt getoetst.",
+      "category": "Mortgage Policy",
+      "source_page": 39,
+      "section": "3.4",
+      "description": "21 Alleen nodig als het krediet op werkelijke last wordt getoetst."
+    },
+    {
+      "policy_code": "POL-0363",
+      "title": "31 Alleen nodig als de huidige woning nog op naam van beiden staat.",
+      "category": "Mortgage Policy",
+      "source_page": 40,
+      "section": "3.4",
+      "description": "31 Alleen nodig als de huidige woning nog op naam van beiden staat."
+    },
+    {
+      "policy_code": "POL-0364",
+      "title": "28 Tenzij anders vermeld, zijn deze stukken niet nodig als de scheiding aantoonb",
+      "category": "Mortgage Policy",
+      "source_page": 40,
+      "section": "3.4",
+      "description": "28 Tenzij anders vermeld, zijn deze stukken niet nodig als de scheiding aantoonbaar langer dan 12 jaar geleden heeft plaats gevonden."
+    },
+    {
+      "policy_code": "POL-0365",
+      "title": "AAN TE LEVEREN DOCUMENTEN 29 Let op: de akte van verdeling moet vóór of uiterlij",
+      "category": "Mortgage Policy",
+      "source_page": 40,
+      "section": "3.4",
+      "description": "AAN TE LEVEREN DOCUMENTEN 29 Let op: de akte van verdeling moet vóór of uiterlijk gelijktijdig met de hypotheekakte passeren."
+    },
+    {
+      "policy_code": "POL-0366",
+      "title": "Want als branche kunnen wij alleen goede producten tegen eerlijke tarieven aanbi",
+      "category": "Mortgage Policy",
+      "source_page": 41,
+      "section": "3.4",
+      "description": "Want als branche kunnen wij alleen goede producten tegen eerlijke tarieven aanbieden als ze gebruikt worden waarvoor ze bedoeld zijn."
+    }
+  ]
+    }
+  ]
+}

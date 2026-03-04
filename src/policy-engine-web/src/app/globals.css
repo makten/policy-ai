@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --ring: #2563eb;
+  --destructive: #ef4444;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --sidebar-bg: #0f172a;
+  --sidebar-fg: #e2e8f0;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #2563eb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-fg: var(--sidebar-fg);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-active: var(--sidebar-active);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Scan animation for evaluation loading */
+@keyframes scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@utility animate-scan {
+  animation: scan 2s ease-in-out infinite;
+}
+
+@keyframes rag-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes rag-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    filter: drop-shadow(0 0 0px rgba(37, 99, 235, 0));
+  }
+  50% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.35));
+  }
+}
+
+@keyframes rag-flow {
+  0% {
+    stroke-dashoffset: 36;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@utility animate-rag-float {
+  animation: rag-float 9s ease-in-out infinite;
+}
+
+@utility animate-rag-glow {
+  animation: rag-glow 4.8s ease-in-out infinite;
+}
+
+.rag-flow {
+  stroke-dasharray: 6 6;
+  animation: rag-flow 4.8s linear infinite;
+}
+
+.rag-flow-soft {
+  stroke-dasharray: 4 7;
+  animation: rag-flow 7.2s linear infinite;
+}
+
+/* ── Premium application preview animations ── */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; max-height: 0; }
+  to   { opacity: 1; max-height: 2000px; }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  50%      { box-shadow: 0 0 24px -4px rgba(37, 99, 235, 0.15); }
+}
+
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+
+@utility animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out both;
+}
+
+@utility animate-slide-down {
+  animation: slide-down 0.35s ease-out both;
+}
+
+@utility animate-count-up {
+  animation: count-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@utility animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@utility animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}

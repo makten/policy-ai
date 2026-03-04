@@ -1,0 +1,466 @@
+{
+    "financialStructureReference": "089583b0-b3ab-47a0-88cf-e9726538e9f9",
+    "productLineReference": "ASN Bespaarhypotheek",
+    "assessmentType": "PreliminaryOffer",
+    "assessmentCorrelationReference": "{{$guid}}",
+    "dossierReference": "a40a2df6-3a4d-4ccf-b099-6554462687c8",
+    "channel": "HDN",
+    "processReference": "382a323f-207f-4833-aeeb-7fcf14d1e5ce",
+    "businessProcessReference": "0b8a5e10-f8ba-4f8b-a82e-e18a1ce2725d",
+    "referenceDate": "2025-02-11T15:08:02",
+    "originalApplicationDate": "2025-02-11",
+    "bindingOfferDate": "2025-02-11",
+    "riskRating": "Groen",
+    "actualPurchasePrice": 375000.0,
+    "hasNHG": true,
+    "hasPreliminaryNote": false,
+    "deedPassingInformation": {
+        "expectedClosingDate": "2025-04-11"
+    },
+    "applicantCollection": {
+        "applicants": [
+            {
+                "applicantType": "LiableParty",
+                "countryOfNationality": "528",
+                "maritalStatus": "Single",
+                "hasBeenDivorced": false,
+                "foreignTaxpayer": false,
+                "relevantIncomeExcludingOtherIncome": 213000.0000000000,
+                "identificationNumber": "PASPAARD2",
+                "isBlocked": false,
+                "countryOfBirth": "528",
+                "placeOfBirth": "Deventer",
+                "identificationType": "Passport",
+                "contact": {
+                    "phoneNumberHome": "0612345678",
+                    "phoneNumberMobile": "0612345678",
+                    "emailAddress": "testFRCX@topicus.nl"
+                },
+                "incomeCollection": {
+                    "incomes": [
+                        {
+                            "incomeType": "Employment",
+                            "employmentType": "FixedEmployment",
+                            "majorShareholder": false,
+                            "incomePeriod": "Monthly",
+                            "wageAdditions": {
+                                "holidayPay": 8000.00000,
+                                "irregularityAllowance": 5000.00000,
+                                "commission": 3000.00000,
+                                "overtime": 1000.00000,
+                                "fixedExtraMonthPayment": 4000.00000,
+                                "endOfYearBonus": 2000.00000
+                            },
+                            "cashPayment": false,
+                            "hasWageGarnishment": false,
+                            "probationaryPeriod": false,
+                            "isFlexWork": false,
+                            "startDate": "2010-01-01",
+                            "annualIncome": 190000.00000,
+                            "country": "528"
+                        }
+                    ]
+                },
+                "applicantSequenceNumber": 0,
+                "externalPartyReference": "ZfHRKbsbQkWrfXQ",
+                "gender": "Male",
+                "initials": "A.",
+                "correspondenceName": "hafiztest",
+                "dateOfBirth": "1980-01-01",
+                "homeAddressBase": {
+                    "addressType": "AddressNetherlands",
+                    "street": "'Teststraat",
+                    "houseNumber": 331,
+                    "postalCode": "7328 DB",
+                    "city": "'testplaats",
+                    "country": "528"
+                },
+                "isFirstMortgageEver": false,
+                "totalYearlyIncome": 213000.00000,
+                "isForeignBKRCheckRequired": false,
+                "isCustomerWithEmploymentAfterRetirement": false,
+                "isCustomerWithPensionAndPayrollIncome": false
+            }
+        ]
+    },
+    "realEstateCollection": {
+        "realEstates": [
+            {
+                "realEstateType": "ResidentialShopPremises",
+                "specificHouseType": "DetachedTownhouse",
+                "realEstateReference": "7c7b806d-d60e-46d4-ac57-06878ce552bc",
+                "buildingType": {
+                    "type": "ExistingBuild",
+                    "realEstateAddress": {
+                        "addressType": "AddressNetherlands",
+                        "street": "'Teststraat",
+                        "houseNumber": 75,
+                        "postalCode": "1098LW",
+                        "city": "'testplaats",
+                        "country": "528",
+                        "municipality": "'testgemeente"
+                    },
+                    "purchasePrice": 200000.00000,
+                    "hasOverdueMaintenanceGreaterThan10PercentMarketValue": false,
+                    "landPurchasePrice": 0.00000,
+                    "overdueMaintenance": 0
+                },
+                "isToBeFinanced": true,
+                "mainResidence": true,
+                "isCooperativeHouse": false,
+                "hasCooperativeRestrictiveOwnership": false,
+                "valuation": {
+                    "value": 200000.00000,
+                    "valueBeforeRenovation": 200000.00,
+                    "source": "ValuationReport",
+                    "date": "2024-05-01",
+                    "hasContaminatedSoil": false,
+                    "maintenanceCondition": "Good"
+                },
+                "yearOfConstruction": 1906,
+                "hasPurchasingCosts": true,
+                "ownerOccupied": true,
+                "energyLabel": {
+                    "energyLabelType": "APPPP"
+                },
+                "country": "528",
+                "propertyStatus": "ToBePurchased",
+                "marketValue": 200000.00000,
+                "realEstateRentalType": "None",
+                "commercialPercentage": 0.00000,
+                "commercialPercentageAfterRenovation": 0.00000,
+                "isCommune": false,
+                "activeVVE": false,
+                "hasMaintenanceFund": false,
+                "isHomeOfApplication": true,
+                "hasGarage": false,
+                "isHolidayHome": false
+            },
+            {
+                "realEstateType": "TerracedHouse",
+                "specificHouseType": "DetachedTownhouse",
+                "realEstateReference": "22f4459c-b905-47ea-ac0e-eb09354fa4f1",
+                "buildingType": {
+                    "type": "ExistingBuild",
+                    "realEstateAddress": {
+                        "addressType": "AddressForeign",
+                        "street": "'teststraat",
+                        "houseNumber": 33,
+                        "postalCode": "8090SL",
+                        "city": "'testplaats",
+                        "country": "056",
+                        "municipality": "'testgemeente"
+                    },
+                    "movableProperty": 0.00000,
+                    "hasOverdueMaintenanceGreaterThan10PercentMarketValue": false,
+                    "overdueMaintenance": 0
+                },
+                "isToBeFinanced": false,
+                "mainResidence": false,
+                "isCooperativeHouse": false,
+                "hasCooperativeRestrictiveOwnership": false,
+                "valuation": {
+                    "value": 2552532.00000,
+                    "valueBeforeRenovation": 200000.00,
+                    "source": "HDNMarketvalue",
+                    "date": "2025-02-11",
+                    "hasContaminatedSoil": false
+                },
+                "yearOfConstruction": 2025,
+                "hasPurchasingCosts": true,
+                "ownerOccupied": true,
+                "country": "056",
+                "propertyStatus": "InPossession",
+                "marketValue": 2552532.00000,
+                "realEstateRentalType": "None",
+                "commercialPercentage": 0.00000,
+                "commercialPercentageAfterRenovation": 0.00000,
+                "isCommune": false,
+                "activeVVE": false,
+                "hasMaintenanceFund": false,
+                "isHomeOfApplication": false,
+                "hasGarage": false,
+                "isHolidayHome": false
+            }
+        ]
+    },
+    "registrationCollection": {
+        "registrations": [
+            {
+                "registrationReference": "34f23092-5146-45d7-9aeb-2020ecb7bff2",
+                "mortgageRegistrationAmount": 200000.00000,
+                "rankingOfMortgageRegistration": 1,
+                "registrationType": "Bank",
+                "isNew": true
+            }
+        ]
+    },
+    "agreementCollection": {
+        "agreements": [
+            {
+                "agreementReference": "a40a2df6-3a4d-4ccf-b099-6554462687c8",
+                "number": "21000008-20",
+                "principal": 200000.00000,
+                "remainingAmount": 200000.00000,
+                "isSVn": false,
+                "loanCollection": {
+                    "loan": [
+                        {
+                            "loanType": "Loan",
+                            "productType": "Linear",
+                            "nonTaxDeductableLoanAmount": 0.00000,
+                            "fiscalEndDate": "2048-08-01",
+                            "hasNHG": true,
+                            "fiscalRegime": "After2013",
+                            "numberOfManualInterestComponents": 0,
+                            "loanReference": "1c5603df-c6f9-49b8-91ac-28f63f9fffea",
+                            "productName": "BLG Lineaire Hypotheek",
+                            "number": "21000008-20-25",
+                            "loanAmount": 200000.00000,
+                            "loanTermInMonths": 360,
+                            "productReferenceId": "BLG Lineaire Hypotheek",
+                            "productLineDescription": "BLG Wonen",
+                            "interestOffer": {
+                                "interestOfferDate": "2025-02-11",
+                                "interestCorrectionRequired": false,
+                                "interestComposition": {
+                                    "finalRate": 4.30000,
+                                    "interestComponentCollection": {
+                                        "interestComponents": [
+                                            {
+                                                "interestComponentType": "BaseInterestRate",
+                                                "name": "Basisrente"
+                                            },
+                                            {
+                                                "interestComponentType": "DDA",
+                                                "name": "DirectDebitAccount"
+                                            },
+                                            {
+                                                "interestComponentType": "FIA",
+                                                "name": "FloatingCurrentInterestProduct"
+                                            },
+                                            {
+                                                "interestComponentType": "IDI",
+                                                "name": "IncludesDeathInsurance"
+                                            },
+                                            {
+                                                "interestComponentType": "ProposalInterest",
+                                                "name": "ProposalInterest"
+                                            },
+                                            {
+                                                "interestComponentType": "LoyaltyDiscount",
+                                                "name": "LoyaltyDiscount"
+                                            },
+                                            {
+                                                "interestComponentType": "Custom",
+                                                "name": "Custom"
+                                            },
+                                            {
+                                                "interestComponentType": "Eco",
+                                                "name": "EcoFriendlyDiscount"
+                                            },
+                                            {
+                                                "interestComponentType": "HolidayHome",
+                                                "name": "HolidayHome"
+                                            },
+                                            {
+                                                "interestComponentType": "InterestOnlyShort",
+                                                "name": "InterestOnlyShort"
+                                            },
+                                            {
+                                                "interestComponentType": "InterestOnlyLong",
+                                                "name": "InterestOnlyLong"
+                                            },
+                                            {
+                                                "interestComponentType": "InterestOnlyVariable",
+                                                "name": "InterestOnlyVariable"
+                                            },
+                                            {
+                                                "interestComponentType": "Commercial",
+                                                "name": "Commercial"
+                                            },
+                                            {
+                                                "interestComponentType": "ConversionProduct",
+                                                "name": "ConversionProduct"
+                                            },
+                                            {
+                                                "interestComponentType": "Entrepeneur",
+                                                "name": "Entrepreneur"
+                                            },
+                                            {
+                                                "interestComponentType": "Income",
+                                                "name": "Income"
+                                            },
+                                            {
+                                                "interestComponentType": "PaymentFrequency",
+                                                "name": "PaymentFrequency"
+                                            },
+                                            {
+                                                "interestComponentType": "Product",
+                                                "name": "Product"
+                                            },
+                                            {
+                                                "interestComponentType": "RealEstate",
+                                                "name": "Rental"
+                                            },
+                                            {
+                                                "interestComponentType": "Durability",
+                                                "name": "Durability"
+                                            },
+                                            {
+                                                "interestComponentType": "FirstMortgageElsewere",
+                                                "name": "FirstMortgageElsewere"
+                                            },
+                                            {
+                                                "interestComponentType": "NonResidence",
+                                                "name": "NonResidence"
+                                            },
+                                            {
+                                                "interestComponentType": "Sustainability",
+                                                "name": "Sustainability"
+                                            },
+                                            {
+                                                "interestComponentType": "ResidualDebt",
+                                                "name": "ResidualDebt"
+                                            },
+                                            {
+                                                "interestComponentType": "InterestEvaluation",
+                                                "name": "InterestEvaluation"
+                                            },
+                                            {
+                                                "interestComponentType": "VariableInterest",
+                                                "name": "VariableInterest"
+                                            },
+                                            {
+                                                "interestComponentType": "RiskInsurance",
+                                                "name": "RiskInsurance"
+                                            },
+                                            {
+                                                "interestComponentType": "Risk",
+                                                "name": "Risk"
+                                            },
+                                            {
+                                                "interestComponentType": "EnergyLabel",
+                                                "name": "EnergyLabel"
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "repaymentMethod": "Linear",
+                            "mutationType": "New",
+                            "interestPeriodInMonths": 120,
+                            "startDate": "2025-04-11",
+                            "remainingLoanAmount": 200000.00000,
+                            "endDate": "2055-05-01",
+                            "originalDurationNumberOfMonths": 360,
+                            "isInRRAPeriod": false,
+                            "hasTRA": false,
+                            "hasLoanTermChange": false,
+                            "hasRepaymentMethodChanged": false,
+                            "remainingInterestPeriod": 120,
+                            "interestRateRenewalDate": "2035-05-01",
+                            "interestProductBehaviour": "Fixed",
+                            "endowmentProducts": []
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "combinationCollection": {
+        "combinations": [
+            {
+                "realEstateReferences": [
+                    "7c7b806d-d60e-46d4-ac57-06878ce552bc"
+                ],
+                "registrationReferences": [
+                    "34f23092-5146-45d7-9aeb-2020ecb7bff2"
+                ],
+                "agreementReference": "a40a2df6-3a4d-4ccf-b099-6554462687c8"
+            }
+        ]
+    },
+    "financingCosts": {
+        "advisoryCosts": 115.00000,
+        "conveyancingCosts": 400.00000,
+        "mortgageDeedCosts": 117.00000,
+        "brokerCosts": 1002.00000,
+        "valuationCosts": 300.00000,
+        "propertyTransferTax": 400.00000,
+        "engineeringReportCosts": 200.00000,
+        "closingCosts": 0.0,
+        "notaryCosts": 118.00000,
+        "additionalCosts": 2847.00,
+        "totalPurchaseCosts": 200000.00000
+    },
+    "spendingTargetType": "PurchaseHouse",
+    "arrangementType": "FirstMortgage",
+    "calculationsInformation": {
+        "differenceLeaseholdMortgageDurationCollection": [
+            {
+                "differenceLeaseholdMortgageDurationValue": 0,
+                "realEstateReference": "7c7b806d-d60e-46d4-ac57-06878ce552bc"
+            }
+        ],
+        "loanToValuePercentage": 1.00000,
+        "spaceLeftInMortgageBurdenCollection": {
+            "spacesLeftInMortgageBurdens": [
+                {
+                    "spaceLeftInMortgageBurdenYear": "2025",
+                    "spaceLeftInMortgageBurdenAmount": 0.0398687323943661971830985915,
+                    "realHousingAndFinancingObligationAmount": 0.0,
+                    "allowableHousingAndFinancingObligationAmount": 0.0,
+                    "annuityHousingAndFinancialObligationsAmount": 0.0
+                }
+            ]
+        },
+        "spaceAllowedExpenseComply": 4351.08,
+        "maximumFundingBasedOnMarketValue": 200000.00000,
+        "maximumBridgingAmount": 0.0,
+        "principalBridgingLoan": 0.0,
+        "principalNew": 200000.00000,
+        "principalBridgingLoanCurrent": 0.0,
+        "totalAmountMortgageWithGreenDiscount": 0.0,
+        "ltiSufficient10Years": true,
+        "ltiSufficientFullDuration": false,
+        "totalFinancingCostsAmount": 202847.00000,
+        "ltvBasedOnMarketValue": 1.00000,
+        "maximumEnergySavingBudget": 0.0,
+        "sumInterestOnlyAmountExceeded": false,
+        "lowestIncomeWithin10Years": 213000.00000,
+        "sumInterestOnlyAmountExceededCustomArrangement": false,
+        "totalInterestOnlyNew": 0.0,
+        "hasResidualDebtFinancing": false,
+        "hasOnlyResidualDebtFinancing": false,
+        "totalAmountOtherIncome": 213000.00000,
+        "increasedMortgageRegistrationAmount": 0.00000,
+        "calculationsLoanCollection": {
+            "calculationsLoans": [
+                {
+                    "loanReference": "1c5603df-c6f9-49b8-91ac-28f63f9fffea"
+                }
+            ]
+        }
+    },
+    "bkrInformation": {
+        "bkrCheckDate": "2025-02-11",
+        "bkrFunctionalMessage": false,
+        "bkrNrWWNonSequentialCheck": 0.0,
+        "bkrNrNNNonSequentialCheck": 0.0
+    },
+    "whitelabelInformation": {
+        "reference": "BLGWonen",
+        "companyName": "BLG Wonen"
+    },
+    "intermediaryInformation": {
+        "isAuthorized": true
+    },
+    "moralityInformation": {
+        "VISHit": false,
+        "IVRHit": false
+    },
+    "suspensoryConditionCollection": {
+        "suspensoryConditions": []
+    }
+}

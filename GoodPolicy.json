@@ -1,0 +1,85 @@
+{
+  "documents": [
+    {
+      "meta": {
+        "fileName": "asn_hypotheek_acceptatiebeleid_januari_2024.pdf",
+        "entity": "ASN Bank",
+        "version": "1 januari 2024"
+      },
+      "policies": [
+        {
+          "code": "ASN-POL-001",
+          "title": "Binding met Nederland",
+          "category": "Eligibility",
+          "sourcePage": 7,
+          "section": "2.1",
+          "description": "We verstrekken een hypotheek als de aanvrager 3 jaar in Nederland woont (ingezetene is) of heeft gewoond (ingezetene is geweest). We gaan ervan uit dat de aanvrager al 3 jaar werkt in Nederland. Woont of werkt de aanvrager nog geen 3 jaar in Nederland? Dan moet de aanvrager voldoende binding met Nederland aantonen. Kan de aanvrager dit niet, dan is de maximale financiering 80% van de marktwaarde van het huis. Een aanvrager die korter dan 1 jaar in Nederland woont en werkt, heeft geen binding met Nederland. Deze aanvrager helpen we niet met een hypotheek."
+        },
+        {
+          "code": "ASN-POL-002",
+          "title": "Betaalgedrag en BKR",
+          "category": "Risk",
+          "sourcePage": 7,
+          "section": "2.2",
+          "description": "Bij het verstrekken van een hypotheek houden we rekening met het betaalgedrag van de aanvrager. Een hypotheek aanvragen is niet mogelijk als er een lopende, herstelde of afgeloste achterstandscodering is geregistreerd bij BKR, of als de aanvrager in de wettelijke schuldsanering zit."
+        },
+        {
+          "code": "ASN-POL-003",
+          "title": "Inkomenseisen - Vast Inkomen",
+          "category": "Income",
+          "sourcePage": 8,
+          "section": "2.3.1",
+          "description": "De aanvrager krijgt inkomen uit een dienstverband of onvoorwaardelijk een uitkering tot aan het pensioen, een pensioeninkomen en/of AOW. Dit omvat vakantiegeld, 13e maand en vaste looncomponenten. Inkomen uit tijdelijk dienstverband telt mee indien er een intentieverklaring is."
+        },
+        {
+          "code": "ASN-POL-004",
+          "title": "Flexibel Inkomen",
+          "category": "Income",
+          "sourcePage": 9,
+          "section": "2.3.2",
+          "description": "Voor uitzendkrachten wordt inkomen meegerekend indien er een Perspectiefverklaring is. Voor tijdelijke dienstverbanden zonder intentieverklaring kan gerekend worden met de Arbeidsmarktscan (minimaal 70 punten en 12 maanden historie)."
+        },
+        {
+          "code": "ASN-POL-005",
+          "title": "Inkomen uit Onderneming",
+          "category": "Income",
+          "sourcePage": 11,
+          "section": "2.4.1",
+          "description": "De onderneming moet in Nederland gevestigd zijn, in Nederland belasting betalen en winst hebben gemaakt in het laatste boekjaar. De liquiditeit (current ratio) moet ≥ 1 zijn en de solvabiliteit ≥ 20%."
+        },
+        {
+          "code": "ASN-POL-006",
+          "title": "Eisen aan het Onderpand",
+          "category": "Collateral",
+          "sourcePage": 14,
+          "section": "3.1",
+          "description": "Het huis moet in Nederland staan, bestemd zijn voor permanente bewoning, goed onderhouden zijn en op schone grond staan. Woonboten, woonwagens en huizen op handels- of industrieterreinen worden niet gefinancierd."
+        },
+        {
+          "code": "ASN-POL-007",
+          "title": "Marktwaardebepaling",
+          "category": "Valuation",
+          "sourcePage": 16,
+          "section": "3.2.1",
+          "description": "De marktwaarde wordt vastgesteld via een taxatierapport of Calcasa Desktop Taxatie. Een fysiek taxatierapport is verplicht voor huizen boven € 750.000, nieuwbouw, verbouwingen, en specifieke woningtypes zoals recreatiewoningen."
+        },
+        {
+          "code": "ASN-POL-008",
+          "title": "Maximale Schuld-Marktwaardeverhouding",
+          "category": "Lending Limits",
+          "sourcePage": 25,
+          "section": "4.2.4",
+          "description": "De maximale lening is 100% van de marktwaarde (of 110% bij verduurzaming binnen voorwaarden). Voor recreatiewoningen geldt een maximum van 70%. Aflossingsvrije delen mogen maximaal 50% van de marktwaarde bedragen."
+        },
+        {
+          "code": "ASN-POL-009",
+          "title": "Bouwdepot",
+          "category": "Construction",
+          "sourcePage": 28,
+          "section": "5.3",
+          "description": "Voor verbouwingen of nieuwbouw wordt geld in een bouwdepot gehouden. Uitbetalingen geschieden alleen op basis van geldige betaalbewijzen (facturen). De looptijd is standaard 1 jaar bij bestaande bouw en 2 jaar bij nieuwbouw."
+        }
+      ]
+    }
+  ]
+}
