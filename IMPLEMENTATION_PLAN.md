@@ -217,7 +217,7 @@ erDiagram
 |--------|------|-----------|
 | `ApplicationDataJson` | `jsonb` | Store the raw AMA/mortgage JSON payload for auditability without rigid schema coupling |
 | `RawAiResponseJson` | `jsonb` | Store complete LLM response for debugging and compliance auditing |
-| `Policy.Code` | Unique Index | Enables policy-code references in evaluation checks (e.g., `ASN-POL-001`) |
+| `Policy.Code` | Unique Index | Enables policy-code references in evaluation checks (e.g., `ASN-001`) |
 | `Verdict` | `string` (enum-backed) | `APPROVED`, `REJECTED`, `MANUAL_REVIEW` — stored as string for DB portability |
 
 ---
@@ -273,7 +273,7 @@ public record EvaluationResponse
 
 public record CheckResult
 {
-    public string PolicyCode { get; init; }         // e.g., "ASN-POL-001"
+    public string PolicyCode { get; init; }         // e.g., "ASN-001"
     public string PolicyTitle { get; init; }
     public string Status { get; init; }             // PASS | FAIL | WARNING
     public string Reason { get; init; }             // Human-readable explanation

@@ -996,7 +996,7 @@ export default function UploadPoliciesPage() {
                   <input
                     id="entityName"
                     type="text"
-                    placeholder="e.g. Volksbank, MUNT Hypotheken"
+                    placeholder="e.g. ASN, MUNT Hypotheken"
                     value={entityName}
                     onChange={(e) => setEntityName(e.target.value)}
                     className="w-64 rounded-md border border-violet-300 bg-white px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-violet-400"

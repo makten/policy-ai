@@ -208,7 +208,7 @@ export default function AssessmentPage() {
     <div className="flex h-full flex-col gap-6 p-6 overflow-auto">
       <PageHeader
         title="Assessment"
-        description="Execute a mortgage application assessment against the Volksbank Assessment API"
+        description="Execute a mortgage application assessment against the ASN Assessment API."
       />
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 min-h-0">
