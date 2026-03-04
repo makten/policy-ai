@@ -1,0 +1,1557 @@
+{
+    "arrangements": [
+        "NoArrangement",
+        "FirstMortgage",
+        "SequentialMortgageSameLender",
+        "SequentialMortgageOtherLender",
+        "FurtherAdvance",
+        "Conversion",
+        "Remortgage",
+        "ConversionAndAdvance",
+        "ConversionAndSequentialMortgage",
+        "ContinuationNewInterest",
+        "ContinuationMortgage",
+        "SecondOrHigherInRankMortgage"
+    ],
+    "categories": [
+        "Applicant",
+        "Conditions",
+        "RealEstate",
+        "FinancialObligations",
+        "Financial",
+        "Interest",
+        "EmploymentSituation"
+    ],
+    "decisionGroups": [
+        {
+            "reference": "8838d573-b19c-4ad5-9149-28edfce3cc4c",
+            "value": "Bindend aanbod"
+        },
+        {
+            "reference": "5cc2ffe4-44b9-4c57-b8c3-20d1b51b4714",
+            "value": "Voorlopig aanbod"
+        }
+    ],
+    "nhgApplicableTypes": [
+        "Both",
+        "OnlyNhg",
+        "OnlyNotNhg"
+    ],
+    "parameters": [
+        {
+            "name": "Vandaag",
+            "type": "DateTime"
+        },
+        {
+            "name": "AanvraagStartDatum",
+            "type": "DateTime"
+        },
+        {
+            "name": "DatumBindendAanbod",
+            "type": "DateTime"
+        },
+        {
+            "name": "TotaleInschrijving",
+            "type": "Decimal"
+        },
+        {
+            "name": "RestantTotaleHoofdsomInProces",
+            "type": "Decimal"
+        },
+        {
+            "name": "ProductLineReferentie",
+            "type": "String"
+        },
+        {
+            "name": "Verstrekkingspercentage",
+            "type": "Decimal"
+        },
+        {
+            "name": "VerstrekkingspercentageEBV",
+            "type": "Decimal"
+        },
+        {
+            "name": "MoraliteitsToetsResultaat",
+            "type": "Keuzelijst"
+        },
+        {
+            "name": "HeeftBouwdepot",
+            "type": "Boolean"
+        },
+        {
+            "name": "StartsomBouwdepot",
+            "type": "Decimal"
+        },
+        {
+            "children": [
+                {
+                    "name": "AanvragerLeeftijd",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "AanvragerNationaliteitEERLand",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerRelevantInkomenExclusiefOverigeInkomens",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "Nationaliteit",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "AanvragerNationaliteitEULandJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "WoonachtigIn",
+                    "type": "String"
+                },
+                {
+                    "name": "AanvragerTypeVerblijfsvergunning",
+                    "type": "String"
+                },
+                {
+                    "name": "AanvragerInkomensMeetellenJN",
+                    "type": "Boolean"
+                },
+                {
+                    "children": [
+                        {
+                            "name": "OverigInkomenSoort",
+                            "type": "String"
+                        },
+                        {
+                            "name": "AanvragerRelevantInkomenExclusiefOverigeInkomens",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "OverigInkomenTotaalBedragPerJaar",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "OverigInkomenVerpandJN",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "OverigInkomenTotEinddatum",
+                            "type": "DateTime"
+                        },
+                        {
+                            "name": "AanvragerAOWDatum",
+                            "type": "DateTime"
+                        }
+                    ],
+                    "name": "OverigeInkomens",
+                    "type": "Loop"
+                },
+                {
+                    "children": [
+                        {
+                            "name": "DienstverbandType",
+                            "type": "Keuzelijst"
+                        },
+                        {
+                            "name": "Loonbeslag",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "AanvangstDatum",
+                            "type": "DateTime"
+                        },
+                        {
+                            "name": "DienstverbandInkomensMeetellenJN",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "DienstverbandEindeDienstverband",
+                            "type": "DateTime"
+                        },
+                        {
+                            "name": "DienstverbandOuderdomOudsteWerkgeversVerklaring",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "DienstverbandOuderdomOudsteSalarisstrook",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "DienstverbandOuderdomOudstePerspectiefverklaring",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "ProefTijdVerstreken",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "DienstverbandOuderdomOudsteInkomensverklaring",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "Flexwerk",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "DGA",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "DienstverbandBrutoJaarSalaris",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "OverwerkBedragMetRelevantie",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "ProvisieBedragMetRelevantie",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "DienstverbandLandCode",
+                            "type": "Keuzelijst"
+                        },
+                        {
+                            "name": "InkomenUitNederland",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "DienstverbandIsPensioeninkomenExclAOWJN",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "AanvragerAOWDatum",
+                            "type": "DateTime"
+                        },
+                        {
+                            "name": "DienstverbandDuurDienstverbandMaanden",
+                            "type": "Decimal"
+                        },
+                        {
+                            "name": "IsProeftijdVerlopen",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "TotaleJaarinkomenMetRelevantie",
+                            "type": "Decimal"
+                        }
+                    ],
+                    "name": "AanvragerDienstverbanden",
+                    "type": "Loop"
+                },
+                {
+                    "name": "TypeContractant",
+                    "type": "String"
+                },
+                {
+                    "name": "Burgelijkestaat",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "OoitGescheiden",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerTotaalJaarInkomen",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "HeeftLoonbeslag",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BuitenlandseBKRToetsBenodigdJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "EersteHypotheekOoit",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerOuderdomOudsteSalarisstrook",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "AanvragerAlleSalarisstrokenHebbenGeldigeDatums",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerGeldigheidstermijnUWVVerzekeringsbericht",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "AanvragerHeeftVerblijfsVergunningOnbepaaldeTijd",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerHoofdelijkAansprakelijk",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerIsBelastingplichtigBuitenland",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerIsInBijzonderBeheer",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerIsGeblokkeerd",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AanvragerIsGeblokkeerdReden",
+                    "type": "String"
+                },
+                {
+                    "name": "Geboorteland",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "Geboorteplaats",
+                    "type": "String"
+                }
+            ],
+            "name": "Aanvragers",
+            "type": "Loop"
+        },
+        {
+            "children": [
+                {
+                    "name": "RealEstateReference",
+                    "type": "String"
+                },
+                {
+                    "name": "OnderpandStatus",
+                    "type": "String"
+                },
+                {
+                    "name": "OnderpandType",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "BouwSoort",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "EigenBewoning",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "IsVerhuur",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Land",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "OnderpandLand",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "MarktwaardePeildatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "MarktwaardeBepaling",
+                    "type": "String"
+                },
+                {
+                    "name": "BronWaardeBepaling",
+                    "type": "String"
+                },
+                {
+                    "name": "AandeelInEigendom",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BedragEBV",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BedragEBB",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "EigenarenHoofdelijkAansprakelijk",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "IsTeFinancierenObject",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AchterstalligOnderhoudGroterDan10ProcentVVW",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BetrouwbaarheidCalcasaRapport",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "EengezinswoningType",
+                    "type": "String"
+                },
+                {
+                    "name": "IsErfpacht",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Koopsom",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "OnderpandBerekendeMarktwaarde",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "OuderdomCalcasarapport",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "OuderdomInJaren",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "VerkoopOnderVoorwaardeType",
+                    "type": "String"
+                },
+                {
+                    "name": "VerkoopOnderVoorwaardenJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "PercentageBedrijfsgedeelte",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "PercentageBedrijfsgedeelteNaVerbouwing",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "Onderhoudstoestand",
+                    "type": "String"
+                },
+                {
+                    "name": "EinddatumErfpacht",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "NotarieleOpinie",
+                    "type": "String"
+                },
+                {
+                    "name": "OnderpandIsCooperatiefJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "WoonstichtingJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BezwarendeOmstandighedenAanwezigAndersDanErfpachtJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "MaatschappelijkGebondenEigendomJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BouwkundigRapportAanwezigJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BinnenGeldigheidstermijnBouwkundigRapportOuderdom",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "VerontreinigdeGrondJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "ErfpachtVoor1992JN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "VerschilErfpachtHypotheekLooptijd",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "HoofdverblijfJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "MarktwaardeTaxatie",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "ActieveVVEJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "OnderhoudsfondsJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "OnderpandMarktwaarde",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "Bouwaard",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "ErfpachtDatumOvereenkomst",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "NieuwbouwgarantieVanToepassingJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "VruchtGebruik",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AppartementsrechtJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "LaatsteEigendomsoverdrachtBinnen1JrJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "VrijeVerkoopwaardeNaVerbouw",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "VerhuurType",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "Zelfbouw",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "WoningVanAanvraag",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "IsCPO",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Recreatiewoning",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "Bouwjaar",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "DatumOntbindendeVoorwaarden",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "OnderpandHeeftOverbruggingJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AchterstalligOnderhoud",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "WoningType",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "BijzonderWoningType",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "HeeftZakelijkKarakterJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "FlatwoningJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "EengezinswoningJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "EnergielabelVervaldatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "EnergielabelType",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "HeeftGarageJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "VerkoopdatumIsMeerDanDrieMaandenNaPasseerdatum",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "OnderpandReedsVerkochtJN",
+                    "type": "Boolean"
+                }
+            ],
+            "name": "Onderpanden",
+            "type": "Loop"
+        },
+        {
+            "children": [
+                {
+                    "name": "Omschrijving",
+                    "type": "String"
+                },
+                {
+                    "name": "UitbetalenBijPasseren",
+                    "type": "Boolean"
+                }
+            ],
+            "name": "BouwdepotRubrieken",
+            "type": "Loop"
+        },
+        {
+            "name": "SomAflossingsvrij",
+            "type": "Decimal"
+        },
+        {
+            "name": "BedragConsumptief",
+            "type": "Decimal"
+        },
+        {
+            "name": "OuderdomTaxatie",
+            "type": "Decimal"
+        },
+        {
+            "name": "OnderpandBouwSoort",
+            "type": "Keuzelijst"
+        },
+        {
+            "name": "TypeOnderpand",
+            "type": "Keuzelijst"
+        },
+        {
+            "name": "Verbouwingskosten",
+            "type": "Decimal"
+        },
+        {
+            "name": "BerekendeMarktwaarde",
+            "type": "Decimal"
+        },
+        {
+            "name": "LTVVoorVerbouw",
+            "type": "Decimal"
+        },
+        {
+            "name": "NHGVolledigheidstoets",
+            "type": "Boolean"
+        },
+        {
+            "name": "OnterechteVerbintenisJN",
+            "type": "Boolean"
+        },
+        {
+            "children": [
+                {
+                    "name": "BeschikbareRuimteWoonLastenJaar",
+                    "type": "String"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenDatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenBedrag",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenMaximaalToegestaneMaandlast",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenAnnuitaireMaandlast",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenWerkelijkeMaandlast",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenBox1Maandlast",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenBox3Maandlast",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "BeschikbareRuimteWoonLastenErfpachtMaandlast",
+                    "type": "Decimal"
+                }
+            ],
+            "name": "BeschikbareRuimteWoonLasten",
+            "type": "Loop"
+        },
+        {
+            "name": "OnderpandIsErfpacht",
+            "type": "Boolean"
+        },
+        {
+            "name": "OnderpandMetAppartementsrechtJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "RiskRating",
+            "type": "String"
+        },
+        {
+            "children": [
+                {
+                    "name": "BKRContractHeeftCode2tm5",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BkrContractIsIngelost",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BKRContractBkrHeeftHCodering",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BKRContractHeeftCode1OfA",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BKREntryDateManualContracts",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "BKRContractKredietSoort",
+                    "type": "String"
+                },
+                {
+                    "name": "LaatsteBijzonderheid",
+                    "type": "String"
+                },
+                {
+                    "name": "HeeftBKRCoderingen",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "HeeftLopendGeschil",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BKRContractKredietSoortIsSchuldregelingJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "LaatsteCodering",
+                    "type": "String"
+                },
+                {
+                    "name": "BkrContractIsLopend",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BkrContractPraktischeAflosDatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "BKRContractRelevantVoorAanvraagJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "AantalRelevanteHCoderingen",
+                    "type": "Decimal"
+                }
+            ],
+            "name": "BkrContracten",
+            "type": "Loop"
+        },
+        {
+            "name": "AdviesKosten",
+            "type": "Decimal"
+        },
+        {
+            "name": "Afsluitprovisie",
+            "type": "Decimal"
+        },
+        {
+            "name": "NotarisKosten",
+            "type": "Decimal"
+        },
+        {
+            "name": "TaxatieKosten",
+            "type": "Decimal"
+        },
+        {
+            "children": [
+                {
+                    "name": "HeeftNHG",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "LopendeHypotheekEldersHypotheeknemer",
+                    "type": "String"
+                },
+                {
+                    "name": "Restantschuld",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "WerkelijkeMaandLast",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "IsExtern",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "VerbondenOnderpandIsTeFinancierenObject",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "LopendeHypotheekEldersRang",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "Inlossen",
+                    "type": "Boolean"
+                }
+            ],
+            "name": "LopendeHypotheekElders",
+            "type": "Loop"
+        },
+        {
+            "name": "BoeteVervroegdeAflossing",
+            "type": "Decimal"
+        },
+        {
+            "name": "RestschuldBestaandeFinanciering",
+            "type": "Decimal"
+        },
+        {
+            "name": "SomTeVerkopenWoningen",
+            "type": "Decimal"
+        },
+        {
+            "name": "SomTeVerkopenWoningenZonderDatumOntbVoorw",
+            "type": "Decimal"
+        },
+        {
+            "name": "Hoofdsom",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaleGroenhypotheekHoofdsom",
+            "type": "Decimal"
+        },
+        {
+            "name": "BedragEBV",
+            "type": "Decimal"
+        },
+        {
+            "name": "BedragEBB",
+            "type": "Decimal"
+        },
+        {
+            "children": [
+                {
+                    "name": "ProductLineReferentie",
+                    "type": "String"
+                },
+                {
+                    "name": "LeningdeelReferentie",
+                    "type": "String"
+                },
+                {
+                    "name": "MutatieType",
+                    "type": "String"
+                },
+                {
+                    "name": "LeningdeelLooptijd",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "LeningdeelBedragConsumptief",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "FiscaalRegimeOvergangsrechtType",
+                    "type": "String"
+                },
+                {
+                    "name": "AflossingsVorm",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "RenteGedrag",
+                    "type": "Keuzelijst"
+                },
+                {
+                    "name": "LeningdeelHoofdsom",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "LeningDeelAantalVerzekeringen",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "LooptijdKortsteBijProduct",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "Rentevastperiode",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "ProductReferentieId",
+                    "type": "String"
+                },
+                {
+                    "name": "Productlijn",
+                    "type": "String"
+                },
+                {
+                    "name": "DoelkapitaalLevenhypotheek",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "Rentepercentage",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "RenteCorrectieNodig",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "RenteCorrectiePercentage",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "AantalHandmatigeRentecomponenten",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "LeningDeelHandmatigeRentedatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "IsInRRAPeriodeJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "TRAGeregistreerdJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "WijzigingLooptijdGeregistreerdJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "OmzettingAflosvormGeregistreerdJN",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "BevatCustomRenteComponentZwarteLijst",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "ProductNaam",
+                    "type": "String"
+                },
+                {
+                    "name": "EindDatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "RestantLooptijd",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "VasteRenteEindDatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "RestantRentevastPeriode",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "IsNieuweLening",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "IsBestaandeLening",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "LeningDeelNHG",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "IsDonorLeningRestschuldfinanciering",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "MaximaleDeelsom",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "GroenkortingJN",
+                    "type": "Boolean"
+                },
+                {
+                    "children": [
+                        {
+                            "name": "Naam",
+                            "type": "String"
+                        }
+                    ],
+                    "name": "Rentecomponenten",
+                    "type": "Loop"
+                },
+                {
+                    "name": "RenteHerzieningsDatum",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "HeeftGeweigerdeRenteArrangementInDonorlening",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "OnderdeelVanHypotheekMetSVn",
+                    "type": "Boolean"
+                }
+            ],
+            "name": "Leningdelen",
+            "type": "Loop"
+        },
+        {
+            "children": [
+                {
+                    "name": "OnderpandStatusViaOverbrugging",
+                    "type": "String"
+                },
+                {
+                    "name": "OverbruggingLooptijd",
+                    "type": "Decimal"
+                }
+            ],
+            "name": "Overbruggingen",
+            "type": "Loop"
+        },
+        {
+            "name": "OnderpandHoogteBouwdepot",
+            "type": "Decimal"
+        },
+        {
+            "name": "BKRAantalContracten",
+            "type": "Decimal"
+        },
+        {
+            "name": "BKRAantalAfgelost",
+            "type": "Decimal"
+        },
+        {
+            "name": "BkrFunctioneleMelding",
+            "type": "Boolean"
+        },
+        {
+            "name": "AantalAanvragers",
+            "type": "Decimal"
+        },
+        {
+            "name": "BKRCheckDate",
+            "type": "DateTime"
+        },
+        {
+            "name": "BkrAantalWWNietDoorgetoetst",
+            "type": "Decimal"
+        },
+        {
+            "name": "BkrAantalNNNietDoorgetoetst",
+            "type": "Decimal"
+        },
+        {
+            "name": "LopendeHypothekenElders",
+            "type": "Boolean"
+        },
+        {
+            "name": "OverbruggingJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "RuimteDubbeleLastComply",
+            "type": "Decimal"
+        },
+        {
+            "name": "RuimteDubbeleLastOpBindendAanbod",
+            "type": "Decimal"
+        },
+        {
+            "name": "RuimteToegestaneLastComply",
+            "type": "Decimal"
+        },
+        {
+            "name": "RuimteToegestaneLast10Jaar",
+            "type": "Decimal"
+        },
+        {
+            "name": "HoofdsomNieuw",
+            "type": "Decimal"
+        },
+        {
+            "name": "RestantTotaleHoofdsom",
+            "type": "Decimal"
+        },
+        {
+            "name": "HoofdsomOverbrugging",
+            "type": "Decimal"
+        },
+        {
+            "name": "HoofdsomOverbruggingBestaand",
+            "type": "Decimal"
+        },
+        {
+            "name": "MaximaleVerstrekkingObvMarktwaarde",
+            "type": "Decimal"
+        },
+        {
+            "name": "MaximaleVerstrekkingObvMarktwaardeEBVenEBB",
+            "type": "Decimal"
+        },
+        {
+            "name": "MaximumBedragEBB",
+            "type": "Decimal"
+        },
+        {
+            "name": "MaximaalOverbruggingsbedrag",
+            "type": "Decimal"
+        },
+        {
+            "name": "LTIToereikend10Jaar",
+            "type": "Boolean"
+        },
+        {
+            "name": "RangordeInschrijving",
+            "type": "Decimal"
+        },
+        {
+            "name": "OnderpandVerkoopOnderVoorwaardeType",
+            "type": "String"
+        },
+        {
+            "name": "ExtraInschrijving",
+            "type": "Decimal"
+        },
+        {
+            "name": "VerstrekkingsPercentageOBVKoopsom",
+            "type": "Decimal"
+        },
+        {
+            "name": "WhitelabelBedrijfsnaam",
+            "type": "String"
+        },
+        {
+            "name": "KlantMetPensioenEnLoondienstInkomenJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "KlantMetDienstverbandNaPensioenJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "LTIToereikendHeleLooptijd",
+            "type": "Boolean"
+        },
+        {
+            "name": "LTIPercentage",
+            "type": "Decimal"
+        },
+        {
+            "name": "BedragTotaleFinancieringskosten",
+            "type": "Decimal"
+        },
+        {
+            "name": "BinnenGeldigheidstermijnOudsteWerkgeversVerklaring",
+            "type": "Boolean"
+        },
+        {
+            "name": "BinnenGeldigheidstermijnOudsteSalarisstrook",
+            "type": "Boolean"
+        },
+        {
+            "name": "KlantBinnenGeldigheidstermijnOudsteSalarisstrook",
+            "type": "Boolean"
+        },
+        {
+            "name": "BinnenGeldigheidstermijnTaxatie",
+            "type": "Boolean"
+        },
+        {
+            "name": "BinnenGeldigheidstermijnInkomensverklaringOndernemer",
+            "type": "Boolean"
+        },
+        {
+            "name": "BinnenGeldigheidstermijnUWVVerzekeringsbericht",
+            "type": "Boolean"
+        },
+        {
+            "name": "TotaalBedragHypotheekMetGroenkorting",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalBedragRestschuldFinanciering",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaleHoofdsomZonderOverbrugging",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaleHoofdsomZonderOverbruggingLooptijdGroterDan60",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaleHoofdsomZonderOverbruggingMetLHE",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaleInkomenUitOnderneming",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalOverigInkomen",
+            "type": "Decimal"
+        },
+        {
+            "name": "AchterstalligOnderhoud",
+            "type": "Decimal"
+        },
+        {
+            "name": "VoorbespreekNotitieGekoppeldJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "AantalOnderpanden",
+            "type": "Decimal"
+        },
+        {
+            "name": "Looptijd",
+            "type": "Decimal"
+        },
+        {
+            "name": "ErfpachtEeuwigdurendJN",
+            "type": "Boolean"
+        },
+        {
+            "children": [
+                {
+                    "name": "AanvullendeDossierGegevensExplainReden",
+                    "type": "String"
+                },
+                {
+                    "name": "AanvullendeDossierGegevensOmschrijving",
+                    "type": "String"
+                }
+            ],
+            "name": "AanvullendeDossierGegevens",
+            "type": "Loop"
+        },
+        {
+            "children": [
+                {
+                    "name": "Bandbreedte",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "PremieVoor",
+                    "type": "Decimal"
+                },
+                {
+                    "name": "PremieNa",
+                    "type": "Decimal"
+                }
+            ],
+            "name": "Opbouwproducten",
+            "type": "Loop"
+        },
+        {
+            "name": "LaagsteToetsinkomenBinnen10Jaar",
+            "type": "Decimal"
+        },
+        {
+            "name": "TussenpersoonGemachtigd",
+            "type": "Boolean"
+        },
+        {
+            "name": "TussenpersoonStatus",
+            "type": "Keuzelijst"
+        },
+        {
+            "name": "AantalRelevanteHCoderingen",
+            "type": "Decimal"
+        },
+        {
+            "name": "HeeftAflossingsvrijeDelen",
+            "type": "Boolean"
+        },
+        {
+            "name": "VisIdentiteitCheckNietGeluktJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "VZ1",
+            "type": "Boolean"
+        },
+        {
+            "name": "StartersLeningJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "HeeftSVN",
+            "type": "Boolean"
+        },
+        {
+            "name": "BedragSVN",
+            "type": "Decimal"
+        },
+        {
+            "name": "OnderpandMarktwaardeBepaling",
+            "type": "String"
+        },
+        {
+            "name": "SomAflossingsvrijTeveelJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "OnderpandKoopsom",
+            "type": "Decimal"
+        },
+        {
+            "name": "AantalMaandenDubbeleLasten",
+            "type": "Decimal"
+        },
+        {
+            "name": "EigenVermogenVoorDekkingTekortDubbeleLasten",
+            "type": "Decimal"
+        },
+        {
+            "name": "SomAflossingsvrijTeveelBijMaatwerkJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "AlleenNieuweLeningdelenInFinancieleStructuurJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "TotaalAflossingsvrijNieuw",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalBKRAflossenUitHypotheek",
+            "type": "Decimal"
+        },
+        {
+            "name": "RestschuldFinancieringAanwezigJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "AlleenRestschuldFinancieringJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "CooperatiefJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "TotaleAanschafkosten",
+            "type": "Decimal"
+        },
+        {
+            "name": "HeeftVasteInschrijving",
+            "type": "Boolean"
+        },
+        {
+            "name": "LangstLopendeRestschuldFinanciering",
+            "type": "Decimal"
+        },
+        {
+            "name": "LangstLopendeNietRestschuldFinanciering",
+            "type": "Decimal"
+        },
+        {
+            "name": "BurgerlijkeStaatAanvragersZijnGelijkAanElkaar",
+            "type": "Boolean"
+        },
+        {
+            "name": "DoelgroepIsSeniorJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "AOWDatumJongsteAanvrager",
+            "type": "DateTime"
+        },
+        {
+            "name": "BedragLeningdelenEindNaAOWLeeftijdJongsteAanvrager",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalWerkelijkeMaandbedragLopendeHypothekenElders",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalCanonMaandbedragLopendeHypothekenElders",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaleOorspronkelijkeHoofdsomLopendeHypothekenEldersLigtInDeToekomst",
+            "type": "Decimal"
+        },
+        {
+            "name": "AantalMaatwerkoplossingenUitLijst",
+            "type": "Decimal"
+        },
+        {
+            "name": "MaximaalToegestaneMaandLastJaar10",
+            "type": "Decimal"
+        },
+        {
+            "name": "AnnuitaireMaandLastJaar10",
+            "type": "Decimal"
+        },
+        {
+            "name": "DuurOudsteHypotheekInMaanden",
+            "type": "Decimal"
+        },
+        {
+            "name": "EenContractantHoofdelijkOntslagenJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "RestschuldLeningdelenEindNaAOWLeeftijdJongsteAanvrager",
+            "type": "Decimal"
+        },
+        {
+            "name": "VerwachtePasseerdatum",
+            "type": "DateTime"
+        },
+        {
+            "name": "TotaalAflossingsvrijNieuwLeningen",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalAflossingsvrijBestaandLeningen",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalAflossingsvrijBestaandEldersLeningen",
+            "type": "Decimal"
+        },
+        {
+            "name": "TotaalAflossingsvrijVerplichtingEigenBewoningLeningen",
+            "type": "Decimal"
+        },
+        {
+            "name": "SomAflossingsvrijLeningen",
+            "type": "Decimal"
+        },
+        {
+            "name": "OntvangstDatum",
+            "type": "DateTime"
+        },
+        {
+            "name": "Einddatum",
+            "type": "DateTime"
+        },
+        {
+            "name": "LopendeHypotheekEldersHeeftBetereRang",
+            "type": "Boolean"
+        },
+        {
+            "name": "MaxOverbruggingsbedrag",
+            "type": "Decimal"
+        },
+        {
+            "name": "NieuweOverbruggingJN",
+            "type": "Boolean"
+        },
+        {
+            "name": "TotaleRestschuldLopendeHypothekenEldersTeInlossen",
+            "type": "Decimal"
+        },
+        {
+            "name": "MaximaleDubbeleLasten",
+            "type": "Decimal"
+        },
+        {
+            "name": "WerkelijkeDubbeleLasten",
+            "type": "Decimal"
+        },
+        {
+            "name": "DubbeleLastenBerekeningUitgevoerd",
+            "type": "Boolean"
+        },
+        {
+            "name": "TekortDubbeleLasten",
+            "type": "Decimal"
+        },
+        {
+            "name": "TekortOverBruggingsBedragComply",
+            "type": "Decimal"
+        }
+    ],
+    "productLines": [
+        {
+            "reference": "eea9e623-4938-46c0-9e12-610ca666564a",
+            "value": "BLG Wonen"
+        },
+        {
+            "reference": "0707971d-90ed-4a5e-9b58-2a35bb2fb420",
+            "value": "BLG Bespaarhypotheek"
+        },
+        {
+            "reference": "1cd06183-ef53-4934-9960-f4b4d141359b",
+            "value": "ASN Bank"
+        },
+        {
+            "reference": "fe89e155-2813-4035-bb54-25127b509bb4",
+            "value": "RegioBank"
+        },
+        {
+            "reference": "31e80229-8e0b-4110-a32e-b37cc3c48d25",
+            "value": "RegioBank Bespaarhypotheek"
+        },
+        {
+            "reference": "3d06aa5b-59be-4192-aa5a-553ce91d2e73",
+            "value": "SNS"
+        },
+        {
+            "reference": "6975fde4-6732-4950-b6d5-92ac63de2682",
+            "value": "SNS Bespaarhypotheek"
+        },
+        {
+            "reference": "d3f8c9a7-4b2e-4c8e-9a5f-1b2d3c4e5f6a",
+            "value": "ASN Bespaarhypotheek"
+        }
+    ],
+    "rejectionTypes": [
+        "P",
+        "O",
+        "F2",
+        "V",
+        "F1"
+    ]
+}

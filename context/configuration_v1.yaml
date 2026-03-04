@@ -319,8 +319,9 @@ components:
         parameters:
           type: array
           items:
-            type: string
-          description: Array of the parameters in use by Assessment
+            allOf:
+              - $ref: "#/components/schemas/ParameterOption"
+          description: Array of the parameters in use by Assessment with nested structure for loop/collection types
         nhgApplicableTypes:
           type: array
           items:
@@ -334,6 +335,38 @@ components:
               - $ref: "#/components/schemas/ReferenceItem"
           description: Array of the product lines in use by Assessment
       additionalProperties: false
+
+    ParameterOption:
+      required:
+      - name
+      - type
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter
+        type:
+          $ref: "#/components/schemas/ParameterOptionType"
+          description: The data type of the parameter
+        children:
+          type: array
+          nullable: true
+          items:
+            allOf:
+              - $ref: "#/components/schemas/ParameterOption"
+          description: Child parameters for loop/collection type parameters (e.g., Leningdelen, Onderpanden, Aanvragers)
+      additionalProperties: false
+
+    ParameterOptionType:
+      type: string
+      enum:
+        - Boolean
+        - Decimal
+        - String
+        - DateTime
+        - Keuzelijst
+        - Loop
+      description: The parameter data types used in the parameter model
     
     BusinessRule:
       required:
