@@ -91,4 +91,58 @@ public class DecisionController : ControllerBase
             return StatusCode((int)response.StatusCode, new { raw = responseBody });
         }
     }
+
+    [HttpGet("get-decision-rule-details")]
+    public async Task<IActionResult> GetDecisionRuleDetails(
+        [FromQuery] string assessmentCorrelationReference,
+        [FromQuery] string ruleReference,
+        CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(assessmentCorrelationReference))
+            return BadRequest(new { error = "assessmentCorrelationReference is required." });
+        if (string.IsNullOrWhiteSpace(ruleReference))
+            return BadRequest(new { error = "ruleReference is required." });
+
+        var basePath = _configuration["DecisionApi:RuleDetailsPath"]
+            ?? "/api/v4/decision/get-decision-rule-details";
+
+        var query = $"{basePath}?assessmentCorrelationReference={Uri.EscapeDataString(assessmentCorrelationReference)}&ruleReference={Uri.EscapeDataString(ruleReference)}";
+
+        var client = _httpClientFactory.CreateClient("DecisionAPI");
+
+        _logger.LogInformation(
+            "Forwarding get-decision-rule-details for ref={Ref} rule={Rule}",
+            assessmentCorrelationReference, ruleReference);
+
+        HttpResponseMessage response;
+        try
+        {
+            response = await client.GetAsync(query, ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to reach Decision API (rule details)");
+            return StatusCode(502, new { error = "Decision API unreachable", detail = ex.Message });
+        }
+
+        var responseBody = await response.Content.ReadAsStringAsync(ct);
+
+        if (string.IsNullOrWhiteSpace(responseBody) ||
+            responseBody.Trim().Equals("null", StringComparison.OrdinalIgnoreCase))
+        {
+            return NotFound(new { error = "Rule details not found." });
+        }
+
+        try
+        {
+            var parsed = JsonSerializer.Deserialize<object>(responseBody);
+            return parsed is null
+                ? NotFound(new { error = "Rule details not found." })
+                : StatusCode((int)response.StatusCode, parsed);
+        }
+        catch (JsonException)
+        {
+            return StatusCode((int)response.StatusCode, new { raw = responseBody });
+        }
+    }
 }

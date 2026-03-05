@@ -19,14 +19,22 @@ import {
   TrendingUp,
   TrendingDown,
   Eye,
+  X,
+  ChevronDown,
+  ChevronRight,
+  Info,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import {
   executeAssessment,
   fetchAssessmentDecision,
+  fetchDecisionRuleDetails,
 } from "@/lib/queries";
 import type {
   AssessmentDecisionResponseDto,
   DecisionRuleResultDto,
+  DecisionRuleDetailsDto,
+  DecisionParameter,
 } from "@/types";
 
 type UiVerdict = "APPROVED" | "REJECTED" | "MANUAL_REVIEW";
@@ -203,6 +211,7 @@ export default function AssessmentPage() {
   const [rawResult, setRawResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [selectedRuleRef, setSelectedRuleRef] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/templates/ama_request.json")
@@ -473,13 +482,13 @@ export default function AssessmentPage() {
           </div>
 
           {failedChecks.length > 0 && (
-            <DecisionCheckGrid title="Failed Checks" checks={failedChecks} color="red" />
+            <DecisionCheckGrid title="Failed Checks" checks={failedChecks} color="red" onRuleClick={setSelectedRuleRef} />
           )}
           {warningChecks.length > 0 && (
-            <DecisionCheckGrid title="Warnings" checks={warningChecks} color="amber" />
+            <DecisionCheckGrid title="Warnings" checks={warningChecks} color="amber" onRuleClick={setSelectedRuleRef} />
           )}
           {passedChecks.length > 0 && (
-            <DecisionCheckGrid title="Passed Checks" checks={passedChecks} color="emerald" />
+            <DecisionCheckGrid title="Passed Checks" checks={passedChecks} color="emerald" onRuleClick={setSelectedRuleRef} />
           )}
 
           <Card>
@@ -506,6 +515,15 @@ export default function AssessmentPage() {
             </CardContent>
           </Card>
         </div>
+      )}
+
+      {/* Rule detail modal */}
+      {selectedRuleRef && correlationReference && (
+        <RuleDetailModal
+          correlationReference={correlationReference}
+          ruleReference={selectedRuleRef}
+          onClose={() => setSelectedRuleRef(null)}
+        />
       )}
     </div>
   );
@@ -543,10 +561,12 @@ function DecisionCheckGrid({
   title,
   checks,
   color,
+  onRuleClick,
 }: {
   title: string;
   checks: DecisionRuleResultDto[];
   color: "emerald" | "red" | "amber";
+  onRuleClick: (ruleReference: string) => void;
 }) {
   const tone =
     color === "emerald"
@@ -564,7 +584,8 @@ function DecisionCheckGrid({
         {checks.map((check) => (
           <div
             key={`${check.ruleReference}-${check.resultCode}-${check.category}`}
-            className={`rounded-lg border px-3 py-3 ${tone}`}
+            className={`rounded-lg border px-3 py-3 ${tone} cursor-pointer hover:ring-1 hover:ring-border transition-all group`}
+            onClick={() => onRuleClick(check.ruleReference)}
           >
             <div className="flex flex-wrap items-center gap-2">
               <Badge className="font-mono text-[10px] border border-border bg-transparent text-foreground">
@@ -576,6 +597,9 @@ function DecisionCheckGrid({
               <Badge className="text-[10px] border border-border bg-transparent text-foreground">
                 {check.category}
               </Badge>
+              <span className="ml-auto text-[10px] text-muted-foreground flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Info className="h-3 w-3" /> details
+              </span>
             </div>
             <p className="mt-2 text-sm font-medium">{check.ruleDescription}</p>
             {check.employeeExplanation && (
@@ -585,5 +609,177 @@ function DecisionCheckGrid({
         ))}
       </CardContent>
     </Card>
+  );
+}
+
+/* ─── Rule Detail Modal ─── */
+
+function RuleDetailModal({
+  correlationReference,
+  ruleReference,
+  onClose,
+}: {
+  correlationReference: string;
+  ruleReference: string;
+  onClose: () => void;
+}) {
+  const [logicExpanded, setLogicExpanded] = useState(false);
+
+  const { data, isLoading, isError } = useQuery<DecisionRuleDetailsDto>({
+    queryKey: ["decision-rule-details", correlationReference, ruleReference],
+    queryFn: () => fetchDecisionRuleDetails(correlationReference, ruleReference),
+    staleTime: 60_000,
+    retry: 1,
+  });
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="relative bg-card border border-border rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-border shrink-0">
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="font-mono text-xs">{ruleReference}</Badge>
+            <span className="text-sm font-semibold text-muted-foreground">Rule Details</span>
+          </div>
+          <button
+            onClick={onClose}
+            className="rounded-md p-1 hover:bg-secondary transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="overflow-y-auto px-6 py-5 space-y-5 text-sm">
+          {isLoading && (
+            <div className="flex items-center justify-center py-10 gap-2 text-muted-foreground text-xs">
+              <Activity className="h-4 w-4 animate-spin" />
+              Loading rule details…
+            </div>
+          )}
+
+          {isError && (
+            <p className="text-sm text-destructive">
+              Failed to load rule details. The rule may not have details available.
+            </p>
+          )}
+
+          {data && (
+            <>
+              {/* Description */}
+              <p className="font-medium text-base">{data.ruleDescription}</p>
+
+              {/* Explanations */}
+              {data.employeeExplanation && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">Employee explanation</p>
+                  <p className="bg-secondary/30 rounded-md p-3">{data.employeeExplanation}</p>
+                </div>
+              )}
+              {data.customerExplanation && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">Customer explanation</p>
+                  <p className="bg-secondary/30 rounded-md p-3">{data.customerExplanation}</p>
+                </div>
+              )}
+
+              {/* Logical representation */}
+              <div>
+                <button
+                  onClick={() => setLogicExpanded(!logicExpanded)}
+                  className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {logicExpanded ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                  Logical representation
+                </button>
+                {logicExpanded && (
+                  <pre className="mt-1 text-xs bg-secondary/30 rounded-md p-3 overflow-x-auto whitespace-pre-wrap break-words">
+                    {data.logicalRepresentation}
+                  </pre>
+                )}
+              </div>
+
+              {/* Parameters */}
+              {data.parameterCollection && data.parameterCollection.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">Parameters</p>
+                  <div className="space-y-1.5">
+                    {data.parameterCollection.map((param, i) => (
+                      <ParameterRow key={i} param={param} depth={0} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Characteristics */}
+              {data.characteristicCollection && data.characteristicCollection.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">Characteristics</p>
+                  <div className="space-y-1.5">
+                    {data.characteristicCollection.map((char, i) => (
+                      <div key={i} className="flex items-center gap-2 rounded-md bg-secondary/30 px-3 py-2">
+                        <code className="text-xs font-mono font-medium text-foreground/80 flex-1">{char.name}</code>
+                        <Badge variant="secondary" className="text-[10px] font-mono">{char.type}</Badge>
+                        {char.value && (
+                          <span className="text-xs font-mono text-foreground/70">= {char.value}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Overrule history */}
+              {data.overruleResultCollection && data.overruleResultCollection.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">Overrule history</p>
+                  <div className="space-y-2">
+                    {data.overruleResultCollection.map((overrule, i) => (
+                      <div key={i} className="rounded-md border border-border bg-secondary/20 px-3 py-2.5 text-xs space-y-1">
+                        <div className="flex items-center gap-2">
+                          <Badge variant={overrule.isApproved ? "default" : "destructive"} className="text-[10px]">
+                            {overrule.isApproved ? "Approved" : "Rejected"}
+                          </Badge>
+                          <span className="font-mono text-muted-foreground">{overrule.employeeReference}</span>
+                          <span className="text-muted-foreground ml-auto">
+                            {new Date(overrule.overruleDateTime).toLocaleDateString("nl-NL")}
+                          </span>
+                        </div>
+                        <p className="text-foreground/70">{overrule.motivation}</p>
+                        {overrule.reasonForOverrule && (
+                          <p className="text-muted-foreground">Reason: {overrule.reasonForOverrule}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Parameter row (recursive) ─── */
+
+function ParameterRow({ param, depth }: { param: DecisionParameter; depth: number }) {
+  return (
+    <div style={{ marginLeft: depth * 16 }}>
+      <div className="flex items-center gap-2 rounded-md bg-secondary/30 px-3 py-2">
+        <code className="text-xs font-mono font-medium text-foreground/80 flex-1">{param.name}</code>
+        <Badge variant="secondary" className="text-[10px] font-mono">{param.type}</Badge>
+        {param.value != null && (
+          <span className="text-xs font-mono text-foreground/70">= {param.value}</span>
+        )}
+      </div>
+      {param.parameterCollection?.map((child, i) => (
+        <ParameterRow key={i} param={child} depth={depth + 1} />
+      ))}
+    </div>
   );
 }

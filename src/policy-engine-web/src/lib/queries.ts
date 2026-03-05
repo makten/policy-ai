@@ -1,6 +1,7 @@
 import api from "@/lib/api";
 import type {
   AssessmentDecisionResponseDto,
+  DecisionRuleDetailsDto,
   AssessmentBusinessRuleListResponse,
   PolicyDto,
   PolicyDetailDto,
@@ -107,6 +108,17 @@ export async function fetchAssessmentDecision(
 ): Promise<AssessmentDecisionResponseDto> {
   const { data } = await api.get<AssessmentDecisionResponseDto>("/decision/get-decision", {
     params: { assessmentCorrelationReference },
+    timeout: 30_000,
+  });
+  return data;
+}
+
+export async function fetchDecisionRuleDetails(
+  assessmentCorrelationReference: string,
+  ruleReference: string
+): Promise<DecisionRuleDetailsDto> {
+  const { data } = await api.get<DecisionRuleDetailsDto>("/decision/get-decision-rule-details", {
+    params: { assessmentCorrelationReference, ruleReference },
     timeout: 30_000,
   });
   return data;

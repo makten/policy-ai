@@ -124,8 +124,14 @@ public class BusinessRuleParser : IBusinessRuleParser
 
             sb.AppendLine();
             sb.AppendLine("### Loop parameters (MUST be accessed inside ForEach/ForAtLeastOne)");
-            sb.AppendLine("  NESTING RULE: A child parameter can ONLY appear inside a ForEach/ForAtLeastOne");
-            sb.AppendLine("  over its parent loop. Nested loops require nested ForEach nodes.");
+            sb.AppendLine("  NESTING RULE: A child loop can ONLY appear nested inside a ForEach/ForAtLeastOne over ALL of its ancestor loops.");
+            sb.AppendLine("  This applies to both the jsonExpression tree AND the parameters array:");
+            sb.AppendLine("    - Expression: ForEach('ParentLoop', ForEach('ChildLoop', <expression using child fields>))");
+            sb.AppendLine("    - Parameters array: always include ALL ancestor loop names together with the child.");
+            sb.AppendLine("  Example: Using DienstverbandType (child of AanvragerDienstverbanden, which is child of Aanvragers)");
+            sb.AppendLine("    Expression:  ForEach('Aanvragers', ForEach('AanvragerDienstverbanden', GreaterThan(DienstverbandType, ...)))");
+            sb.AppendLine("    Parameters array: ['Aanvragers', 'AanvragerDienstverbanden', 'DienstverbandType']");
+            sb.AppendLine("  NEVER reference a child loop or its fields without the full ancestor chain wrapping it.");
             sb.AppendLine();
 
             foreach (var loop in loops)
@@ -142,18 +148,29 @@ public class BusinessRuleParser : IBusinessRuleParser
     private static void RenderLoop(StringBuilder sb, OptionsParam loop, int depth)
     {
         var indent = new string(' ', depth * 4);
-        sb.AppendLine($"{indent}  [Loop: {loop.Name}] → ForEach/ForAtLeastOne(\"{loop.Name}\", ...)");
+
+        // Build ancestor chain label for context
+        sb.AppendLine($"{indent}  [Loop: {loop.Name}] → wrap with ForEach/ForAtLeastOne(\"{loop.Name}\", ...)");
 
         if (loop.Children is { Count: > 0 })
         {
             var simple  = loop.Children.Where(c => c.Type != "Loop").ToList();
             var nested  = loop.Children.Where(c => c.Type == "Loop").ToList();
 
-            foreach (var grp in simple.GroupBy(c => c.Type).OrderBy(g => g.Key))
-                sb.AppendLine($"{indent}      {grp.Key}: {string.Join(", ", grp.Select(c => c.Name))}");
+            if (simple.Count > 0)
+            {
+                sb.AppendLine($"{indent}      Direct child fields (access inside ForEach of '{loop.Name}'):");
+                foreach (var grp in simple.GroupBy(c => c.Type).OrderBy(g => g.Key))
+                    sb.AppendLine($"{indent}        {grp.Key}: {string.Join(", ", grp.Select(c => c.Name))}");
+            }
 
             foreach (var child in nested)
+            {
+                sb.AppendLine($"{indent}      ↳ Child loop '{child.Name}' — MUST be nested inside the '{loop.Name}' ForEach:");
+                sb.AppendLine($"{indent}        ForEach(\"{loop.Name}\", ForEach(\"{child.Name}\", <expression>))");
+                sb.AppendLine($"{indent}        Parameters array MUST include: '{loop.Name}' AND '{child.Name}'");
                 RenderLoop(sb, child, depth + 1);
+            }
         }
 
         sb.AppendLine();
@@ -329,8 +346,15 @@ public class BusinessRuleParser : IBusinessRuleParser
         1. true = PASS, false = FAIL. Design expressions so they return true when the rule is satisfied.
         2. Wrap partial-application rules in If: if condition doesn't apply → trueExpression returns true (pass by default).
         3. Wrap nullable decimals in IsNullReturn with a safe default (usually 0).
-        4. Child parameters inside a Loop MUST be accessed inside a ForEach/ForAtLeastOne over that loop.
-           Nested loops need nested ForEach nodes.
+        4. PARENT LOOP CHAIN — MANDATORY:
+           When you use any parameter that belongs to a loop, you MUST wrap the entire expression in
+           ForEach/ForAtLeastOne nodes for EVERY ancestor loop, outermost first.
+           Example hierarchy: Aanvragers (loop) → AanvragerDienstverbanden (child loop) → DienstverbandType (field)
+             CORRECT:   ForEach("Aanvragers", ForEach("AanvragerDienstverbanden", <uses DienstverbandType>))
+             INCORRECT: ForEach("AanvragerDienstverbanden", <uses DienstverbandType>)   ← missing Aanvragers wrapper
+             INCORRECT: <uses DienstverbandType directly>                                ← missing both wrappers
+           The same applies to the parameters array: list EVERY ancestor loop name together with the child.
+           Example: parameters: ["Aanvragers", "AanvragerDienstverbanden"] when using AanvragerDienstverbanden.
         5. Percentages are plain numbers (100 % = 100, NOT 1.0).
         6. Use SubtractDate for date arithmetic; left = later date, right = earlier date.
         7. Field names are case-sensitive and must match the contract exactly.
@@ -353,7 +377,9 @@ public class BusinessRuleParser : IBusinessRuleParser
         1. Choose categoryType, rejectionType, nhgApplicableType.
         2. Write Dutch description + employee/customer explanations.
         3. Build jsonExpression using ONLY parameters from the system prompt.
-           - Respect nesting: parameters inside a Loop MUST be accessed via ForEach/ForAtLeastOne.
+           - Loop ancestry: when accessing any loop parameter or its child fields, wrap the expression
+             in ForEach/ForAtLeastOne for EVERY ancestor loop outermost-first. No ancestor may be skipped.
+           - List every ancestor loop name in the parameters array together with the child loop/field.
         4. Choose arrangementTypes from the provided list (include all common types when the rule applies broadly).
         5. Choose categoryType from the provided categories list.
         6. Choose productLines from the provided list (include all when the policy applies broadly). There should always be atleast one productline.
