@@ -23,6 +23,7 @@ import {
   ChevronDown,
   ChevronRight,
   Info,
+  MinusCircle,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -39,7 +40,7 @@ import type {
 
 type UiVerdict = "APPROVED" | "REJECTED" | "MANUAL_REVIEW";
 
-type RuleBucket = "PASS" | "FAIL" | "WARNING";
+type RuleBucket = "PASS" | "FAIL" | "WARNING" | "IGNORE";
 
 const verdictConfig: Record<
   UiVerdict,
@@ -96,6 +97,8 @@ const FAIL_CODES = new Set([
   "VZ",
 ]);
 
+const IGNORE_CODES = new Set(["IGNORE", "IGNORED"]);
+
 const POLL_INTERVAL_MS = 2500;
 const MAX_POLL_ATTEMPTS = 48;
 const GUID_PLACEHOLDER_REGEX = /\{\{?\$guid\}?\}/gi;
@@ -106,6 +109,7 @@ function normalizeCode(value: string | null | undefined): string {
 
 function classifyRule(resultCode: string | null | undefined): RuleBucket {
   const code = normalizeCode(resultCode);
+  if (IGNORE_CODES.has(code)) return "IGNORE";
   if (PASS_CODES.has(code)) return "PASS";
   if (FAIL_CODES.has(code)) return "FAIL";
   return "WARNING";
@@ -327,8 +331,10 @@ export default function AssessmentPage() {
   const passedChecks = checks.filter((c) => classifyRule(c.resultCode) === "PASS");
   const failedChecks = checks.filter((c) => classifyRule(c.resultCode) === "FAIL");
   const warningChecks = checks.filter((c) => classifyRule(c.resultCode) === "WARNING");
+  const ignoredChecks = checks.filter((c) => classifyRule(c.resultCode) === "IGNORE");
   const totalChecks = checks.length;
-  const passRate = totalChecks > 0 ? Math.round((passedChecks.length / totalChecks) * 100) : 0;
+  const applicableChecks = passedChecks.length + failedChecks.length + warningChecks.length;
+  const passRate = applicableChecks > 0 ? Math.round((passedChecks.length / applicableChecks) * 100) : 0;
 
   const overallVerdict = toUiVerdict(result?.resultCode);
   const vc = verdictConfig[overallVerdict];
@@ -448,10 +454,11 @@ export default function AssessmentPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-4 gap-3">
             <MetricCard value={passedChecks.length} label="Passed" icon={<TrendingUp className="h-4 w-4" />} color="emerald" />
             <MetricCard value={failedChecks.length} label="Failed" icon={<TrendingDown className="h-4 w-4" />} color="red" />
             <MetricCard value={warningChecks.length} label="Warnings" icon={<AlertTriangle className="h-4 w-4" />} color="amber" />
+            <MetricCard value={ignoredChecks.length} label="Ignored" icon={<MinusCircle className="h-4 w-4" />} color="gray" />
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4">
@@ -476,6 +483,12 @@ export default function AssessmentPage() {
                 <div
                   className="h-full bg-gradient-to-r from-red-500 to-rose-400"
                   style={{ width: `${(failedChecks.length / totalChecks) * 100}%` }}
+                />
+              )}
+              {ignoredChecks.length > 0 && (
+                <div
+                  className="h-full bg-gradient-to-r from-zinc-500 to-slate-400"
+                  style={{ width: `${(ignoredChecks.length / totalChecks) * 100}%` }}
                 />
               )}
             </div>
@@ -538,12 +551,13 @@ function MetricCard({
   value: number;
   label: string;
   icon: ReactNode;
-  color: "emerald" | "red" | "amber";
+  color: "emerald" | "red" | "amber" | "gray";
 }) {
   const gradients: Record<string, string> = {
     emerald: "from-emerald-500/10 to-green-500/5 border-emerald-500/20",
     red: "from-red-500/10 to-rose-500/5 border-red-500/20",
     amber: "from-amber-500/10 to-yellow-500/5 border-amber-500/20",
+    gray: "from-zinc-500/10 to-slate-500/5 border-zinc-500/20",
   };
 
   return (
@@ -573,7 +587,9 @@ function DecisionCheckGrid({
       ? "border-emerald-500/20 bg-emerald-500/[0.04]"
       : color === "red"
       ? "border-red-500/20 bg-red-500/[0.04]"
-      : "border-amber-500/20 bg-amber-500/[0.04]";
+      : color === "amber"
+      ? "border-amber-500/20 bg-amber-500/[0.04]"
+      : "border-zinc-500/20 bg-zinc-500/[0.04]";
 
   return (
     <Card>
