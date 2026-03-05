@@ -173,9 +173,10 @@ public class EvaluationsController : ControllerBase
 
         // Map checks
         var allChecks = new List<(AiCheckResult check, CheckStatus status)>();
-        foreach (var c in aiResponse.PassedChecks ?? []) allChecks.Add((c, CheckStatus.Pass));
-        foreach (var c in aiResponse.FailedChecks ?? []) allChecks.Add((c, CheckStatus.Fail));
-        foreach (var c in aiResponse.Warnings ?? []) allChecks.Add((c, CheckStatus.Warning));
+        foreach (var c in aiResponse.PassedChecks ?? []) allChecks.Add((c, ParseCheckStatus(c.Status, CheckStatus.Pass)));
+        foreach (var c in aiResponse.FailedChecks ?? []) allChecks.Add((c, ParseCheckStatus(c.Status, CheckStatus.Fail)));
+        foreach (var c in aiResponse.Warnings ?? []) allChecks.Add((c, ParseCheckStatus(c.Status, CheckStatus.Warning)));
+        foreach (var c in aiResponse.IgnoredChecks ?? []) allChecks.Add((c, ParseCheckStatus(c.Status, CheckStatus.Ignore)));
 
         foreach (var (check, status) in allChecks)
         {
@@ -275,6 +276,7 @@ public class EvaluationsController : ControllerBase
             e.Checks.Where(c => c.Status == CheckStatus.Pass).Select(MapCheckDto).ToList(),
             e.Checks.Where(c => c.Status == CheckStatus.Fail).Select(MapCheckDto).ToList(),
             e.Checks.Where(c => c.Status == CheckStatus.Warning).Select(MapCheckDto).ToList(),
+            e.Checks.Where(c => c.Status == CheckStatus.Ignore).Select(MapCheckDto).ToList(),
             tokens,
             anonReport
         );
@@ -292,8 +294,21 @@ public class EvaluationsController : ControllerBase
         e.TotalPolicyCount,
         e.Checks.Count(c => c.Status == CheckStatus.Pass),
         e.Checks.Count(c => c.Status == CheckStatus.Fail),
-        e.Checks.Count(c => c.Status == CheckStatus.Warning)
+        e.Checks.Count(c => c.Status == CheckStatus.Warning),
+        e.Checks.Count(c => c.Status == CheckStatus.Ignore)
     );
+
+    private static CheckStatus ParseCheckStatus(string? status, CheckStatus fallback)
+    {
+        return status?.Trim().ToUpperInvariant() switch
+        {
+            "PASS" or "PASSED" => CheckStatus.Pass,
+            "FAIL" or "FAILED" => CheckStatus.Fail,
+            "WARNING" => CheckStatus.Warning,
+            "IGNORE" or "IGNORED" => CheckStatus.Ignore,
+            _ => fallback
+        };
+    }
 
     private static EvaluationCheckDto MapCheckDto(EvaluationCheck c) => new(
         c.Id,

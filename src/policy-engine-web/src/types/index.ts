@@ -1,7 +1,7 @@
 // Shared TypeScript types matching backend DTOs
 
 export type Verdict = "APPROVED" | "REJECTED" | "MANUAL_REVIEW";
-export type CheckStatus = "PASS" | "FAIL" | "WARNING";
+export type CheckStatus = "PASS" | "FAIL" | "WARNING" | "IGNORE";
 
 export interface PolicyDocumentDto {
   id: string;
@@ -72,6 +72,7 @@ export interface EvaluationResultDto {
   passedChecks: EvaluationCheckDto[];
   failedChecks: EvaluationCheckDto[];
   warnings: EvaluationCheckDto[];
+  ignoredChecks: EvaluationCheckDto[];
   tokenUsage: TokenUsageDto[];
   anonymizationReport: AnonymizedFieldDto[];
 }
@@ -100,6 +101,7 @@ export interface EvaluationSummaryDto {
   passedCount: number;
   failedCount: number;
   warningCount: number;
+  ignoredCount: number;
 }
 
 export interface EvaluationCheckDto {

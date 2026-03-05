@@ -22,6 +22,7 @@ import {
   Eye,
   TrendingUp,
   TrendingDown,
+  MinusCircle,
   FileText,
   Database,
   Zap,
@@ -88,10 +89,15 @@ export default function EvaluationDetailPage() {
   const totalChecks =
     evaluation.passedChecks.length +
     evaluation.failedChecks.length +
+    evaluation.warnings.length +
+    evaluation.ignoredChecks.length;
+  const applicableChecks =
+    evaluation.passedChecks.length +
+    evaluation.failedChecks.length +
     evaluation.warnings.length;
   const passRate =
-    totalChecks > 0
-      ? Math.round((evaluation.passedChecks.length / totalChecks) * 100)
+    applicableChecks > 0
+      ? Math.round((evaluation.passedChecks.length / applicableChecks) * 100)
       : 0;
 
   return (
@@ -195,10 +201,11 @@ export default function EvaluationDetailPage() {
       )}
 
       {/* ─── Metric Cards ─── */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-4 gap-3">
         <MetricCard value={evaluation.passedChecks.length} label="Passed" icon={<TrendingUp className="h-4 w-4" />} color="emerald" />
         <MetricCard value={evaluation.failedChecks.length} label="Failed" icon={<TrendingDown className="h-4 w-4" />} color="red" />
         <MetricCard value={evaluation.warnings.length} label="Warnings" icon={<AlertTriangle className="h-4 w-4" />} color="amber" />
+        <MetricCard value={evaluation.ignoredChecks.length} label="Ignored" icon={<MinusCircle className="h-4 w-4" />} color="gray" />
       </div>
 
       {/* ─── Compliance Bar ─── */}
@@ -226,6 +233,12 @@ export default function EvaluationDetailPage() {
               style={{ width: `${(evaluation.failedChecks.length / totalChecks) * 100}%` }}
             />
           )}
+          {evaluation.ignoredChecks.length > 0 && (
+            <div
+              className="h-full bg-gradient-to-r from-zinc-500 to-slate-400 transition-all duration-1000"
+              style={{ width: `${(evaluation.ignoredChecks.length / totalChecks) * 100}%` }}
+            />
+          )}
         </div>
         <div className="flex justify-between mt-1.5 text-[10px] text-muted-foreground">
           <span className="flex items-center gap-1">
@@ -236,6 +249,9 @@ export default function EvaluationDetailPage() {
           </span>
           <span className="flex items-center gap-1">
             <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> Failed
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-zinc-500" /> Ignored
           </span>
         </div>
       </div>
@@ -264,6 +280,14 @@ export default function EvaluationDetailPage() {
           checks={evaluation.passedChecks}
           color="emerald"
           collapsed
+        />
+      )}
+      {evaluation.ignoredChecks.length > 0 && (
+        <CheckGrid
+          title="Ignored Checks"
+          icon={<MinusCircle className="h-4 w-4 text-zinc-400" />}
+          checks={evaluation.ignoredChecks}
+          color="gray"
         />
       )}
     </div>
@@ -446,17 +470,19 @@ function MetricCard({
   value: number;
   label: string;
   icon: React.ReactNode;
-  color: "emerald" | "red" | "amber";
+  color: "emerald" | "red" | "amber" | "gray";
 }) {
   const gradients = {
     emerald: "from-emerald-500/10 to-green-500/5 border-emerald-500/20",
     red: "from-red-500/10 to-rose-500/5 border-red-500/20",
     amber: "from-amber-500/10 to-yellow-500/5 border-amber-500/20",
+    gray: "from-zinc-500/10 to-slate-500/5 border-zinc-500/20",
   };
   const textColors = {
     emerald: "text-emerald-500",
     red: "text-red-500",
     amber: "text-amber-500",
+    gray: "text-zinc-400",
   };
 
   return (
@@ -483,7 +509,7 @@ function CheckGrid({
   title: string;
   icon: React.ReactNode;
   checks: EvaluationCheckDto[];
-  color: "emerald" | "red" | "amber";
+  color: "emerald" | "red" | "amber" | "gray";
   collapsed?: boolean;
 }) {
   const [open, setOpen] = useState(!collapsed);
@@ -491,8 +517,9 @@ function CheckGrid({
     emerald: "border-emerald-500/15 hover:border-emerald-500/30",
     red: "border-red-500/15 hover:border-red-500/30",
     amber: "border-amber-500/15 hover:border-amber-500/30",
+    gray: "border-zinc-500/15 hover:border-zinc-500/30",
   };
-  const dotColors = { emerald: "bg-emerald-500", red: "bg-red-500", amber: "bg-amber-500" };
+  const dotColors = { emerald: "bg-emerald-500", red: "bg-red-500", amber: "bg-amber-500", gray: "bg-zinc-500" };
 
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">

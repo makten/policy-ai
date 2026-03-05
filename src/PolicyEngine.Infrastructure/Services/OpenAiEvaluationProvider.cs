@@ -170,6 +170,32 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         - Be Dutch-domain aware: understand BKR, NHG, LTV, marktwaarde, AOW, etc.
         - Return ONLY valid JSON matching the required schema. No markdown, no explanations outside the JSON.
 
+        Rules for data/policies:
+        - Ignore rent
+        - Ignore holiday home/vacation home
+        - Ignore new build/prefab/renovation
+        - Ignore valuation
+        - Ignore NHG
+        - Ignore leasehold/building lease/auction
+        - Ignore applicant appeal
+        - Ignore tax continuation
+        - Ignore anything with the word 'error'
+        - Ignore family/parents
+        - Ignore cross-border worker
+        - Ignore interest deduction
+        - Ignore collateral for sale/sold
+        - Ignore joint liability
+        - Ignore joint and several discharge
+        - Ignore demonstration/burden of proof
+        - Ignore refinancing/increase/transfer
+        - Ignore interest compensation
+        - Ignore box 2
+        - Ignore residual debt
+        - Ignore existing financing
+        - Ignore word “market value ratio”
+        - Ignore word “customisation”
+        - Ignore building deposit
+
         Verdict logic:
         - APPROVED: All checks pass (warnings are acceptable).
         - REJECTED: One or more critical checks fail.
@@ -189,7 +215,7 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         The application data above contains only the decision-relevant fields extracted from the full application.
         Certain personal data has been anonymized for privacy: dates of birth appear as "ageInYears", nationality/birth countries as zone classifications (NL/EU_EEA/NON_EU), and employment start dates as "yearsEmployed".
         If a field needed for a policy check is not present, mark the check as WARNING with a note that the data was not provided.
-        For each policy, determine: PASS, FAIL, or WARNING.
+        For each policy, determine: PASS, FAIL, WARNING, or IGNORE.
         Provide the overall verdict and a human-readable summary in Dutch.
         For each check, specify what value was found in the application and what the policy requires.
         """;
@@ -215,9 +241,14 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
             {
                 type = "array",
                 items = GetCheckResultSchema()
+            },
+            ignoredChecks = new
+            {
+                type = "array",
+                items = GetCheckResultSchema()
             }
         },
-        required = new[] { "verdict", "summary", "passedChecks", "failedChecks", "warnings" },
+        required = new[] { "verdict", "summary", "passedChecks", "failedChecks", "warnings", "ignoredChecks" },
         additionalProperties = false
     };
 
@@ -228,7 +259,7 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         {
             policyCode = new { type = "string" },
             policyTitle = new { type = "string" },
-            status = new { type = "string", @enum = new[] { "PASS", "FAIL", "WARNING" } },
+            status = new { type = "string", @enum = new[] { "PASS", "FAIL", "WARNING", "IGNORE" } },
             reason = new { type = "string" },
             submittedValue = new { type = new[] { "string", "null" } },
             requiredValue = new { type = new[] { "string", "null" } }
