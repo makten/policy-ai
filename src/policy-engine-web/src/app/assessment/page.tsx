@@ -338,7 +338,7 @@ export default function AssessmentPage() {
           <div className="flex gap-2">
             <Button
               onClick={resetToTemplate}
-              className="h-8 border border-border bg-card px-3 text-xs hover:bg-secondary"
+              className="h-8 border border-border bg-card px-3 text-xs text-foreground hover:bg-secondary"
             >
               <RotateCcw className="h-3 w-3" />
               Reset Template
