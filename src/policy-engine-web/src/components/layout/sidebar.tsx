@@ -46,7 +46,7 @@ export function Sidebar() {
     <aside className="fixed inset-y-0 left-0 z-30 flex w-60 flex-col bg-sidebar-bg text-sidebar-fg">
       {/* Logo */}
       <div className="flex h-16 items-center gap-2 px-5 border-b border-white/10">
-        <ShieldCheck className="h-7 w-7 text-primary" />
+        <ShieldCheck className="h-7 w-7 text-white" />
         <span className="text-base font-bold tracking-tight">Assessly</span>
       </div>
 
