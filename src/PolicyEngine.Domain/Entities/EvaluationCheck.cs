@@ -10,7 +10,7 @@ public class EvaluationCheck
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid EvaluationResultId { get; set; }
 
-    public string PolicyCode { get; set; } = string.Empty;      // e.g., "ASN-POL-001"
+    public string PolicyCode { get; set; } = string.Empty;      // e.g., "ASN-001"
     public string PolicyTitle { get; set; } = string.Empty;
     public CheckStatus Status { get; set; }
     public string Reason { get; set; } = string.Empty;          // Human-readable explanation

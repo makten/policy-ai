@@ -10,7 +10,6 @@ import {
   Upload,
   PlusCircle,
   FolderUp,
-  Workflow,
   ListChecks,
   Wand2,
   Activity,
@@ -26,11 +25,22 @@ const navItems = [
   { href: "/evaluate", label: "Evaluate", icon: Upload },
   { href: "/evaluations", label: "Results", icon: ShieldCheck },
   { href: "/business-rules", label: "Generate Business Rules", icon: Wand2 },
-  { href: "/assessment", label: "Assessment", icon: Activity },
+  { href: "/assessment", label: "Perform Assessment", icon: Activity },
 ];
+
+function isPathMatch(pathname: string, href: string): boolean {
+  if (href === "/")
+    return pathname === "/";
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Sidebar() {
   const pathname = usePathname();
+  const activeHref =
+    navItems
+      .filter((item) => isPathMatch(pathname, item.href))
+      .sort((a, b) => b.href.length - a.href.length)[0]?.href ?? "";
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-60 flex-col bg-sidebar-bg text-sidebar-fg">

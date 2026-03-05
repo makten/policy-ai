@@ -194,7 +194,7 @@ public class PdfPolicyParser : IPolicyFileParser
             Message = $"De-duplication: {allPolicies.Count} → {deduplicated.Count} policies"
         });
 
-        // Step 4 — Assign sequential codes using entity prefix (no -POL- infix)
+        // Step 4 — Assign sequential codes using entity prefix
         var prefix = BuildCodePrefix(meta.Entity);
         // startCodeNumber is 0-based offset; codes start at startCodeNumber + 1
         for (int i = 0; i < deduplicated.Count; i++)
@@ -582,7 +582,7 @@ public class PdfPolicyParser : IPolicyFileParser
             entity
                 .Split(new[] { ' ', '-', '_', '/', '\\', ',', '.', '(', ')' }, StringSplitOptions.RemoveEmptyEntries)
                 .FirstOrDefault(static token => token.Any(char.IsLetterOrDigit))
-            ?? "POL";
+            ?? "POLICY";
 
         word = new string(word.Where(char.IsLetterOrDigit).ToArray());
         if (string.IsNullOrWhiteSpace(word))

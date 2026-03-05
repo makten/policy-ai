@@ -1,14 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createPolicy, fetchPolicyDocuments, fetchCategories } from "@/lib/queries";
+import { isAxiosError } from "axios";
+import {
+  createPolicy,
+  fetchCategories,
+  fetchPolicies,
+  fetchPolicyDocuments,
+} from "@/lib/queries";
 import { PageHeader } from "@/components/ui/page-header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Save, AlertCircle, CheckCircle, Plus } from "lucide-react";
+import type { PolicyDto } from "@/types";
 
 interface FormData {
   code: string;
@@ -30,6 +37,98 @@ const initialForm: FormData = {
   policyDocumentId: "",
 };
 
+interface ParsedPolicyCode {
+  prefix: string;
+  sequence: number;
+  width: number;
+  updatedAt: number;
+}
+
+function parsePolicyCode(policy: PolicyDto): ParsedPolicyCode | null {
+  const rawCode = policy.code?.trim();
+  if (!rawCode)
+    return null;
+
+  const match = rawCode.match(/^(.*?)-(\d+)$/);
+  if (!match)
+    return null;
+
+  const prefix = match[1]?.trim();
+  const sequenceStr = match[2];
+  if (!prefix || !sequenceStr)
+    return null;
+
+  const sequence = Number.parseInt(sequenceStr, 10);
+  if (Number.isNaN(sequence))
+    return null;
+
+  return {
+    prefix,
+    sequence,
+    width: sequenceStr.length,
+    updatedAt: new Date(policy.updatedAt).getTime() || 0,
+  };
+}
+
+function buildNextCodePlaceholder(policies: PolicyDto[]): string {
+  const parsed = policies
+    .map(parsePolicyCode)
+    .filter((code): code is ParsedPolicyCode => code !== null);
+
+  if (parsed.length === 0)
+    return "ENTITY-001";
+
+  const asnParsed = parsed.filter((code) => code.prefix.toUpperCase().startsWith("ASN"));
+  const source = asnParsed.length > 0 ? asnParsed : parsed;
+
+  const latest = source.reduce((best, current) => {
+    if (!best)
+      return current;
+    if (current.sequence !== best.sequence)
+      return current.sequence > best.sequence ? current : best;
+    return current.updatedAt > best.updatedAt ? current : best;
+  }, null as ParsedPolicyCode | null);
+
+  if (!latest)
+    return "ENTITY-001";
+
+  const nextSequence = String(latest.sequence + 1).padStart(latest.width, "0");
+  return `${latest.prefix.toUpperCase()}-${nextSequence}`;
+}
+
+function getCreatePolicyErrorMessage(error: unknown, code: string): string {
+  const fallback = "Could not create policy. Please try again.";
+
+  if (!isAxiosError(error))
+    return error instanceof Error && error.message ? error.message : fallback;
+
+  const status = error.response?.status;
+  const data = error.response?.data as
+    | string
+    | { message?: string; title?: string; detail?: string; errors?: Record<string, string[] | string> }
+    | undefined;
+
+  const details =
+    typeof data === "string"
+      ? data
+      : data?.message ?? data?.detail ?? data?.title ?? "";
+
+  const duplicateDetected =
+    status === 409 ||
+    /already exists|duplicate|exists/i.test(details) ||
+    /duplicate|exists/i.test(error.message ?? "");
+
+  if (duplicateDetected)
+  {
+    const normalizedCode = code.trim().toUpperCase();
+    return normalizedCode
+      ? `A policy with code ${normalizedCode} already exists.`
+      : "A policy with this code already exists.";
+  }
+
+  return details || error.message || fallback;
+}
+
 export default function NewPolicyPage() {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -45,6 +144,11 @@ export default function NewPolicyPage() {
   const categoriesQuery = useQuery({
     queryKey: ["categories"],
     queryFn: fetchCategories,
+  });
+
+  const policiesQuery = useQuery({
+    queryKey: ["policies", "code-placeholder"],
+    queryFn: () => fetchPolicies(),
   });
 
   const mutation = useMutation({
@@ -63,16 +167,27 @@ export default function NewPolicyPage() {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
       router.push("/policies");
     },
+    onError: (error) => {
+      const message = getCreatePolicyErrorMessage(error, form.code);
+      if (/already exists/i.test(message))
+      {
+        setErrors((prev) => ({ ...prev, code: message }));
+      }
+    },
   });
 
   const documents = documentsQuery.data ?? [];
   const categories = categoriesQuery.data ?? [];
+  const codePlaceholder = useMemo(
+    () => buildNextCodePlaceholder(policiesQuery.data ?? []),
+    [policiesQuery.data]
+  );
 
   function validate(): boolean {
     const e: Partial<Record<keyof FormData, string>> = {};
     if (!form.code.trim()) e.code = "Policy code is required";
-    if (!/^[A-Z0-9]+-[A-Z0-9]+-\d+$/i.test(form.code.trim()) && form.code.trim())
-      e.code = "Use format like ENTITY-POL-001";
+    if (!/^[A-Z0-9]+-\d+$/i.test(form.code.trim()) && form.code.trim())
+      e.code = "Use format like ENTITY-001";
     if (!form.title.trim()) e.title = "Title is required";
     if (!form.category.trim()) e.category = "Category is required";
     if (!form.description.trim()) e.description = "Description is required";
@@ -88,6 +203,8 @@ export default function NewPolicyPage() {
 
   function updateField<K extends keyof FormData>(key: K, value: FormData[K]) {
     setForm((f) => ({ ...f, [key]: value }));
+    if (mutation.isError)
+      mutation.reset();
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
@@ -145,13 +262,13 @@ export default function NewPolicyPage() {
             <FieldWrapper
               label="Policy Code *"
               error={errors.code}
-              hint="Unique identifier, e.g. ASN-POL-010 or MUNT-POL-045"
+              hint="Unique identifier, e.g. ASN-010 or MUNT-045"
             >
               <input
                 type="text"
                 value={form.code}
                 onChange={(e) => updateField("code", e.target.value.toUpperCase())}
-                placeholder="ENTITY-POL-001"
+                placeholder={codePlaceholder}
                 className={inputClass(errors.code)}
                 maxLength={30}
               />
@@ -340,7 +457,7 @@ export default function NewPolicyPage() {
           <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/5 p-4">
             <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
             <p className="text-sm text-destructive">
-              {(mutation.error as Error).message}
+              {getCreatePolicyErrorMessage(mutation.error, form.code)}
             </p>
           </div>
         )}
