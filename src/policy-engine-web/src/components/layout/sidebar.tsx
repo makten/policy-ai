@@ -43,10 +43,17 @@ export function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
+          const isActive = (() => {
+            if (item.href === "/") return pathname === "/";
+            if (pathname === item.href) return true;
+            if (!pathname.startsWith(item.href + "/")) return false;
+            // Don't highlight this item if a more-specific sibling nav item owns this path
+            return !navItems.some(
+              (other) =>
+                other.href !== item.href &&
+                (pathname === other.href || pathname.startsWith(other.href + "/"))
+            );
+          })();
           return (
             <Link
               key={item.href}

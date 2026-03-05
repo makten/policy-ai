@@ -16,10 +16,10 @@
   --destructive: #ef4444;
   --success: #22c55e;
   --warning: #f59e0b;
-  --sidebar-bg: #0f172a;
+  --sidebar-bg: #008071;
   --sidebar-fg: #e2e8f0;
-  --sidebar-hover: #1e293b;
-  --sidebar-active: #2563eb;
+  --sidebar-hover: #006b5e;
+  --sidebar-active: #00a090;
 }
 
 @theme inline {
