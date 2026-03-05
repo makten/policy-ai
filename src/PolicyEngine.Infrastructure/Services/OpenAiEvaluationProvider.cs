@@ -204,6 +204,37 @@ public class OpenAiEvaluationProvider : IEvaluationProvider
         ## Output
         - Return ONLY valid JSON matching the required schema. No markdown, no explanations outside the JSON.
         - The "summary" field must be a human-readable paragraph in Dutch.
+
+        Rules for data/policies:
+        - Ignore rent
+        - Ignore holiday home/vacation home
+        - Ignore new build/prefab/renovation
+        - Ignore valuation
+        - Ignore NHG
+        - Ignore leasehold/building lease/auction
+        - Ignore applicant appeal
+        - Ignore tax continuation
+        - Ignore anything with the word 'error'
+        - Ignore family/parents
+        - Ignore cross-border worker
+        - Ignore interest deduction
+        - Ignore collateral for sale/sold
+        - Ignore joint liability
+        - Ignore joint and several discharge
+        - Ignore demonstration/burden of proof
+        - Ignore refinancing/increase/transfer
+        - Ignore interest compensation
+        - Ignore box 2
+        - Ignore residual debt
+        - Ignore existing financing
+        - Ignore word “market value ratio”
+        - Ignore word “customisation”
+        - Ignore building deposit
+
+        Verdict logic:
+        - APPROVED: All checks pass (warnings are acceptable).
+        - REJECTED: One or more critical checks fail.
+        - MANUAL_REVIEW: No hard failures, but significant warnings requiring human review.
         """;
 
     private static string BuildUserPrompt(string policiesJson, string applicationJson) =>

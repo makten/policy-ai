@@ -296,8 +296,21 @@ public class EvaluationsController : ControllerBase
         e.Checks.Count(c => c.Status == CheckStatus.Pass),
         e.Checks.Count(c => c.Status == CheckStatus.Fail),
         e.Checks.Count(c => c.Status == CheckStatus.Warning),
-        e.Checks.Count(c => c.Status == CheckStatus.NotEvaluated)
+        e.Checks.Count(c => c.Status == CheckStatus.NotEvaluated),
+        e.Checks.Count(c => c.Status == CheckStatus.Ignore)
     );
+
+    private static CheckStatus ParseCheckStatus(string? status, CheckStatus fallback)
+    {
+        return status?.Trim().ToUpperInvariant() switch
+        {
+            "PASS" or "PASSED" => CheckStatus.Pass,
+            "FAIL" or "FAILED" => CheckStatus.Fail,
+            "WARNING" => CheckStatus.Warning,
+            "IGNORE" or "IGNORED" => CheckStatus.Ignore,
+            _ => fallback
+        };
+    }
 
     private static EvaluationCheckDto MapCheckDto(EvaluationCheck c) => new(
         c.Id,

@@ -19,19 +19,28 @@ import {
   TrendingUp,
   TrendingDown,
   Eye,
+  X,
+  ChevronDown,
+  ChevronRight,
+  Info,
+  MinusCircle,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import {
   executeAssessment,
   fetchAssessmentDecision,
+  fetchDecisionRuleDetails,
 } from "@/lib/queries";
 import type {
   AssessmentDecisionResponseDto,
   DecisionRuleResultDto,
+  DecisionRuleDetailsDto,
+  DecisionParameter,
 } from "@/types";
 
 type UiVerdict = "APPROVED" | "REJECTED" | "MANUAL_REVIEW";
 
-type RuleBucket = "PASS" | "FAIL" | "WARNING";
+type RuleBucket = "PASS" | "FAIL" | "WARNING" | "IGNORE";
 
 const verdictConfig: Record<
   UiVerdict,
@@ -88,6 +97,8 @@ const FAIL_CODES = new Set([
   "VZ",
 ]);
 
+const IGNORE_CODES = new Set(["IGNORE", "IGNORED"]);
+
 const POLL_INTERVAL_MS = 2500;
 const MAX_POLL_ATTEMPTS = 48;
 const GUID_PLACEHOLDER_REGEX = /\{\{?\$guid\}?\}/gi;
@@ -98,6 +109,7 @@ function normalizeCode(value: string | null | undefined): string {
 
 function classifyRule(resultCode: string | null | undefined): RuleBucket {
   const code = normalizeCode(resultCode);
+  if (IGNORE_CODES.has(code)) return "IGNORE";
   if (PASS_CODES.has(code)) return "PASS";
   if (FAIL_CODES.has(code)) return "FAIL";
   return "WARNING";
@@ -203,6 +215,7 @@ export default function AssessmentPage() {
   const [rawResult, setRawResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [selectedRuleRef, setSelectedRuleRef] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/templates/ama_request.json")
@@ -318,8 +331,10 @@ export default function AssessmentPage() {
   const passedChecks = checks.filter((c) => classifyRule(c.resultCode) === "PASS");
   const failedChecks = checks.filter((c) => classifyRule(c.resultCode) === "FAIL");
   const warningChecks = checks.filter((c) => classifyRule(c.resultCode) === "WARNING");
+  const ignoredChecks = checks.filter((c) => classifyRule(c.resultCode) === "IGNORE");
   const totalChecks = checks.length;
-  const passRate = totalChecks > 0 ? Math.round((passedChecks.length / totalChecks) * 100) : 0;
+  const applicableChecks = passedChecks.length + failedChecks.length + warningChecks.length;
+  const passRate = applicableChecks > 0 ? Math.round((passedChecks.length / applicableChecks) * 100) : 0;
 
   const overallVerdict = toUiVerdict(result?.resultCode);
   const vc = verdictConfig[overallVerdict];
@@ -439,10 +454,11 @@ export default function AssessmentPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-4 gap-3">
             <MetricCard value={passedChecks.length} label="Passed" icon={<TrendingUp className="h-4 w-4" />} color="emerald" />
             <MetricCard value={failedChecks.length} label="Failed" icon={<TrendingDown className="h-4 w-4" />} color="red" />
             <MetricCard value={warningChecks.length} label="Warnings" icon={<AlertTriangle className="h-4 w-4" />} color="amber" />
+            <MetricCard value={ignoredChecks.length} label="Ignored" icon={<MinusCircle className="h-4 w-4" />} color="gray" />
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4">
@@ -469,17 +485,23 @@ export default function AssessmentPage() {
                   style={{ width: `${(failedChecks.length / totalChecks) * 100}%` }}
                 />
               )}
+              {ignoredChecks.length > 0 && (
+                <div
+                  className="h-full bg-gradient-to-r from-zinc-500 to-slate-400"
+                  style={{ width: `${(ignoredChecks.length / totalChecks) * 100}%` }}
+                />
+              )}
             </div>
           </div>
 
           {failedChecks.length > 0 && (
-            <DecisionCheckGrid title="Failed Checks" checks={failedChecks} color="red" />
+            <DecisionCheckGrid title="Failed Checks" checks={failedChecks} color="red" onRuleClick={setSelectedRuleRef} />
           )}
           {warningChecks.length > 0 && (
-            <DecisionCheckGrid title="Warnings" checks={warningChecks} color="amber" />
+            <DecisionCheckGrid title="Warnings" checks={warningChecks} color="amber" onRuleClick={setSelectedRuleRef} />
           )}
           {passedChecks.length > 0 && (
-            <DecisionCheckGrid title="Passed Checks" checks={passedChecks} color="emerald" />
+            <DecisionCheckGrid title="Passed Checks" checks={passedChecks} color="emerald" onRuleClick={setSelectedRuleRef} />
           )}
 
           <Card>
@@ -507,6 +529,15 @@ export default function AssessmentPage() {
           </Card>
         </div>
       )}
+
+      {/* Rule detail modal */}
+      {selectedRuleRef && correlationReference && (
+        <RuleDetailModal
+          correlationReference={correlationReference}
+          ruleReference={selectedRuleRef}
+          onClose={() => setSelectedRuleRef(null)}
+        />
+      )}
     </div>
   );
 }
@@ -520,12 +551,13 @@ function MetricCard({
   value: number;
   label: string;
   icon: ReactNode;
-  color: "emerald" | "red" | "amber";
+  color: "emerald" | "red" | "amber" | "gray";
 }) {
   const gradients: Record<string, string> = {
     emerald: "from-emerald-500/10 to-green-500/5 border-emerald-500/20",
     red: "from-red-500/10 to-rose-500/5 border-red-500/20",
     amber: "from-amber-500/10 to-yellow-500/5 border-amber-500/20",
+    gray: "from-zinc-500/10 to-slate-500/5 border-zinc-500/20",
   };
 
   return (
@@ -543,17 +575,21 @@ function DecisionCheckGrid({
   title,
   checks,
   color,
+  onRuleClick,
 }: {
   title: string;
   checks: DecisionRuleResultDto[];
   color: "emerald" | "red" | "amber";
+  onRuleClick: (ruleReference: string) => void;
 }) {
   const tone =
     color === "emerald"
       ? "border-emerald-500/20 bg-emerald-500/[0.04]"
       : color === "red"
       ? "border-red-500/20 bg-red-500/[0.04]"
-      : "border-amber-500/20 bg-amber-500/[0.04]";
+      : color === "amber"
+      ? "border-amber-500/20 bg-amber-500/[0.04]"
+      : "border-zinc-500/20 bg-zinc-500/[0.04]";
 
   return (
     <Card>
@@ -564,7 +600,8 @@ function DecisionCheckGrid({
         {checks.map((check) => (
           <div
             key={`${check.ruleReference}-${check.resultCode}-${check.category}`}
-            className={`rounded-lg border px-3 py-3 ${tone}`}
+            className={`rounded-lg border px-3 py-3 ${tone} cursor-pointer hover:ring-1 hover:ring-border transition-all group`}
+            onClick={() => onRuleClick(check.ruleReference)}
           >
             <div className="flex flex-wrap items-center gap-2">
               <Badge className="font-mono text-[10px] border border-border bg-transparent text-foreground">
@@ -576,6 +613,9 @@ function DecisionCheckGrid({
               <Badge className="text-[10px] border border-border bg-transparent text-foreground">
                 {check.category}
               </Badge>
+              <span className="ml-auto text-[10px] text-muted-foreground flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Info className="h-3 w-3" /> details
+              </span>
             </div>
             <p className="mt-2 text-sm font-medium">{check.ruleDescription}</p>
             {check.employeeExplanation && (
@@ -585,5 +625,177 @@ function DecisionCheckGrid({
         ))}
       </CardContent>
     </Card>
+  );
+}
+
+/* ─── Rule Detail Modal ─── */
+
+function RuleDetailModal({
+  correlationReference,
+  ruleReference,
+  onClose,
+}: {
+  correlationReference: string;
+  ruleReference: string;
+  onClose: () => void;
+}) {
+  const [logicExpanded, setLogicExpanded] = useState(false);
+
+  const { data, isLoading, isError } = useQuery<DecisionRuleDetailsDto>({
+    queryKey: ["decision-rule-details", correlationReference, ruleReference],
+    queryFn: () => fetchDecisionRuleDetails(correlationReference, ruleReference),
+    staleTime: 60_000,
+    retry: 1,
+  });
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="relative bg-card border border-border rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-border shrink-0">
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="font-mono text-xs">{ruleReference}</Badge>
+            <span className="text-sm font-semibold text-muted-foreground">Rule Details</span>
+          </div>
+          <button
+            onClick={onClose}
+            className="rounded-md p-1 hover:bg-secondary transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="overflow-y-auto px-6 py-5 space-y-5 text-sm">
+          {isLoading && (
+            <div className="flex items-center justify-center py-10 gap-2 text-muted-foreground text-xs">
+              <Activity className="h-4 w-4 animate-spin" />
+              Loading rule details…
+            </div>
+          )}
+
+          {isError && (
+            <p className="text-sm text-destructive">
+              Failed to load rule details. The rule may not have details available.
+            </p>
+          )}
+
+          {data && (
+            <>
+              {/* Description */}
+              <p className="font-medium text-base">{data.ruleDescription}</p>
+
+              {/* Explanations */}
+              {data.employeeExplanation && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">Employee explanation</p>
+                  <p className="bg-secondary/30 rounded-md p-3">{data.employeeExplanation}</p>
+                </div>
+              )}
+              {data.customerExplanation && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">Customer explanation</p>
+                  <p className="bg-secondary/30 rounded-md p-3">{data.customerExplanation}</p>
+                </div>
+              )}
+
+              {/* Logical representation */}
+              <div>
+                <button
+                  onClick={() => setLogicExpanded(!logicExpanded)}
+                  className="flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {logicExpanded ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                  Logical representation
+                </button>
+                {logicExpanded && (
+                  <pre className="mt-1 text-xs bg-secondary/30 rounded-md p-3 overflow-x-auto whitespace-pre-wrap break-words">
+                    {data.logicalRepresentation}
+                  </pre>
+                )}
+              </div>
+
+              {/* Parameters */}
+              {data.parameterCollection && data.parameterCollection.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">Parameters</p>
+                  <div className="space-y-1.5">
+                    {data.parameterCollection.map((param, i) => (
+                      <ParameterRow key={i} param={param} depth={0} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Characteristics */}
+              {data.characteristicCollection && data.characteristicCollection.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">Characteristics</p>
+                  <div className="space-y-1.5">
+                    {data.characteristicCollection.map((char, i) => (
+                      <div key={i} className="flex items-center gap-2 rounded-md bg-secondary/30 px-3 py-2">
+                        <code className="text-xs font-mono font-medium text-foreground/80 flex-1">{char.name}</code>
+                        <Badge variant="secondary" className="text-[10px] font-mono">{char.type}</Badge>
+                        {char.value && (
+                          <span className="text-xs font-mono text-foreground/70">= {char.value}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Overrule history */}
+              {data.overruleResultCollection && data.overruleResultCollection.length > 0 && (
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">Overrule history</p>
+                  <div className="space-y-2">
+                    {data.overruleResultCollection.map((overrule, i) => (
+                      <div key={i} className="rounded-md border border-border bg-secondary/20 px-3 py-2.5 text-xs space-y-1">
+                        <div className="flex items-center gap-2">
+                          <Badge variant={overrule.isApproved ? "default" : "destructive"} className="text-[10px]">
+                            {overrule.isApproved ? "Approved" : "Rejected"}
+                          </Badge>
+                          <span className="font-mono text-muted-foreground">{overrule.employeeReference}</span>
+                          <span className="text-muted-foreground ml-auto">
+                            {new Date(overrule.overruleDateTime).toLocaleDateString("nl-NL")}
+                          </span>
+                        </div>
+                        <p className="text-foreground/70">{overrule.motivation}</p>
+                        {overrule.reasonForOverrule && (
+                          <p className="text-muted-foreground">Reason: {overrule.reasonForOverrule}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Parameter row (recursive) ─── */
+
+function ParameterRow({ param, depth }: { param: DecisionParameter; depth: number }) {
+  return (
+    <div style={{ marginLeft: depth * 16 }}>
+      <div className="flex items-center gap-2 rounded-md bg-secondary/30 px-3 py-2">
+        <code className="text-xs font-mono font-medium text-foreground/80 flex-1">{param.name}</code>
+        <Badge variant="secondary" className="text-[10px] font-mono">{param.type}</Badge>
+        {param.value != null && (
+          <span className="text-xs font-mono text-foreground/70">= {param.value}</span>
+        )}
+      </div>
+      {param.parameterCollection?.map((child, i) => (
+        <ParameterRow key={i} param={child} depth={depth + 1} />
+      ))}
+    </div>
   );
 }

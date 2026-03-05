@@ -18,6 +18,7 @@ import {
   TrendingUp,
   TrendingDown,
   AlertTriangle,
+  MinusCircle,
 } from "lucide-react";
 import Link from "next/link";
 import type { Verdict, EvaluationSummaryDto } from "@/types";
@@ -65,6 +66,7 @@ export default function EvaluationsPage() {
         approved: data.data.filter((e) => e.verdict === "APPROVED").length,
         rejected: data.data.filter((e) => e.verdict === "REJECTED").length,
         review: data.data.filter((e) => e.verdict === "MANUAL_REVIEW").length,
+        ignored: data.data.reduce((sum, e) => sum + (e.ignoredCount ?? 0), 0),
       }
     : null;
 
@@ -87,11 +89,12 @@ export default function EvaluationsPage() {
         <>
           {/* Stats Row */}
           {stats && (
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-5 gap-3">
               <MiniStat label="Total" value={stats.total} icon={<Activity className="h-4 w-4 text-primary" />} color="primary" />
               <MiniStat label="Approved" value={stats.approved} icon={<TrendingUp className="h-4 w-4 text-emerald-500" />} color="emerald" />
               <MiniStat label="Rejected" value={stats.rejected} icon={<TrendingDown className="h-4 w-4 text-red-500" />} color="red" />
               <MiniStat label="Review" value={stats.review} icon={<AlertTriangle className="h-4 w-4 text-amber-500" />} color="amber" />
+              <MiniStat label="Ignored" value={stats.ignored} icon={<MinusCircle className="h-4 w-4 text-zinc-500" />} color="gray" />
             </div>
           )}
 
@@ -151,6 +154,7 @@ function MiniStat({
     emerald: "from-emerald-500/10 to-green-500/5 border-emerald-500/20",
     red: "from-red-500/10 to-rose-500/5 border-red-500/20",
     amber: "from-amber-500/10 to-yellow-500/5 border-amber-500/20",
+    gray: "from-zinc-500/10 to-slate-500/5 border-zinc-500/20",
   };
 
   return (
@@ -168,8 +172,10 @@ function MiniStat({
 function EvaluationRow({ ev }: { ev: EvaluationSummaryDto }) {
   const vb = verdictBadge[ev.verdict];
   const VIcon = vb.icon;
-  const totalChecks = ev.passedCount + ev.failedCount + ev.warningCount;
-  const passRate = totalChecks > 0 ? Math.round((ev.passedCount / totalChecks) * 100) : 0;
+  const ignoredCount = ev.ignoredCount ?? 0;
+  const totalChecks = ev.passedCount + ev.failedCount + ev.warningCount + ignoredCount;
+  const applicableChecks = ev.passedCount + ev.failedCount + ev.warningCount;
+  const passRate = applicableChecks > 0 ? Math.round((ev.passedCount / applicableChecks) * 100) : 0;
 
   return (
     <Link href={`/evaluations/${ev.id}`} className="block group">
@@ -231,6 +237,12 @@ function EvaluationRow({ ev }: { ev: EvaluationSummaryDto }) {
                     style={{ width: `${(ev.failedCount / totalChecks) * 100}%` }}
                   />
                 )}
+                {ignoredCount > 0 && (
+                  <div
+                    className="h-full bg-zinc-500"
+                    style={{ width: `${(ignoredCount / totalChecks) * 100}%` }}
+                  />
+                )}
               </div>
             </div>
 
@@ -247,6 +259,10 @@ function EvaluationRow({ ev }: { ev: EvaluationSummaryDto }) {
               <span className="flex items-center gap-0.5 text-amber-500">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                 {ev.warningCount}
+              </span>
+              <span className="flex items-center gap-0.5 text-zinc-500">
+                <span className="h-1.5 w-1.5 rounded-full bg-zinc-500" />
+                {ignoredCount}
               </span>
             </div>
 

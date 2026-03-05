@@ -102,6 +102,7 @@ export interface EvaluationSummaryDto {
   failedCount: number;
   warningCount: number;
   notEvaluatedCount: number;
+  ignoredCount: number;
 }
 
 export interface EvaluationCheckDto {
@@ -315,4 +316,31 @@ export interface AssessmentDecisionResponseDto {
   rejectMotivation: string | null;
   secondApprovalReference: string | null;
   ruleResultCollection: DecisionRuleResultDto[] | null;
+}
+
+export type DecisionParameterType = "String" | "Decimal" | "Boolean" | "DateTime" | "Loop";
+export type DecisionCharacteristicType = "String" | "Decimal" | "Boolean";
+
+export interface DecisionParameter {
+  name: string;
+  value: string | null;
+  type: DecisionParameterType;
+  parameterCollection: DecisionParameter[] | null;
+}
+
+export interface DecisionCharacteristic {
+  name: string;
+  value: string;
+  type: DecisionCharacteristicType;
+}
+
+export interface DecisionRuleDetailsDto {
+  ruleReference: string;
+  ruleDescription: string;
+  logicalRepresentation: string;
+  employeeExplanation: string | null;
+  customerExplanation: string | null;
+  parameterCollection: DecisionParameter[] | null;
+  characteristicCollection: DecisionCharacteristic[] | null;
+  overruleResultCollection: DecisionOverruleResultDto[] | null;
 }

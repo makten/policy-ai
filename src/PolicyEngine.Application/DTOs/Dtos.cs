@@ -167,7 +167,8 @@ public record EvaluationSummaryDto(
     int PassedCount,
     int FailedCount,
     int WarningCount,
-    int NotEvaluatedCount
+    int NotEvaluatedCount,
+    int IgnoredCount
 );
 
 public record EvaluationCheckDto(

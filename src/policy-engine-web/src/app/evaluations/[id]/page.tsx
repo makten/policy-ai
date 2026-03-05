@@ -22,6 +22,7 @@ import {
   Eye,
   TrendingUp,
   TrendingDown,
+  MinusCircle,
   FileText,
   Database,
   Zap,
@@ -90,9 +91,13 @@ export default function EvaluationDetailPage() {
     evaluation.failedChecks.length +
     evaluation.warnings.length +
     (evaluation.notEvaluated?.length ?? 0);
+  const applicableChecks =
+    evaluation.passedChecks.length +
+    evaluation.failedChecks.length +
+    evaluation.warnings.length;
   const passRate =
-    totalChecks > 0
-      ? Math.round((evaluation.passedChecks.length / totalChecks) * 100)
+    applicableChecks > 0
+      ? Math.round((evaluation.passedChecks.length / applicableChecks) * 100)
       : 0;
 
   return (
