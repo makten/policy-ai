@@ -88,7 +88,8 @@ export default function EvaluationDetailPage() {
   const totalChecks =
     evaluation.passedChecks.length +
     evaluation.failedChecks.length +
-    evaluation.warnings.length;
+    evaluation.warnings.length +
+    (evaluation.notEvaluated?.length ?? 0);
   const passRate =
     totalChecks > 0
       ? Math.round((evaluation.passedChecks.length / totalChecks) * 100)
@@ -195,10 +196,11 @@ export default function EvaluationDetailPage() {
       )}
 
       {/* ─── Metric Cards ─── */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-4 gap-3">
         <MetricCard value={evaluation.passedChecks.length} label="Passed" icon={<TrendingUp className="h-4 w-4" />} color="emerald" />
         <MetricCard value={evaluation.failedChecks.length} label="Failed" icon={<TrendingDown className="h-4 w-4" />} color="red" />
         <MetricCard value={evaluation.warnings.length} label="Warnings" icon={<AlertTriangle className="h-4 w-4" />} color="amber" />
+        <MetricCard value={evaluation.notEvaluated?.length ?? 0} label="Not Evaluated" icon={<Eye className="h-4 w-4" />} color="zinc" />
       </div>
 
       {/* ─── Compliance Bar ─── */}
@@ -226,6 +228,12 @@ export default function EvaluationDetailPage() {
               style={{ width: `${(evaluation.failedChecks.length / totalChecks) * 100}%` }}
             />
           )}
+          {(evaluation.notEvaluated?.length ?? 0) > 0 && (
+            <div
+              className="h-full bg-gradient-to-r from-zinc-400 to-zinc-500 transition-all duration-1000"
+              style={{ width: `${((evaluation.notEvaluated?.length ?? 0) / totalChecks) * 100}%` }}
+            />
+          )}
         </div>
         <div className="flex justify-between mt-1.5 text-[10px] text-muted-foreground">
           <span className="flex items-center gap-1">
@@ -236,6 +244,9 @@ export default function EvaluationDetailPage() {
           </span>
           <span className="flex items-center gap-1">
             <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> Failed
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" /> Not Evaluated
           </span>
         </div>
       </div>
@@ -264,6 +275,14 @@ export default function EvaluationDetailPage() {
           checks={evaluation.passedChecks}
           color="emerald"
           collapsed
+        />
+      )}
+      {(evaluation.notEvaluated?.length ?? 0) > 0 && (
+        <CheckGrid
+          title="Not Evaluated"
+          icon={<Eye className="h-4 w-4 text-zinc-400" />}
+          checks={evaluation.notEvaluated}
+          color="zinc"
         />
       )}
     </div>
@@ -446,17 +465,19 @@ function MetricCard({
   value: number;
   label: string;
   icon: React.ReactNode;
-  color: "emerald" | "red" | "amber";
+  color: "emerald" | "red" | "amber" | "zinc";
 }) {
   const gradients = {
     emerald: "from-emerald-500/10 to-green-500/5 border-emerald-500/20",
     red: "from-red-500/10 to-rose-500/5 border-red-500/20",
     amber: "from-amber-500/10 to-yellow-500/5 border-amber-500/20",
+    zinc: "from-zinc-500/10 to-zinc-400/5 border-zinc-500/20",
   };
   const textColors = {
     emerald: "text-emerald-500",
     red: "text-red-500",
     amber: "text-amber-500",
+    zinc: "text-zinc-500",
   };
 
   return (
@@ -483,7 +504,7 @@ function CheckGrid({
   title: string;
   icon: React.ReactNode;
   checks: EvaluationCheckDto[];
-  color: "emerald" | "red" | "amber";
+  color: "emerald" | "red" | "amber" | "zinc";
   collapsed?: boolean;
 }) {
   const [open, setOpen] = useState(!collapsed);
@@ -491,8 +512,9 @@ function CheckGrid({
     emerald: "border-emerald-500/15 hover:border-emerald-500/30",
     red: "border-red-500/15 hover:border-red-500/30",
     amber: "border-amber-500/15 hover:border-amber-500/30",
+    zinc: "border-zinc-500/15 hover:border-zinc-500/30",
   };
-  const dotColors = { emerald: "bg-emerald-500", red: "bg-red-500", amber: "bg-amber-500" };
+  const dotColors = { emerald: "bg-emerald-500", red: "bg-red-500", amber: "bg-amber-500", zinc: "bg-zinc-500" };
 
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
@@ -537,6 +559,16 @@ function CheckGrid({
                   <p className="mt-1 text-xs text-foreground/60 leading-relaxed">
                     {check.reason}
                   </p>
+                  {check.reasoning && (
+                    <details className="mt-1.5">
+                      <summary className="text-[11px] text-muted-foreground cursor-pointer hover:text-foreground/70 select-none">
+                        Show reasoning
+                      </summary>
+                      <p className="mt-1 text-[11px] text-muted-foreground/80 leading-relaxed whitespace-pre-wrap bg-secondary/40 rounded-md px-2 py-1.5">
+                        {check.reasoning}
+                      </p>
+                    </details>
+                  )}
                 </div>
               </div>
               {(check.submittedValue || check.requiredValue) && (

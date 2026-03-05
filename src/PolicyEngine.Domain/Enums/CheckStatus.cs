@@ -4,5 +4,6 @@ public enum CheckStatus
 {
     Pass,
     Fail,
-    Warning
+    Warning,
+    NotEvaluated
 }

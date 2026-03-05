@@ -17,6 +17,7 @@ const statusConfig: Record<
   PASS: { color: "bg-success", label: "Pass" },
   FAIL: { color: "bg-destructive", label: "Fail" },
   WARNING: { color: "bg-warning", label: "Warning" },
+  NOT_EVALUATED: { color: "bg-muted-foreground", label: "Not Evaluated" },
 };
 
 export function StatusDot({ status, className, withLabel = false }: StatusDotProps) {

@@ -13,6 +13,7 @@ public class EvaluationCheck
     public string PolicyCode { get; set; } = string.Empty;      // e.g., "ASN-001"
     public string PolicyTitle { get; set; } = string.Empty;
     public CheckStatus Status { get; set; }
+    public string Reasoning { get; set; } = string.Empty;       // Chain-of-thought step-by-step
     public string Reason { get; set; } = string.Empty;          // Human-readable explanation
     public string? SubmittedValue { get; set; }                  // What the application declared
     public string? RequiredValue { get; set; }                   // What the policy requires

@@ -93,6 +93,7 @@ public class AppDbContext : DbContext
             e.Property(x => x.PolicyCode).HasMaxLength(50);
             e.Property(x => x.PolicyTitle).HasMaxLength(500);
             e.Property(x => x.Status).HasConversion<string>().HasMaxLength(20);
+            e.Property(x => x.Reasoning).HasMaxLength(4000);
             e.Property(x => x.Reason).HasMaxLength(2000);
             e.Property(x => x.SubmittedValue).HasMaxLength(500);
             e.Property(x => x.RequiredValue).HasMaxLength(500);

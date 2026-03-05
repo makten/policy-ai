@@ -138,6 +138,7 @@ public record EvaluationResultDto(
     List<EvaluationCheckDto> PassedChecks,
     List<EvaluationCheckDto> FailedChecks,
     List<EvaluationCheckDto> Warnings,
+    List<EvaluationCheckDto> NotEvaluated,
     List<TokenUsageDto> TokenUsage,
     List<AnonymizedFieldDto> AnonymizationReport
 );
@@ -165,7 +166,8 @@ public record EvaluationSummaryDto(
     int? TotalPolicyCount,
     int PassedCount,
     int FailedCount,
-    int WarningCount
+    int WarningCount,
+    int NotEvaluatedCount
 );
 
 public record EvaluationCheckDto(
@@ -174,6 +176,7 @@ public record EvaluationCheckDto(
     string PolicyTitle,
     string Status,
     string Reason,
+    string? Reasoning,
     string? SubmittedValue,
     string? RequiredValue
 );
@@ -222,12 +225,14 @@ public record AiEvaluationResponse
     public List<AiCheckResult> PassedChecks { get; init; } = new();
     public List<AiCheckResult> FailedChecks { get; init; } = new();
     public List<AiCheckResult> Warnings { get; init; } = new();
+    public List<AiCheckResult> NotEvaluated { get; init; } = new();
 }
 
 public record AiCheckResult
 {
     public string PolicyCode { get; init; } = string.Empty;
     public string PolicyTitle { get; init; } = string.Empty;
+    public string Reasoning { get; init; } = string.Empty;
     public string Status { get; init; } = string.Empty;
     public string Reason { get; init; } = string.Empty;
     public string? SubmittedValue { get; init; }
