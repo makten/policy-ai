@@ -40,6 +40,10 @@ public class BusinessRuleParser : IBusinessRuleParser
     private record OptionsDoc
     {
         public List<OptionsParam> Parameters { get; init; } = [];
+        public List<OptionsRefItem> ProductLines { get; init; } = [];
+        public List<OptionsRefItem> DecisionGroups { get; init; } = [];
+        public List<string> Arrangements { get; init; } = [];
+        public List<string> Categories { get; init; } = [];
     }
 
     private record OptionsParam
@@ -47,6 +51,12 @@ public class BusinessRuleParser : IBusinessRuleParser
         public string Name { get; init; } = string.Empty;
         public string Type { get; init; } = string.Empty;
         public List<OptionsParam>? Children { get; init; }
+    }
+
+    private record OptionsRefItem
+    {
+        public string Reference { get; init; } = string.Empty;
+        public string Value { get; init; } = string.Empty;
     }
 
     private static string LoadParameterRef()
@@ -69,10 +79,45 @@ public class BusinessRuleParser : IBusinessRuleParser
                 return "<!-- no parameters found in options.json -->";
 
             var sb = new StringBuilder();
+
+            // ── Arrangement Types ──
+            if (doc.Arrangements is { Count: > 0 })
+            {
+                sb.AppendLine("### Arrangement types (use these exact values in the arrangementTypes array)");
+                sb.AppendLine($"  {string.Join(" · ", doc.Arrangements)}");
+                sb.AppendLine();
+            }
+
+            // ── Categories ──
+            if (doc.Categories is { Count: > 0 })
+            {
+                sb.AppendLine("### Categories (use these exact values for categoryType)");
+                sb.AppendLine($"  {string.Join(" · ", doc.Categories)}");
+                sb.AppendLine();
+            }
+
+            // ── Product Lines ──
+            if (doc.ProductLines is { Count: > 0 })
+            {
+                sb.AppendLine("### Product lines (use the display value in the productLines array)");
+                foreach (var pl in doc.ProductLines)
+                    sb.AppendLine($"  - \"{pl.Value}\"");
+                sb.AppendLine();
+            }
+
+            // ── Decision Groups ──
+            if (doc.DecisionGroups is { Count: > 0 })
+            {
+                sb.AppendLine("### Decision groups (use the display value in the decisionGroups array)");
+                foreach (var dg in doc.DecisionGroups)
+                    sb.AppendLine($"  - \"{dg.Value}\"");
+                sb.AppendLine();
+            }
+
+            // ── Parameters ──
             var topLevel = doc.Parameters.Where(p => p.Type != "Loop").ToList();
             var loops    = doc.Parameters.Where(p => p.Type == "Loop").ToList();
 
-            // Top-level (non-loop) parameters
             sb.AppendLine("### Top-level parameters (use directly in expressions)");
             foreach (var grp in topLevel.GroupBy(p => p.Type).OrderBy(g => g.Key))
                 sb.AppendLine($"  {grp.Key}: {string.Join(", ", grp.Select(p => p.Name))}");
@@ -205,20 +250,17 @@ public class BusinessRuleParser : IBusinessRuleParser
         | startDate           | ISO-8601, default "2025-01-01T00:00:00Z"                                                          |
         | endDate             | null unless explicit expiry                                                                       |
         | nhgApplicableType   | OnlyNotNhg · OnlyNhg · Both                                                                       |
-        | categoryType        | Conditions · RealEstate · CurrentProperty · ChangeExistingMortgage · Subsidy · Insurance ·       |
-        |                     | Applicant · EmploymentSituation · FinancialObligations · Depots · Interest · Other ·             |
-        |                     | Guarantees · OfferMotivations · ConstructionAccount · DeedPassing · Financial ·                  |
-        |                     | Collateral · ResidualDebtFinancing · CurrentMortgageElsewhere · FRB                              |
+        | categoryType        | Pick from the categories listed in the Available Options section below.                            |
         | rejectionType       | GV · O · GG · P · F2 · BB · V · VZ · F1                                                          |
         | employeeExplanation | Dutch, ≤1000 chars                                                                               |
         | customerExplanation | Dutch, ≤1000 chars, nullable                                                                     |
         | jsonExpression      | ExpressionNode tree; null if rule is purely procedural                                            |
-        | arrangementTypes    | NoArrangement · FirstMortgage · SequentialMortgageSameLender · SequentialMortgageOtherLender ·   |
-        |                     | FurtherAdvance · Conversion · Remortgage · ConversionAndAdvance ·                                |
-        |                     | ConversionAndSequentialMortgage · ContinuationNewInterest · ContinuationMortgage ·               |
-        |                     | SecondOrHigherInRankMortgage · RelayMortgage                                                     |
-        | decisionGroups      | default ["Rabobank acceptatiebeleid"]                                                             |
-        | productLines        | default ["Woningfinanciering Plus", "Woningfinanciering Basis"]                                   |
+        | arrangementTypes    | Pick from the arrangement types listed in the Available Options section below.                     |
+        |                     | Default: include all common types when the rule applies broadly.                                  |
+        | decisionGroups      | Pick from the decision groups listed in the Parameters section below.                             |
+        |                     | Default: include ALL decision groups unless the policy limits scope.                              |
+        | productLines        | Pick from the product lines listed in the Parameters section below.                               |
+        |                     | Default: include ALL product lines unless the policy restricts to specific ones.                   |
         | datePolicyType      | ApplicationStartDate · BindingOfferDate (default: ApplicationStartDate)                           |
 
         ## ExpressionNode — contract specification
@@ -292,10 +334,10 @@ public class BusinessRuleParser : IBusinessRuleParser
         5. Percentages are plain numbers (100 % = 100, NOT 1.0).
         6. Use SubtractDate for date arithmetic; left = later date, right = earlier date.
         7. Field names are case-sensitive and must match the contract exactly.
-        8. Set jsonExpression = null only for purely procedural or qualitative rules that cannot be expressed.
 
-        ## Parameters
-        ONLY use parameter names from the structured list below. Do NOT invent names.
+        ## Available options (from configuration)
+        ONLY use values from the lists below for parameters, arrangement types, categories,
+        product lines, and decision groups. Do NOT invent names.
         If a concept cannot be mapped, set jsonExpression=null and note it in employeeExplanation.
 
         {{_parameterRef.Value}}
@@ -312,7 +354,10 @@ public class BusinessRuleParser : IBusinessRuleParser
         2. Write Dutch description + employee/customer explanations.
         3. Build jsonExpression using ONLY parameters from the system prompt.
            - Respect nesting: parameters inside a Loop MUST be accessed via ForEach/ForAtLeastOne.
-        4. Choose arrangementTypes (use all common types when the rule applies broadly).
+        4. Choose arrangementTypes from the provided list (include all common types when the rule applies broadly).
+        5. Choose categoryType from the provided categories list.
+        6. Choose productLines from the provided list (include all when the policy applies broadly). There should always be atleast one productline.
+        7. Choose decisionGroups from the provided list (include all when the policy applies broadly). There should always be atleast one decisionGroup.
 
         Generate the business rules now.
         """;
